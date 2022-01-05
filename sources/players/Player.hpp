@@ -9,6 +9,7 @@ class Player
 {
 private:
 
+	std::string m_name;
 	PtrList<Card> m_library;
 	PtrList<Card> m_hand;
 	PtrList<Land> m_lands;
@@ -20,6 +21,9 @@ public:
 
 	Player();
 	~Player();
+
+	std::string get_name() const;
+	void set_name(const std::string& name);
 
 	void create_deck();
 	void draw_card();

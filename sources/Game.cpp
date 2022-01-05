@@ -15,8 +15,6 @@ void Game::start()
 	      "              |___/                                                                   |___/\n", "yellow", true);
 
 	print("---=([  Welcome to Magic the Gathering clone!  ])=---", "yellow", true, true);
-
-
 }
 
 void Game::create_decks()
