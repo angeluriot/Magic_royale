@@ -1,5 +1,5 @@
 #include <iostream>
-#include "cards/lands/land.hpp"
+#include "cards/lands/Land.hpp"
 
 Land::Land(std::string name, Type land_type): Card(name), m_land_type(land_type)
 {
