@@ -1,7 +1,8 @@
 #include <iostream>
-#include "utils/PtrList.hpp"
+#include "game.hpp"
 
 int main()
 {
+	Game::start();
 	return EXIT_SUCCESS;
 }

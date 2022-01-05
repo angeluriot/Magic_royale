@@ -1,7 +1,7 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include <vector>
+#include "utils/PtrList.hpp"
 #include "cards/lands/Land.hpp"
 #include "cards/creatures/Creature.hpp"
 
@@ -9,10 +9,11 @@ class Player
 {
 private:
 
-	std::vector<Card*> m_deck;
-	std::vector<Card*> m_hand;
-	std::vector<Land*> m_lands;
-	std::vector<Creature*> m_creatures;
+	PtrList<Card> m_library;
+	PtrList<Card> m_hand;
+	PtrList<Land> m_lands;
+	PtrList<Creature> m_creatures;
+	PtrList<Card> m_graveyard;
 	unsigned int m_health;
 
 public:
