@@ -3,7 +3,7 @@ CC = g++
 CFLAGS = -Wall -Wextra -Werror -std=c++17
 
 SRCS_DIR = sources
-INCS = -Iincludes
+INCS = -Isources
 OBJS_DIR = objects
 
 SRC_FILES := $(wildcard $(SRCS_DIR)/*.cpp)

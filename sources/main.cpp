@@ -1,7 +1,7 @@
 #include <iostream>
+#include "utils/PtrList.hpp"
 
 int main()
 {
-	std::cout << "test" << std::endl;
 	return EXIT_SUCCESS;
 }
