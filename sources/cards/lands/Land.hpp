@@ -6,15 +6,25 @@
 
 class Land : public Card
 {
+public:
+
+	enum class Type : int
+	{
+		Plain = 0,
+		Island = 1,
+		Swamp = 2,
+		Mountain = 3,
+		Forest = 4,
+		Neutral = 5
+	};
+
 protected:
 
-    
+    Type m_land_type;
 
 public:
 
-    enum type {Plain, Island, Swamp, Mountain, Forest};
-    enum type m_land_type;
-    Land(std::string name, enum type land_type);
+    Land(std::string name, Type land_type);
     ~Land();
 
 };
