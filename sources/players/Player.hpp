@@ -2,8 +2,8 @@
 #define PLAYER_HPP
 
 #include "utils/PtrList.hpp"
-#include "cards/lands/Land.hpp"
-#include "cards/creatures/Creature.hpp"
+#include "cards/Land.hpp"
+#include "cards/Creature.hpp"
 
 class Player
 {
@@ -15,16 +15,18 @@ private:
 	PtrList<Land> m_lands;
 	PtrList<Creature> m_creatures;
 	PtrList<Card> m_graveyard;
-	unsigned int m_health;
+	int m_health;
+	bool m_alive;
 
 public:
 
 	Player();
-	~Player();
 
 	std::string get_name() const;
 	void set_name(const std::string& name);
-
+	int get_health() const;
+	void set_health(int health);
+	void reduce_health(int amount);
 	void create_deck();
 	void draw_card();
 	void disengage_cards();

@@ -1,6 +1,7 @@
 #include <iostream>
-#include "utils/PtrList.hpp"
 #include "Game.hpp"
+#include "cards/lands/Forest.hpp"
+#include "cards/creatures/IceWizard.hpp"
 
 int main()
 {

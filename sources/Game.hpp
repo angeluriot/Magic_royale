@@ -6,11 +6,10 @@
 
 class Game
 {
-private:
-
-	static std::array<Player, 2> m_players;
-
 public:
+
+	static std::array<Player, 2> players;
+	static int turn;
 
 	static void start();
 	static void create_decks();
