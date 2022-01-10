@@ -57,7 +57,24 @@ void Creature::will_attack()
 
 void Creature::change_order()
 {
-	// TODO
+	int new_order;
+	std::vector<Creature*> new_targets;
+	std::cout << "Entrez le nouvel ordre d'attaque de cette creature :" << std::endl;;
+
+	for (int i = 0; i < m_targets.size(); i++)
+	{
+		std::cin >> new_order;
+		new_order--;
+		new_targets.push_back(m_targets.at(new_order));
+	}
+
+	m_targets.clear();
+
+	for (Creature* target : new_targets)
+	{
+		m_targets.push_back(target);
+		std::cout << target->get_name() << std::endl;
+	}
 }
 
 void Creature::block(Creature& card)
@@ -73,7 +90,8 @@ void Creature::attack()
 	else
 		for (Creature* target : m_targets)
 		{
-			// TODO
+			target->reduce_toughness(m_power);
+			reduce_toughness(target->get_full_power());
 
 			if (!alive)
 				break;
