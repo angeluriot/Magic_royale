@@ -1,4 +1,4 @@
-#include "cards/creatures/IceWizard.hpp"
+#include "cards/creatures/blues/IceWizard.hpp"
 
 IceWizard::IceWizard(): Creature(get_full_power(), get_full_toughness()) {}
 
@@ -26,7 +26,7 @@ Card::Cost IceWizard::get_cost() const
 {
 	return
 	{
-		{ Color::Colorless, 1 },
+		{ Color::Colorless, 2 },
 		{ Color::Blue, 1 }
 	};
 }
@@ -38,5 +38,5 @@ int IceWizard::get_full_power() const
 
 int IceWizard::get_full_toughness() const
 {
-	return 2;
+	return 3;
 }
