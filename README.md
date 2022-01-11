@@ -1,1 +1,1 @@
-# Magic the Gathering clone
+# Magic Royal
