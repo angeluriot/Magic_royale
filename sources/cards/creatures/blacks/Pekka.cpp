@@ -1,6 +1,6 @@
 #include "cards/creatures/blacks/Pekka.hpp"
 
-Pekka::Pekka(): Creature(get_full_power(), get_full_toughness()) {}
+Pekka::Pekka(): Creature() {}
 
 std::string Pekka::get_full_type() const
 {
@@ -15,6 +15,11 @@ Card::Color Pekka::get_color() const
 std::string Pekka::get_name() const
 {
 	return "Pekka";
+}
+
+std::vector<Creature::Capacity> Pekka::get_capacities() const
+{
+	return {};
 }
 
 std::string Pekka::get_description() const

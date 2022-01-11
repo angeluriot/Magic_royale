@@ -1,6 +1,6 @@
 #include "cards/creatures/greens/RoyalGiant.hpp"
 
-RoyalGiant::RoyalGiant(): Creature(get_full_power(), get_full_toughness()) {}
+RoyalGiant::RoyalGiant(): Creature() {}
 
 std::string RoyalGiant::get_full_type() const
 {
@@ -15,6 +15,15 @@ Card::Color RoyalGiant::get_color() const
 std::string RoyalGiant::get_name() const
 {
 	return "Royal Giant";
+}
+
+std::vector<Creature::Capacity> RoyalGiant::get_capacities() const
+{
+	return
+	{
+		Capacity::Reach,
+		Capacity::Unblockable
+	};
 }
 
 std::string RoyalGiant::get_description() const

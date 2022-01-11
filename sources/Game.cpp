@@ -1,9 +1,6 @@
 #include "Game.hpp"
 #include "renderer/Renderer.hpp"
 
-#include "cards/creatures/Barbarian.hpp"
-#include "cards/creatures/IceWizard.hpp"
-
 std::array<Player, 2> Game::players;
 int Game::turn = 0;
 
@@ -18,16 +15,6 @@ void Game::start()
 	Renderer::new_lines(2);
 	Renderer::print("---=([  Welcome to Magic the Gathering clone!  ])=---", Renderer::Color::Yellow, true);
 	Renderer::new_lines();
-
-	Barbarian barbarian;
-	Barbarian barbarian2;
-	Barbarian barbarian3;
-	IceWizard icewizard;
-	barbarian2.block(barbarian);
-	barbarian3.block(barbarian);
-	icewizard.block(barbarian);
-	barbarian.change_order();
-
 	Renderer::confirm();
 }
 

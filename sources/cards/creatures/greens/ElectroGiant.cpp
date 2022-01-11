@@ -1,6 +1,6 @@
 #include "cards/creatures/greens/ElectroGiant.hpp"
 
-ElectroGiant::ElectroGiant(): Creature(get_full_power(), get_full_toughness()) {}
+ElectroGiant::ElectroGiant(): Creature() {}
 
 std::string ElectroGiant::get_full_type() const
 {
@@ -15,6 +15,16 @@ Card::Color ElectroGiant::get_color() const
 std::string ElectroGiant::get_name() const
 {
 	return "Electro Giant";
+}
+
+std::vector<Creature::Capacity> ElectroGiant::get_capacities() const
+{
+	return
+	{
+		Capacity::Reach,
+		Capacity::Unblockable,
+		Capacity::Freeze
+	};
 }
 
 std::string ElectroGiant::get_description() const

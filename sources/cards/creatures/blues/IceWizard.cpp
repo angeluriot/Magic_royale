@@ -1,6 +1,6 @@
 #include "cards/creatures/blues/IceWizard.hpp"
 
-IceWizard::IceWizard(): Creature(get_full_power(), get_full_toughness()) {}
+IceWizard::IceWizard(): Creature() {}
 
 std::string IceWizard::get_full_type() const
 {
@@ -15,6 +15,16 @@ Card::Color IceWizard::get_color() const
 std::string IceWizard::get_name() const
 {
 	return "Ice Wizard";
+}
+
+std::vector<Creature::Capacity> IceWizard::get_capacities() const
+{
+	return
+	{
+		Capacity::Reach,
+		Capacity::ZoneDamage,
+		Capacity::Freeze
+	};
 }
 
 std::string IceWizard::get_description() const

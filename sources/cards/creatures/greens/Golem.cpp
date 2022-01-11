@@ -1,6 +1,6 @@
 #include "cards/creatures/greens/Golem.hpp"
 
-Golem::Golem(): Creature(get_full_power(), get_full_toughness()) {}
+Golem::Golem(): Creature() {}
 
 std::string Golem::get_full_type() const
 {
@@ -15,6 +15,14 @@ Card::Color Golem::get_color() const
 std::string Golem::get_name() const
 {
 	return "Golem";
+}
+
+std::vector<Creature::Capacity> Golem::get_capacities() const
+{
+	return
+	{
+		Capacity::Unblockable
+	};
 }
 
 std::string Golem::get_description() const

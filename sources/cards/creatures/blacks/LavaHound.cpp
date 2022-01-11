@@ -1,6 +1,6 @@
 #include "cards/creatures/blacks/LavaHound.hpp"
 
-LavaHound::LavaHound(): Creature(get_full_power(), get_full_toughness()) {}
+LavaHound::LavaHound(): Creature() {}
 
 std::string LavaHound::get_full_type() const
 {
@@ -15,6 +15,16 @@ Card::Color LavaHound::get_color() const
 std::string LavaHound::get_name() const
 {
 	return "Lava Hound";
+}
+
+std::vector<Creature::Capacity> LavaHound::get_capacities() const
+{
+	return
+	{
+		Capacity::Flying,
+		Capacity::Reach,
+		Capacity::Unblockable
+	};
 }
 
 std::string LavaHound::get_description() const
