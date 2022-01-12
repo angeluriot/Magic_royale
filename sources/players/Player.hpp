@@ -1,6 +1,8 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
+#include <iostream>
+#include <map>
 #include "utils/PtrList.hpp"
 #include "cards/Land.hpp"
 #include "cards/Creature.hpp"
@@ -27,7 +29,10 @@ public:
 	int get_health() const;
 	void set_health(int health);
 	void reduce_health(int amount);
+    std::map<Card::Color, int> get_resources();
 	void create_deck();
+    void play_card(const Card& card);
+    bool is_creature_playable(const Creature& creature);
 	void draw_card();
 	void disengage_cards();
 	void main_phase();

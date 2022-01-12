@@ -5,7 +5,7 @@
 #include "renderer/Renderer.hpp"
 
 Creature::Creature(): Card(), m_power(get_full_power()), m_toughness(get_full_toughness()), m_can_attack(false),
-	m_attacking(false), m_alive(true), m_shield(false)
+	m_attacking(false), m_shield(false), m_alive(true)
 {
 	auto capacities = get_capacities();
 
@@ -92,7 +92,7 @@ void Creature::change_order()
 	std::vector<Creature*> new_targets;
 	std::cout << "Entrez le nouvel ordre d'attaque de cette creature :" << std::endl;;
 
-	for (int i = 0; i < m_targets.size(); i++)
+	for (size_t i = 0; i < m_targets.size(); i++)
 	{
 		std::cin >> new_order;
 		new_order--;
