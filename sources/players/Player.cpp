@@ -42,6 +42,7 @@ std::map<Card::Color, int> Player::get_resources()
         { Card::Color::Green,     0 }
 	};
 
+    /*
     for (Land land : m_lands)
     {
         if (!land.is_engaged())
@@ -50,6 +51,9 @@ std::map<Card::Color, int> Player::get_resources()
             res[land.get_color()] += 1;
         }
     }
+    */
+
+   return res;
 }
 
 void Player::create_deck()
@@ -67,7 +71,7 @@ void Player::play_card(const Card& card)
         m_creatures[m_creatures.size()].spawn();
         // TODO : désengager le nombre de terrains nécessaire
     }
-    
+
     else
     {
         // m_lands.add(card);
@@ -104,31 +108,30 @@ bool Player::is_creature_playable(const Creature& creature)
             }
         }
     }
-    
+
     if (cost_map[Card::Color::Colorless] > resources_map[Card::Color::Colorless])
-        return false
+        return false;
     else
     {
         resources_map[Card::Color::Colorless] -= cost_map[Card::Color::Colorless];
         to_engage[Card::Color::Colorless] += cost_map[Card::Color::Colorless];
     }
-    
+
     int number;
-    
+
     while (to_engage[Card::Color::Colorless] > 0)
     {
         // TODO : afficher uniquement si le nb de terrains est > 0 et avec la bonne orthographe si = 1
         std::cout << "Choisissez un terrain a engager." << std::endl;
-        std::cout << "Vous devez encore engager " << to_engange[Card::Color::White] << " terrains blancs, ";
-        std::cout << to_engange[Card::Color::Blue] << " terrains bleus, ";
-        std::cout << to_engange[Card::Color::Black] << " terrains noirs, ";
-        std::cout << to_engange[Card::Color::Red] << " terrains rouges, ";
-        std::cout << to_engange[Card::Color::Green] << " terrains verts et ";
-        std::cout << to_engange[Card::Color::Colorless] << " autres terrains de n'importe quelle couleur." << std::endl;
+        std::cout << "Vous devez encore engager " << to_engage[Card::Color::White] << " terrains blancs, ";
+        std::cout << to_engage[Card::Color::Blue] << " terrains bleus, ";
+        std::cout << to_engage[Card::Color::Black] << " terrains noirs, ";
+        std::cout << to_engage[Card::Color::Red] << " terrains rouges, ";
+        std::cout << to_engage[Card::Color::Green] << " terrains verts et ";
+        std::cout << to_engage[Card::Color::Colorless] << " autres terrains de n'importe quelle couleur." << std::endl;
 
         // TODO : afficher les numeros correspondant aux terrains que l'on peut engager
         std::cin >> number;
-        
     }
 
     return true;

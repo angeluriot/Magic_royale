@@ -1,6 +1,6 @@
 NAME = Magic_royale
 CC = g++
-CFLAGS = -Wall -Wextra -Werror -std=c++17
+CFLAGS = -Wall -Wextra -std=c++17
 
 SRCS_DIR = sources
 SRCS_SUB_DIRS = "cards" "players" "utils" "renderer" "cards/lands" "cards/creatures" "cards/creatures/blacks" "cards/creatures/blues" "cards/creatures/greens" "cards/creatures/reds" "cards/creatures/whites"
