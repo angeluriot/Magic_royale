@@ -1,4 +1,4 @@
-NAME = Magic_clone
+NAME = Magic_royal
 CC = g++
 CFLAGS = -Wall -Wextra -Werror -std=c++17
 
