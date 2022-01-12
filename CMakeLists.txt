@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Project
-project(Magic_royal)
+project(Magic_royale)
 
 # Sources
 file(GLOB_RECURSE SOURCES sources/*.cpp)
