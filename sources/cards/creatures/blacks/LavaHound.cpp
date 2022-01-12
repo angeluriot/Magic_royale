@@ -1,4 +1,6 @@
 #include "cards/creatures/blacks/LavaHound.hpp"
+#include "players/Player.hpp"
+#include "cards/creatures/generateds/LavaPups.hpp"
 
 LavaHound::LavaHound(): Creature() {}
 
@@ -49,4 +51,9 @@ int LavaHound::get_full_power() const
 int LavaHound::get_full_toughness() const
 {
 	return 7;
+}
+
+void LavaHound::die()
+{
+	m_owner->add_creature(new LavaPups());
 }

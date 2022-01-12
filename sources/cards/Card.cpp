@@ -3,7 +3,12 @@
 #include "cards/Card.hpp"
 #include "renderer/Renderer.hpp"
 
-Card::Card(): m_engaged(false) {}
+Card::Card(): m_owner(nullptr), m_engaged(false) {}
+
+void Card::set_owner(Player& player)
+{
+	m_owner = &player;
+}
 
 void Card::engage()
 {

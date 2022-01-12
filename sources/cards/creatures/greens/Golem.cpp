@@ -1,4 +1,6 @@
 #include "cards/creatures/greens/Golem.hpp"
+#include "players/Player.hpp"
+#include "cards/creatures/generateds/Golemites.hpp"
 
 Golem::Golem(): Creature() {}
 
@@ -47,4 +49,9 @@ int Golem::get_full_power() const
 int Golem::get_full_toughness() const
 {
 	return 8;
+}
+
+void Golem::die()
+{
+	m_owner->add_creature(new Golemites());
 }

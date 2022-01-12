@@ -34,6 +34,9 @@ public:
 	void combat_phase();
 	void secondary_phase();
 	void play();
+	void reduce_creatures_health(int amount);
+	Player& get_opponent() const;
+	void add_creature(Creature* creature);
 };
 
 #endif

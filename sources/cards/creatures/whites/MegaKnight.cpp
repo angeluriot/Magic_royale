@@ -1,4 +1,5 @@
 #include "cards/creatures/whites/MegaKnight.hpp"
+#include "players/Player.hpp"
 
 MegaKnight::MegaKnight(): Creature() {}
 
@@ -47,4 +48,10 @@ int MegaKnight::get_full_power() const
 int MegaKnight::get_full_toughness() const
 {
 	return 6;
+}
+
+void MegaKnight::spawn()
+{
+	Creature::spawn();
+	m_owner->get_opponent().reduce_creatures_health(1);
 }

@@ -4,6 +4,8 @@
 #include <string>
 #include <map>
 
+class Player;
+
 class Card
 {
 public:
@@ -28,6 +30,7 @@ public:
 
 protected:
 
+	Player* m_owner;
 	bool m_engaged;
 
 public:
@@ -43,6 +46,7 @@ public:
 	virtual std::string get_name() const = 0;
 	virtual std::string get_description() const = 0;
 	virtual Cost get_cost() const = 0;
+	virtual void set_owner(Player& player);
 	virtual void engage();
 	virtual void disengage();
 	virtual bool is_engaged() const;

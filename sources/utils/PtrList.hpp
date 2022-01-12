@@ -2,16 +2,25 @@
 #define PTRLIST_HPP
 
 #include <vector>
-#include <memory>
 #include <iterator>
 #include <cstddef>
+
+template <typename T>
+void free_memory(T* ptr)
+{
+	if (ptr != nullptr)
+	{
+		delete ptr;
+		ptr = nullptr;
+	}
+}
 
 template<typename T>
 class PtrList
 {
 private:
 
-	std::vector<std::unique_ptr<T>> m_list;
+	std::vector<T*> m_list;
 
 public:
 
@@ -44,10 +53,13 @@ public:
 
 	PtrList()
 	{
-		m_list.clear();
+		clear();
 	}
 
-	~PtrList() {}
+	~PtrList()
+	{
+		clear();
+	}
 
 	T& operator[](unsigned int index)
 	{
@@ -79,17 +91,17 @@ public:
 		return Iterator(static_cast<unsigned int>(m_list.size()), *this);
 	}
 
-	template <typename U>
-	void add(const U& element)
+	void add(T* element)
 	{
-		m_list.push_back(std::make_unique<U>(element));
+		m_list.push_back(element);
 	}
 
 	void remove(const T& element)
 	{
 		for (auto it = m_list.begin(); it != m_list.end(); ++it)
-			if (&(*(*it)) == &element)
+			if (*it == &element)
 			{
+				free_memory(*it);
 				m_list.erase(it);
 				break;
 			}
@@ -97,11 +109,15 @@ public:
 
 	void remove(unsigned int index)
 	{
+		free_memory(m_list[index]);
 		m_list.erase(m_list.begin() + index);
 	}
 
 	void clear()
 	{
+		for (auto& element : m_list)
+			free_memory(element);
+
 		m_list.clear();
 	}
 
@@ -113,7 +129,7 @@ public:
 	bool contains(const T& element) const
 	{
 		for (int i = 0; i < size(); i++)
-			if (&(*this)[i] == &element)
+			if (m_list[i] == &element)
 				return true;
 
 		return false;
@@ -122,6 +138,26 @@ public:
 	size_t size() const
 	{
 		return m_list.size();
+	}
+
+	T& back()
+	{
+		return *m_list.back();
+	}
+
+	const T& back() const
+	{
+		return *m_list.back();
+	}
+
+	T& front()
+	{
+		return *m_list.front();
+	}
+
+	const T& front() const
+	{
+		return *m_list.front();
 	}
 };
 

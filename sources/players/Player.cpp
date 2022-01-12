@@ -1,4 +1,5 @@
 #include "players/Player.hpp"
+#include "Game.hpp"
 
 Player::Player(): m_name(""), m_health(20), m_alive(true) {}
 
@@ -63,4 +64,23 @@ void Player::secondary_phase()
 void Player::play()
 {
 	// TODO
+}
+
+void Player::reduce_creatures_health(int amount)
+{
+	for (auto& creature : m_creatures)
+		creature.reduce_toughness(amount);
+}
+
+Player& Player::get_opponent() const
+{
+	if (&Game::players[0] == this)
+		return Game::players[1];
+
+	return Game::players[0];
+}
+
+void Player::add_creature(Creature* creature)
+{
+	m_creatures.add(creature);
 }

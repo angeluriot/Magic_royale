@@ -59,7 +59,7 @@ void Creature::reduce_toughness(int amount)
 	m_toughness -= amount;
 
 	if (m_toughness <= 0)
-		die();
+		m_alive = false;
 }
 
 void Creature::spawn() {}
@@ -154,7 +154,4 @@ void Creature::print() const
 	Renderer::new_lines();
 }
 
-void Creature::die()
-{
-	m_alive = false;
-}
+void Creature::die() {}

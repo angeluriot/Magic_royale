@@ -1,16 +1,16 @@
-#ifndef LAVAHOUND_HPP
-#define LAVAHOUND_HPP
+#ifndef LAVAPUPS_HPP
+#define LAVAPUPS_HPP
 
 #include "cards/Creature.hpp"
 
-class LavaHound : public Creature
+class LavaPups : public Creature
 {
 public:
 
-	LavaHound();
-	LavaHound(const LavaHound& other) = default;
+	LavaPups();
+	LavaPups(const LavaPups& other) = default;
 
-	LavaHound& operator=(const LavaHound& other) = default;
+	LavaPups& operator=(const LavaPups& other) = default;
 
 	std::string get_full_type() const override;
 	Color get_color() const override;
@@ -20,7 +20,6 @@ public:
 	Cost get_cost() const override;
 	int get_full_power() const override;
 	int get_full_toughness() const override;
-	void die() override;
 };
 
 #endif

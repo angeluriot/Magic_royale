@@ -20,6 +20,7 @@ public:
 	Cost get_cost() const override;
 	int get_full_power() const override;
 	int get_full_toughness() const override;
+	void die() override;
 };
 
 #endif
