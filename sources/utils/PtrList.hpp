@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <memory>
+#include <iterator>
+#include <cstddef>
 
 template<typename T>
 class PtrList
@@ -12,6 +14,33 @@ private:
 	std::vector<std::unique_ptr<T>> m_list;
 
 public:
+
+	class Iterator
+	{
+	public:
+
+		using iterator_category	= std::forward_iterator_tag;
+		using difference_type	= std::ptrdiff_t;
+		using value_type		= T;
+		using pointer			= value_type*;
+		using reference			= value_type&;
+
+	private:
+
+		unsigned int m_index;
+		PtrList& m_list;
+
+	public:
+
+		Iterator(unsigned int index, PtrList& list): m_index(index), m_list(list) {}
+
+		reference operator*() const { return m_list[m_index]; }
+		pointer operator->() { return &m_list[m_index]; }
+		Iterator& operator++() { m_index++; return *this; }
+		Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
+		bool operator==(const Iterator& other) { return m_index == other.m_index && &m_list == &other.m_list; }
+		bool operator!=(const Iterator& other) { return !(*this == other); }
+	};
 
 	PtrList()
 	{
@@ -42,12 +71,12 @@ public:
 
 	auto begin()
 	{
-		return m_list.begin();
+		return Iterator(0, *this);
 	}
 
 	auto end()
 	{
-		return m_list.end();
+		return Iterator(static_cast<unsigned int>(m_list.size()), *this);
 	}
 
 	template <typename U>
