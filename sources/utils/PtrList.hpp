@@ -37,14 +37,14 @@ public:
 	private:
 
 		size_t m_index;
-		PtrList& m_list;
+		PtrList<T>& m_list;
 
 	public:
 
-		Iterator(size_t index, PtrList& list): m_index(index), m_list(list) {}
+		Iterator(size_t index, PtrList<T>& list): m_index(index), m_list(list) {}
 
 		reference operator*() const { return m_list[m_index]; }
-		pointer operator->() { return &m_list[m_index]; }
+		pointer operator->() { return &(m_list[m_index]); }
 		Iterator& operator++() { m_index++; return *this; }
 		Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
 		bool operator==(const Iterator& other) { return m_index == other.m_index && &m_list == &other.m_list; }
@@ -56,9 +56,37 @@ public:
 		clear();
 	}
 
+	PtrList(const PtrList<T>& ptrlist)
+	{
+		*this = ptrlist;
+	}
+
+	PtrList(const PtrList<T>&& ptrlist)
+	{
+		*this = ptrlist;
+	}
+
 	~PtrList()
 	{
 		clear();
+	}
+
+	PtrList<T>& operator=(const PtrList<T>& ptrlist)
+	{
+		clear();
+
+		for (int i = 0; i < ptrlist.size(); i++)
+			add(ptrlist[i]);
+
+		return *this;
+	}
+
+	PtrList<T>& operator=(const PtrList<T>&& ptrlist)
+	{
+		clear();
+		m_list = ptrlist.m_list;
+		ptrlist.m_list.clear();
+		return *this;
 	}
 
 	T& operator[](size_t index)

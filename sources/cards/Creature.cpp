@@ -2,7 +2,7 @@
 #include <string>
 #include "cards/Creature.hpp"
 #include "Game.hpp"
-#include "renderer/Renderer.hpp"
+#include "renderer/print.hpp"
 
 Creature::Creature(): Card(), m_power(get_full_power()), m_toughness(get_full_toughness()), m_can_attack(false),
 	m_attacking(false), m_shield(false), m_alive(true)
@@ -150,10 +150,8 @@ void Creature::reset()
 void Creature::print() const
 {
 	Card::print();
-
-	Renderer::print("Power/Toughness: ", Renderer::Color::White, true);
-	Renderer::print(std::to_string(get_full_power()) + " / " + std::to_string(get_full_toughness()), Renderer::get_color(get_color()));
-	Renderer::new_lines();
+	std::cout << bold << "Power/Toughness: " << ::reset << ::get_color(get_color()) << get_full_power() + " / " + get_full_toughness() << End(1);
+	std::cout << bold << "Description: " << ::reset << ::get_color(get_color()) << get_description() << End(1);
 }
 
 void Creature::die() {}

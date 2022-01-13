@@ -17,6 +17,7 @@ public:
 	virtual Type get_type() const override;
 	virtual std::string get_full_type() const override;
 	virtual Cost get_cost() const override;
+	virtual void print() const;
 };
 
 #endif

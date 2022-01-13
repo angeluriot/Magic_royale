@@ -1,5 +1,6 @@
 #include <iostream>
 #include "cards/Land.hpp"
+#include "renderer/print.hpp"
 
 Land::Land(): Card() {}
 
@@ -18,4 +19,10 @@ std::string Land::get_full_type() const
 Card::Cost Land::get_cost() const
 {
 	return {};
+}
+
+void Land::print() const
+{
+	Card::print();
+	std::cout << bold << "Description: " << ::reset << ::get_color(get_color()) << get_description() << End(1);
 }

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "cards/Card.hpp"
-#include "renderer/Renderer.hpp"
+#include "renderer/print.hpp"
 
 Card::Card(): m_owner(nullptr), m_engaged(false) {}
 
@@ -34,36 +34,28 @@ void Card::reset()
 
 void Card::print() const
 {
-	Renderer::print("Name: ", Renderer::Color::White, true);
-	Renderer::print(get_name(), Renderer::get_color(get_color()));
-	Renderer::new_lines();
+	std::cout << bold << "Name: " << ::reset << ::get_color(get_color()) << get_name() << End(1);
 
 	if (!get_cost().empty())
 	{
-		Renderer::print("Cost: ", Renderer::Color::White, true);
+		std::cout << bold << "Cost: " << End();
 
 		for (auto& [color, cost] : get_cost())
 		{
 			if (color == Color::Colorless)
-				Renderer::print(std::to_string(cost) + " ", Renderer::Color::White);
+				std::cout << cost << End();
 
 			else
 			{
 				for (int i = 0; i < cost; i++)
-					Renderer::print("*", Renderer::get_color(color), true);
+					std::cout << bold << ::get_color(color) << "*" << End();
 
-				Renderer::print(" ");
+				std::cout << " " << End();
 			}
 		}
 
-		Renderer::new_lines();
+		std::cout << End(1);
 	}
 
-	Renderer::print("Type: ", Renderer::Color::White, true);
-	Renderer::print(get_full_type(), Renderer::get_color(get_color()));
-	Renderer::new_lines();
-
-	Renderer::print("Description: ", Renderer::Color::White, true);
-	Renderer::print(get_description(), Renderer::get_color(get_color()));
-	Renderer::new_lines();
+	std::cout << bold << "Type: " << ::reset << ::get_color(get_color()) << get_full_type() << End(1);
 }
