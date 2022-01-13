@@ -4,5 +4,6 @@
 int main()
 {
 	Game::start();
+	Game::play();
 	return EXIT_SUCCESS;
 }

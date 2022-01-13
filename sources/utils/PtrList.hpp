@@ -56,9 +56,37 @@ public:
 		clear();
 	}
 
+	PtrList(const PtrList<T>& ptrlist)
+	{
+    	*this = ptrlist;
+	}
+
+	PtrList(const PtrList<T>&& ptrlist)
+	{
+		*this = ptrlist;
+	}
+
 	~PtrList()
 	{
 		clear();
+	}
+
+	PtrList<T>& operator=(const PtrList<T>& ptrlist)
+	{
+		clear();
+
+		for (int i = 0; i < ptrlist.size(); i++)
+    		add(ptrlist[i]);
+
+		return *this;
+	}
+
+	PtrList<T>& operator=(const PtrList<T>&& ptrlist)
+	{
+		clear();
+		m_list = ptrlist.m_list;
+		ptrlist.m_list.clear();
+		return *this;
 	}
 
 	T& operator[](size_t index)
@@ -112,6 +140,12 @@ public:
 	{
 		free_memory(m_list[index]);
 		m_list.erase(m_list.begin() + index);
+	}
+
+	void swap(size_t index_1, size_t index_2)
+	{
+		if(index_1 != index_2)
+			std::swap(m_list[index_1], m_list[index_2]);
 	}
 
 	void clear()
