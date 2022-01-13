@@ -9,6 +9,7 @@ public:
 
 	LavaHound();
 	LavaHound(const LavaHound& other) = default;
+	~LavaHound();
 
 	LavaHound& operator=(const LavaHound& other) = default;
 
@@ -21,6 +22,7 @@ public:
 	int get_full_power() const override;
 	int get_full_toughness() const override;
 	void die() override;
+	Card* clone() const override;
 };
 
 #endif

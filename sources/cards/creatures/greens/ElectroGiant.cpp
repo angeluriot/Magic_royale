@@ -2,6 +2,8 @@
 
 ElectroGiant::ElectroGiant(): Creature() {}
 
+ElectroGiant::~ElectroGiant() {}
+
 std::string ElectroGiant::get_full_type() const
 {
 	return Creature::get_full_type() + " - Giant";
@@ -49,4 +51,9 @@ int ElectroGiant::get_full_power() const
 int ElectroGiant::get_full_toughness() const
 {
 	return 7;
+}
+
+Card* ElectroGiant::clone() const
+{
+	return new ElectroGiant(*this);
 }

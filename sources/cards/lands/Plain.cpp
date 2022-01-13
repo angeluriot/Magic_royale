@@ -2,6 +2,8 @@
 
 Plain::Plain(): Land() {}
 
+Plain::~Plain() {}
+
 std::string Plain::get_full_type() const
 {
 	return Land::get_full_type() + " - Plain";
@@ -20,4 +22,9 @@ std::string Plain::get_name() const
 std::string Plain::get_description() const
 {
 	return "";
+}
+
+Card* Plain::clone() const
+{
+	return new Plain(*this);
 }

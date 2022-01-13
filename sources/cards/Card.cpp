@@ -5,6 +5,8 @@
 
 Card::Card(): m_owner(nullptr), m_engaged(false) {}
 
+Card::~Card() {}
+
 void Card::set_owner(Player& player)
 {
 	m_owner = &player;

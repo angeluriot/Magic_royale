@@ -2,6 +2,8 @@
 
 IceWizard::IceWizard(): Creature() {}
 
+IceWizard::~IceWizard() {}
+
 std::string IceWizard::get_full_type() const
 {
 	return Creature::get_full_type() + " - Wizard";
@@ -49,4 +51,9 @@ int IceWizard::get_full_power() const
 int IceWizard::get_full_toughness() const
 {
 	return 3;
+}
+
+Card* IceWizard::clone() const
+{
+	return new IceWizard(*this);
 }

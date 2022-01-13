@@ -4,6 +4,8 @@
 
 LavaHound::LavaHound(): Creature() {}
 
+LavaHound::~LavaHound() {}
+
 std::string LavaHound::get_full_type() const
 {
 	return Creature::get_full_type() + " - Demon";
@@ -55,5 +57,10 @@ int LavaHound::get_full_toughness() const
 
 void LavaHound::die()
 {
-	m_owner->add_creature(new LavaPups());
+	m_owner->add_creature(LavaPups());
+}
+
+Card* LavaHound::clone() const
+{
+	return new LavaHound(*this);
 }

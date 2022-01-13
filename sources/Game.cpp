@@ -6,16 +6,16 @@ int Game::turn = 0;
 
 void Game::start()
 {
-	Renderer::print("                    _        _   _              ___      _   _               _\n"
-		"  /\\/\\   __ _  __ _(_) ___  | |_| |__   ___    / _ \\__ _| |_| |__   ___ _ __(_)_ __   __ _\n"
-		" /    \\ / _` |/ _` | |/ __| | __| '_ \\ / _ \\  / /_\\/ _` | __| '_ \\ / _ \\ '__| | '_ \\ / _` |\n"
-		"/ /\\/\\ \\ (_| | (_| | | (__  | |_| | | |  __/ / /_\\\\ (_| | |_| | | |  __/ |  | | | | | (_| |\n"
-		"\\/    \\/\\__,_|\\__, |_|\\___|  \\__|_| |_|\\___| \\____/\\__,_|\\__|_| |_|\\___|_|  |_|_| |_|\\__, |\n"
-		"              |___/                                                                  |___/\n", Renderer::Color::Yellow, true);
+	Renderer::clear();
+	Renderer::print("                    _                               _\n"
+		"  /\\/\\   __ _  __ _(_) ___    _ __ ___  _   _  __ _| | ___\n"
+		" /    \\ / _` |/ _` | |/ __|  | '__/ _ \\| | | |/ _` | |/ _ \\\n"
+		"/ /\\/\\ \\ (_| | (_| | | (__   | | | (_) | |_| | (_| | |  __/\n"
+		"\\/    \\/\\__,_|\\__, |_|\\___|  |_|  \\___/ \\__, |\\__,_|_|\\___|\n"
+		"              |___/                     |___/\n", Renderer::Color::Yellow, true);
 	Renderer::new_lines(2);
-	Renderer::print("---=([  Welcome to Magic the Gathering clone!  ])=---", Renderer::Color::Yellow, true);
+	Renderer::print("---=([  Welcome to Magic Royale!  ])=---", Renderer::Color::Yellow, true);
 	Renderer::new_lines();
-	Renderer::confirm();
 }
 
 void Game::create_decks()

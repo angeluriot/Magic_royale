@@ -19,6 +19,8 @@ Creature::Creature(): Card(), m_power(get_full_power()), m_toughness(get_full_to
 	}
 }
 
+Creature::~Creature() {}
+
 Card::Type Creature::get_type() const
 {
 	return Type::Creature;

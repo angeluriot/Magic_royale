@@ -36,12 +36,12 @@ public:
 
 	private:
 
-		unsigned int m_index;
+		size_t m_index;
 		PtrList& m_list;
 
 	public:
 
-		Iterator(unsigned int index, PtrList& list): m_index(index), m_list(list) {}
+		Iterator(size_t index, PtrList& list): m_index(index), m_list(list) {}
 
 		reference operator*() const { return m_list[m_index]; }
 		pointer operator->() { return &m_list[m_index]; }
@@ -61,12 +61,12 @@ public:
 		clear();
 	}
 
-	T& operator[](unsigned int index)
+	T& operator[](size_t index)
 	{
 		return *m_list[index];
 	}
 
-	const T& operator[](unsigned int index) const
+	const T& operator[](size_t index) const
 	{
 		return *m_list[index];
 	}
@@ -88,12 +88,13 @@ public:
 
 	auto end()
 	{
-		return Iterator(static_cast<unsigned int>(m_list.size()), *this);
+		return Iterator(static_cast<size_t>(m_list.size()), *this);
 	}
 
-	void add(T* element)
+	template <typename U>
+	void add(const U& element)
 	{
-		m_list.push_back(element);
+		m_list.push_back((T*)element.clone());
 	}
 
 	void remove(const T& element)
@@ -107,7 +108,7 @@ public:
 			}
 	}
 
-	void remove(unsigned int index)
+	void remove(size_t index)
 	{
 		free_memory(m_list[index]);
 		m_list.erase(m_list.begin() + index);

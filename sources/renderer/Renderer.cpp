@@ -51,9 +51,9 @@ void Renderer::print(std::string text, Color color, bool bold)
 	std::cout << get_color_code(color) << (bold ? "\033[1m" : "") << text << "\033[0m" << std::flush;
 }
 
-void Renderer::new_lines(unsigned int number)
+void Renderer::new_lines(size_t number)
 {
-	for (unsigned int i = 0; i < number; i++)
+	for (size_t i = 0; i < number; i++)
 		std::cout << std::endl;
 }
 
@@ -61,4 +61,15 @@ void Renderer::confirm()
 {
 	new_lines();
 	std::cin.get();
+}
+
+void Renderer::clear()
+{
+	#if defined _WIN32
+		system("cls");
+	#elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__)
+		system("clear");
+	#elif defined (__APPLE__)
+		system("clear");
+	#endif
 }

@@ -37,6 +37,7 @@ public:
 
 	Creature();
 	Creature(const Creature& other) = default;
+	virtual ~Creature();
 
 	Creature& operator=(const Creature& other) = default;
 

@@ -4,6 +4,8 @@
 
 Golem::Golem(): Creature() {}
 
+Golem::~Golem() {}
+
 std::string Golem::get_full_type() const
 {
 	return Creature::get_full_type() + " - Golem";
@@ -53,5 +55,10 @@ int Golem::get_full_toughness() const
 
 void Golem::die()
 {
-	m_owner->add_creature(new Golemites());
+	m_owner->add_creature(Golemites());
+}
+
+Card* Golem::clone() const
+{
+	return new Golem(*this);
 }

@@ -9,6 +9,7 @@ public:
 
 	MegaKnight();
 	MegaKnight(const MegaKnight& other) = default;
+	~MegaKnight();
 
 	MegaKnight& operator=(const MegaKnight& other) = default;
 
@@ -21,6 +22,7 @@ public:
 	int get_full_power() const override;
 	int get_full_toughness() const override;
 	void spawn() override;
+	Card* clone() const override;
 };
 
 #endif

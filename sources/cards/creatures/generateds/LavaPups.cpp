@@ -2,6 +2,8 @@
 
 LavaPups::LavaPups(): Creature() {}
 
+LavaPups::~LavaPups() {}
+
 std::string LavaPups::get_full_type() const
 {
 	return Creature::get_full_type() + " - Demon";
@@ -44,4 +46,9 @@ int LavaPups::get_full_power() const
 int LavaPups::get_full_toughness() const
 {
 	return 1;
+}
+
+Card* LavaPups::clone() const
+{
+	return new LavaPups(*this);
 }

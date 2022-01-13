@@ -9,6 +9,7 @@ public:
 
 	Island();
 	Island(const Island& other) = default;
+	~Island();
 
 	Island& operator=(const Island& other) = default;
 
@@ -16,6 +17,7 @@ public:
 	Color get_color() const override;
 	std::string get_name() const override;
 	std::string get_description() const override;
+	Card* clone() const override;
 };
 
 #endif

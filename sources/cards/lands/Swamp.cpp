@@ -2,6 +2,8 @@
 
 Swamp::Swamp(): Land() {}
 
+Swamp::~Swamp() {}
+
 std::string Swamp::get_full_type() const
 {
 	return Land::get_full_type() + " - Swamp";
@@ -20,4 +22,9 @@ std::string Swamp::get_name() const
 std::string Swamp::get_description() const
 {
 	return "";
+}
+
+Card* Swamp::clone() const
+{
+	return new Swamp(*this);
 }

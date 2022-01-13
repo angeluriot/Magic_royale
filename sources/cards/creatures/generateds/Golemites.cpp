@@ -2,6 +2,8 @@
 
 Golemites::Golemites(): Creature() {}
 
+Golemites::~Golemites() {}
+
 std::string Golemites::get_full_type() const
 {
 	return Creature::get_full_type() + " - Golem";
@@ -43,4 +45,9 @@ int Golemites::get_full_power() const
 int Golemites::get_full_toughness() const
 {
 	return 3;
+}
+
+Card* Golemites::clone() const
+{
+	return new Golemites(*this);
 }

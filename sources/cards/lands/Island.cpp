@@ -2,6 +2,8 @@
 
 Island::Island(): Land() {}
 
+Island::~Island() {}
+
 std::string Island::get_full_type() const
 {
 	return Land::get_full_type() + " - Island";
@@ -20,4 +22,9 @@ std::string Island::get_name() const
 std::string Island::get_description() const
 {
 	return "";
+}
+
+Card* Island::clone() const
+{
+	return new Island(*this);
 }

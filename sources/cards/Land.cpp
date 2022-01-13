@@ -3,6 +3,8 @@
 
 Land::Land(): Card() {}
 
+Land::~Land() {}
+
 Card::Type Land::get_type() const
 {
 	return Type::Land;

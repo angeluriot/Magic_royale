@@ -23,8 +23,9 @@ public:
 
 	static Color get_color(Card::Color color);
 	static void print(std::string text, Color color = Color::White, bool bold = false);
-	static void new_lines(unsigned int number = 1);
+	static void new_lines(size_t number = 1);
 	static void confirm();
+	static void clear();
 };
 
 #endif

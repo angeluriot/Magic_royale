@@ -9,6 +9,7 @@ public:
 
 	Forest();
 	Forest(const Forest& other) = default;
+	~Forest();
 
 	Forest& operator=(const Forest& other) = default;
 
@@ -16,6 +17,7 @@ public:
 	Color get_color() const override;
 	std::string get_name() const override;
 	std::string get_description() const override;
+	Card* clone() const override;
 };
 
 #endif

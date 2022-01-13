@@ -2,6 +2,8 @@
 
 Pekka::Pekka(): Creature() {}
 
+Pekka::~Pekka() {}
+
 std::string Pekka::get_full_type() const
 {
 	return Creature::get_full_type() + " - Demon";
@@ -44,4 +46,9 @@ int Pekka::get_full_power() const
 int Pekka::get_full_toughness() const
 {
 	return 5;
+}
+
+Card* Pekka::clone() const
+{
+	return new Pekka(*this);
 }

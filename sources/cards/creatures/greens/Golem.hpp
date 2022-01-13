@@ -9,6 +9,7 @@ public:
 
 	Golem();
 	Golem(const Golem& other) = default;
+	~Golem();
 
 	Golem& operator=(const Golem& other) = default;
 
@@ -21,6 +22,7 @@ public:
 	int get_full_power() const override;
 	int get_full_toughness() const override;
 	void die() override;
+	Card* clone() const override;
 };
 
 #endif

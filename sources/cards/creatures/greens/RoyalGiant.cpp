@@ -2,6 +2,8 @@
 
 RoyalGiant::RoyalGiant(): Creature() {}
 
+RoyalGiant::~RoyalGiant() {}
+
 std::string RoyalGiant::get_full_type() const
 {
 	return Creature::get_full_type() + " - Giant";
@@ -48,4 +50,9 @@ int RoyalGiant::get_full_power() const
 int RoyalGiant::get_full_toughness() const
 {
 	return 5;
+}
+
+Card* RoyalGiant::clone() const
+{
+	return new RoyalGiant(*this);
 }

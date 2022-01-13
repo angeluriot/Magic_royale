@@ -9,6 +9,7 @@ public:
 
 	LavaPups();
 	LavaPups(const LavaPups& other) = default;
+	~LavaPups();
 
 	LavaPups& operator=(const LavaPups& other) = default;
 
@@ -20,6 +21,7 @@ public:
 	Cost get_cost() const override;
 	int get_full_power() const override;
 	int get_full_toughness() const override;
+	Card* clone() const override;
 };
 
 #endif

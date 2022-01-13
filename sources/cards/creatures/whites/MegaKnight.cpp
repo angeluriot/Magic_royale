@@ -3,6 +3,8 @@
 
 MegaKnight::MegaKnight(): Creature() {}
 
+MegaKnight::~MegaKnight() {}
+
 std::string MegaKnight::get_full_type() const
 {
 	return Creature::get_full_type() + " - Knight";
@@ -54,4 +56,9 @@ void MegaKnight::spawn()
 {
 	Creature::spawn();
 	m_owner->get_opponent().reduce_creatures_health(1);
+}
+
+Card* MegaKnight::clone() const
+{
+	return new MegaKnight(*this);
 }

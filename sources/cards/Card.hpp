@@ -37,6 +37,7 @@ public:
 
 	Card();
 	Card(const Card& other) = default;
+	virtual ~Card();
 
 	Card& operator=(const Card& other) = default;
 
@@ -52,6 +53,7 @@ public:
 	virtual bool is_engaged() const;
 	virtual void reset();
 	virtual void print() const;
+	virtual Card* clone() const = 0;
 };
 
 #endif

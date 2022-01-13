@@ -10,6 +10,7 @@ public:
 
 	Land();
 	Land(const Land& other) = default;
+	virtual ~Land();
 
 	Land& operator=(const Land& other) = default;
 

@@ -2,6 +2,8 @@
 
 Forest::Forest(): Land() {}
 
+Forest::~Forest() {}
+
 std::string Forest::get_full_type() const
 {
 	return Land::get_full_type() + " - Forest";
@@ -20,4 +22,9 @@ std::string Forest::get_name() const
 std::string Forest::get_description() const
 {
 	return "";
+}
+
+Card* Forest::clone() const
+{
+	return new Forest(*this);
 }

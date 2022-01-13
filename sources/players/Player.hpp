@@ -9,6 +9,10 @@
 
 class Player
 {
+public:
+
+	typedef std::map<Card::Color, int> Resources;
+
 private:
 
 	std::string m_name;
@@ -29,10 +33,10 @@ public:
 	int get_health() const;
 	void set_health(int health);
 	void reduce_health(int amount);
-    std::map<Card::Color, int> get_resources();
+	Resources get_resources();
 	void create_deck();
-    void play_card(const Card& card);
-    bool is_creature_playable(const Creature& creature);
+	void play_card(const Card& card);
+	bool is_creature_playable(const Creature& creature);
 	void draw_card();
 	void disengage_cards();
 	void main_phase();
@@ -41,7 +45,7 @@ public:
 	void play();
 	void reduce_creatures_health(int amount);
 	Player& get_opponent() const;
-	void add_creature(Creature* creature);
+	void add_creature(const Creature& creature);
 };
 
 #endif
