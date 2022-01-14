@@ -29,6 +29,7 @@ protected:
 	int m_toughness;
 	bool m_can_attack;
 	bool m_attacking;
+	bool m_blocking;
 	bool m_shield;
 	bool m_alive;
 	std::vector<Creature*> m_targets;
@@ -49,14 +50,19 @@ public:
 	virtual int get_power() const;
 	virtual int get_toughness() const;
 	virtual void reduce_toughness(int amount);
+	virtual void remove_target(const Creature& target);
 	virtual void spawn();
 	virtual void special_ability();
+	virtual bool is_blockable() const;
 	virtual bool can_attack() const;
 	virtual void allow_attack();
 	virtual bool is_attacking() const;
+	virtual bool is_blocking() const;
 	virtual void will_attack();
+	virtual void will_not_attack();
 	virtual void change_order();
 	virtual void will_block(Creature& card);
+	virtual void will_not_block();
 	virtual void attack();
 	virtual void block(Creature& card);
 	virtual void reset() override;

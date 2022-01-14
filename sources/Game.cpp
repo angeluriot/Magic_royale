@@ -34,7 +34,6 @@ void Game::create_decks()
 {
 	PtrList<Card> deck_1;
 
-	deck_1.add(LavaHound());
 	deck_1.add(Pekka());
 	deck_1.add(IceWizard());
 	deck_1.add(ElectroGiant());
@@ -47,8 +46,10 @@ void Game::create_decks()
 	deck_1.add(Island());
 	deck_1.add(Plain());
 	deck_1.add(Plain());
+	deck_1.add(LavaHound());
 	deck_1.add(Swamp());
 	deck_1.add(Swamp());
+	
 
 	PtrList<Card> deck_2 = deck_1;
 

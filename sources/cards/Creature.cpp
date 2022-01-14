@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include "cards/Creature.hpp"
 #include "Game.hpp"
 #include "renderer/print.hpp"
 
 Creature::Creature(): Card(), m_power(get_full_power()), m_toughness(get_full_toughness()), m_can_attack(false),
-	m_attacking(false), m_shield(false), m_alive(true)
+	m_attacking(false), m_blocking(false), m_shield(false), m_alive(true)
 {
 	auto capacities = get_capacities();
 
@@ -64,9 +65,20 @@ void Creature::reduce_toughness(int amount)
 		m_alive = false;
 }
 
+void Creature::remove_target(const Creature& target)
+{
+	std::remove(m_targets.begin(), m_targets.end(), &target);
+}
+
 void Creature::spawn() {}
 
 void Creature::special_ability() {}
+
+bool Creature::is_blockable() const
+{
+	auto capacities = get_capacities();
+	return std::find(capacities.begin(), capacities.end(), Capacity::Unblockable) != capacities.end();
+}
 
 bool Creature::can_attack() const
 {
@@ -83,9 +95,19 @@ bool Creature::is_attacking() const
 	return m_attacking;
 }
 
+bool Creature::is_blocking() const
+{
+	return m_blocking;
+}
+
 void Creature::will_attack()
 {
 	m_attacking = true;
+}
+
+void Creature::will_not_attack()
+{
+	m_attacking = false;
 }
 
 void Creature::change_order()
@@ -112,7 +134,14 @@ void Creature::change_order()
 
 void Creature::will_block(Creature& card)
 {
+	m_blocking = true;
 	card.m_targets.push_back(this);
+}
+
+void Creature::will_not_block()
+{
+	m_blocking = false;
+	m_owner->get_opponent().remove_target(*this);
 }
 
 void Creature::attack()
@@ -129,6 +158,9 @@ void Creature::attack()
 			if (!m_alive)
 				break;
 		}
+
+	for (auto& target : m_targets)
+		target->m_blocking = false;
 
 	m_targets.clear();
 	m_attacking = false;

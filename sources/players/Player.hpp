@@ -37,6 +37,7 @@ public:
 	void set_health(int health);
 	void reduce_health(int amount);
 	Resources get_resources();
+	void remove_target(const Creature& target);
 	PtrList<Card> get_deck();
 	void create_deck(const PtrList<Card>& deck);
 	void play_card(const Card& card);
