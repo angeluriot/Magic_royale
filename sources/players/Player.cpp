@@ -55,25 +55,44 @@ Player::Resources Player::get_resources()
 	return res;
 }
 
-void Player::create_deck()
+PtrList<Card> Player::get_deck()
 {
-	// TODO
+	return m_deck;
 }
 
+void Player::create_deck(const PtrList<Card>& deck)
+{
+	m_deck = deck;
+
+	size_t index_rand;
+	srand ((unsigned int)time(NULL));
+
+	// Mélange les cartes
+	for (size_t i = m_deck.size() - 1; i > 0; i--)
+	{
+		index_rand = rand() % i;
+		m_deck.swap(i, index_rand);
+	}
+
+	m_library = m_deck;
+	for(int i = 0; i < 7; i++)
+		draw_card();
+}
+
+// séparer en play_creature / play_land ?
 void Player::play_card(const Card& card)
 {
-	m_hand.remove(card);
-
 	if (card.get_type() == Card::Type::Creature)
 	{
 		m_creatures.add(card);
 		m_creatures.back().spawn();
-		// TODO : désengager le nombre de terrains nécessaire
 	}
 
 	else
+	{
 		m_lands.add(card);
-
+	}
+	m_hand.remove(card);
 	// TODO : set_player()
 }
 
@@ -114,7 +133,9 @@ bool Player::is_creature_playable(const Creature& creature)
 		to_engage[Card::Color::Colorless] += cost_map[Card::Color::Colorless];
 	}
 
-	int number;
+    // TODO : mettre tout ça dans une autre fonction ?
+
+	size_t number;
 
 	while (to_engage[Card::Color::Colorless] > 0)
 	{
@@ -125,20 +146,48 @@ bool Player::is_creature_playable(const Creature& creature)
 		std::cout << to_engage[Card::Color::Black] << " terrains noirs, ";
 		std::cout << to_engage[Card::Color::Red] << " terrains rouges, ";
 		std::cout << to_engage[Card::Color::Green] << " terrains verts et ";
-		std::cout << to_engage[Card::Color::Colorless] << " autres terrains de n'importe quelle couleur." << std::endl;
+		std::cout << to_engage[Card::Color::Colorless] << " autres terrains de n'importe quelle couleur." << std::endl << std::endl;
+
+		for(int i = 0; i < m_lands.size(); i++)
+		{
+			std::cout << m_lands[i].get_name() << " " << i + 1 << std::endl;
+		}
 
 		// TODO : afficher les numeros correspondant aux terrains que l'on peut engager
 		std::cin >> number;
+		number--;
+		if (number > m_lands.size())
+			std::cout << "Vous avez entre un numero incorrect." << std::endl;
+
+		else if (m_lands[number].is_engaged())
+			std::cout << "Ce terrain est deja engage." << std::endl;
+
+		else
+		{
+			m_lands[number].engage();
+			if(to_engage[m_lands[number].get_color()] > 0)
+				to_engage[m_lands[number].get_color()] -= 1;
+			else if(to_engage[Card::Color::Colorless] > 0)
+				to_engage[Card::Color::Colorless] -= 1;
+			else
+				std::cout << "Vous n'avez pas besoin d'engager ce terrain." << std::endl;
+		}
 	}
 
 	return true;
+}
+
+void Player::begin_turn()
+{
+	draw_card();
+	disengage_cards();
+	main_phase();
 }
 
 void Player::draw_card()
 {
 	m_hand.add(m_library.back());
 	m_library.remove(m_library.back());
-	disengage_cards();
 	// TODO : si plus de cartes à piocher, le joueur perd la partie
 	// TODO : si déjà 7 cartes en main, défausser la carte (-> cimetière)
 }
@@ -152,8 +201,6 @@ void Player::disengage_cards()
 	for (auto& land : m_lands)
 		if (land.is_engaged())
 			land.disengage();
-
-	main_phase();
 }
 
 void Player::main_phase()
@@ -161,18 +208,24 @@ void Player::main_phase()
 	bool stop = false;
 	size_t number;
 
-	while (!stop)
+	while (!stop && m_hand.size() > 0)
 	{
-		std::cout << "Phase principale" << std::endl;
+		std::cout << std::endl << "Phase principale" << std::endl;
 		std::cout << "Veuillez selectionner une carte que vous voulez jouer en entrant son numero." << std::endl;
-		std::cout << "Si vous avez fini de placer des cartes, tapez 0." << std::endl;
+		std::cout << "Si vous avez fini de placer des cartes, tapez 0." << std::endl << std::endl;
+
+		for(int i = 0; i < m_hand.size(); i++)
+		{
+			std::cout << m_hand[i].get_name() << " " << i + 1 << std::endl;
+		}
+
 		std::cin >> number;
 
 		if (number == 0)
 			stop = true;
-
 		else
 		{
+			number--;
 			if (number > m_hand.size())
 				std::cout << "Vous avez entre un numero invalide." << std::endl;
 
@@ -181,9 +234,10 @@ void Player::main_phase()
 				if (m_hand[number].get_type() == Card::Type::Creature)
 				{
 					Creature& creature = (Creature&)m_hand[number];
-
 					if (!is_creature_playable(creature))
 						std::cout << "Vous n'avez pas suffisamment de terrains pour jouer cette carte." << std::endl;
+					else
+						play_card(creature);
 				}
 
 				else
@@ -191,14 +245,25 @@ void Player::main_phase()
 			}
 		}
 	}
+
+	combat_phase();
 }
 
 void Player::combat_phase()
 {
 	// TODO
+
+	secondary_phase();
 }
 
 void Player::secondary_phase()
+{
+	// TODO
+
+	end_turn();
+}
+
+void Player::end_turn()
 {
 	// TODO
 }

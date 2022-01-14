@@ -40,8 +40,8 @@ Card::Cost LavaHound::get_cost() const
 {
 	return
 	{
-		{ Color::Colorless, 4 },
-		{ Color::Black, 3 }
+		{ Color::Colorless, 1 },
+		{ Color::Black, 1 }
 	};
 }
 

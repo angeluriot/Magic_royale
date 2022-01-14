@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <map>
+#include <stdlib.h>
+#include <time.h>
 #include "utils/PtrList.hpp"
 #include "cards/Land.hpp"
 #include "cards/Creature.hpp"
@@ -16,6 +18,7 @@ public:
 private:
 
 	std::string m_name;
+	PtrList<Card> m_deck;
 	PtrList<Card> m_library;
 	PtrList<Card> m_hand;
 	PtrList<Land> m_lands;
@@ -34,14 +37,17 @@ public:
 	void set_health(int health);
 	void reduce_health(int amount);
 	Resources get_resources();
-	void create_deck();
+	PtrList<Card> get_deck();
+	void create_deck(const PtrList<Card>& deck);
 	void play_card(const Card& card);
 	bool is_creature_playable(const Creature& creature);
+	void begin_turn();
 	void draw_card();
 	void disengage_cards();
 	void main_phase();
 	void combat_phase();
 	void secondary_phase();
+	void end_turn();
 	void play();
 	void reduce_creatures_health(int amount);
 	Player& get_opponent() const;
