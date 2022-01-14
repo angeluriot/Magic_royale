@@ -62,5 +62,9 @@ void Game::create_decks()
 
 void Game::play()
 {
-	players[0].begin_turn();
+	while (true)
+	{
+		players[0].begin_turn();
+		players[1].begin_turn();
+	}
 }
