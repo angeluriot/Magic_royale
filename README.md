@@ -1,1 +1,1 @@
-# Magic Royal
+# Magic Royale
