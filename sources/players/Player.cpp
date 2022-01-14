@@ -82,7 +82,6 @@ void Player::create_deck(const PtrList<Card>& deck)
 // séparer en play_creature / play_land ?
 void Player::play_card(const Card& card)
 {
-	m_hand.remove(card);
 	if (card.get_type() == Card::Type::Creature)
 	{
 		m_creatures.add(card);
@@ -93,7 +92,7 @@ void Player::play_card(const Card& card)
 	{
 		m_lands.add(card);
 	}
-
+	m_hand.remove(card);
 	// TODO : set_player()
 }
 
@@ -147,16 +146,18 @@ bool Player::is_creature_playable(const Creature& creature)
 		std::cout << to_engage[Card::Color::Black] << " terrains noirs, ";
 		std::cout << to_engage[Card::Color::Red] << " terrains rouges, ";
 		std::cout << to_engage[Card::Color::Green] << " terrains verts et ";
-		std::cout << to_engage[Card::Color::Colorless] << " autres terrains de n'importe quelle couleur." << std::endl;
+		std::cout << to_engage[Card::Color::Colorless] << " autres terrains de n'importe quelle couleur." << std::endl << std::endl;
+
+		for(int i = 0; i < m_lands.size(); i++)
+		{
+			std::cout << m_lands[i].get_name() << " " << i + 1 << std::endl;
+		}
 
 		// TODO : afficher les numeros correspondant aux terrains que l'on peut engager
 		std::cin >> number;
-
+		number--;
         if (number > m_lands.size())
             std::cout << "Vous avez entre un numero incorrect." << std::endl;
-
-        else if (to_engage[m_lands[number].get_color()] == 0 || to_engage[Card::Color::Colorless] == 0)
-            std::cout << "Vous n'avez pas besoin d'engager ce terrain." << std::endl;
 
         else if (m_lands[number].is_engaged())
             std::cout << "Ce terrain est deja engage." << std::endl;
@@ -166,7 +167,10 @@ bool Player::is_creature_playable(const Creature& creature)
             m_lands[number].engage();
             if(to_engage[m_lands[number].get_color()] > 0)
                 to_engage[m_lands[number].get_color()] -= 1;
-            to_engage[Card::Color::Colorless] -= 1;
+			else if(to_engage[Card::Color::Colorless] > 0)
+            	to_engage[Card::Color::Colorless] -= 1;
+			else
+				std::cout << "Vous n'avez pas besoin d'engager ce terrain." << std::endl;
         }
 	}
 
@@ -206,7 +210,7 @@ void Player::main_phase()
 
 	while (!stop && m_hand.size() > 0)
 	{
-		std::cout << "Phase principale" << std::endl;
+		std::cout << std::endl << "Phase principale" << std::endl;
 		std::cout << "Veuillez selectionner une carte que vous voulez jouer en entrant son numero." << std::endl;
 		std::cout << "Si vous avez fini de placer des cartes, tapez 0." << std::endl << std::endl;
 

@@ -37,7 +37,7 @@ public:
 	void set_health(int health);
 	void reduce_health(int amount);
 	Resources get_resources();
-	PtrList<Card> Player::get_deck();
+	PtrList<Card> get_deck();
 	void create_deck(const PtrList<Card>& deck);
 	void play_card(const Card& card);
 	bool is_creature_playable(const Creature& creature);
