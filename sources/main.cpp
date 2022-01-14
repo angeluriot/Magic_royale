@@ -22,7 +22,12 @@ int main()
 	int res = choice({ "1. Play", "2. Quit" });
 
 	if (res == 0)
+	{
 		Game::start();
+		Game::create_decks();
+		Game::play();
+	}
+
 	else
 		std::cout << yellow << "Bye!" << End(2);
 

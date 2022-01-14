@@ -6,7 +6,14 @@ int Game::turn = 0;
 
 void Game::start()
 {
-	std::cout << "boup" << End();
+	for (int i = 0; i < 2; i++)
+	{
+		std::cout << yellow << "Player " << i + 1 << reset << ", what is your name?" << End(2);
+		std::string name;
+		getline(std::cin, name);
+		std::cout << End(2);
+		players[i].set_name(name);
+	}
 }
 
 void Game::create_decks()
