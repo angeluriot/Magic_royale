@@ -3,6 +3,8 @@
 
 #include <string>
 #include <map>
+#include <vector>
+#include "utils/PtrList.hpp"
 
 class Player;
 
@@ -54,6 +56,9 @@ public:
 	virtual void reset();
 	virtual void print() const;
 	virtual Card* clone() const = 0;
+
+	static PtrList<Card> get_cards_from_string(const std::vector<std::string>& cards_string);
+	static PtrList<Card> all_cards;
 };
 
 #endif

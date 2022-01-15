@@ -1,6 +1,7 @@
 #include "players/Player.hpp"
 #include "Game.hpp"
 #include "renderer/print.hpp"
+#include "utils/utils.hpp"
 
 Player::Player(): m_name(""), m_health(20), m_alive(true) {}
 
@@ -65,18 +66,16 @@ void Player::create_deck(const PtrList<Card>& deck)
 {
 	m_deck = deck;
 
-	size_t index_rand;
-	srand ((unsigned int)time(NULL));
-
-	// Mélange les cartes
-	for (size_t i = m_deck.size() - 1; i > 0; i--)
-	{
-		index_rand = rand() % i;
-		m_deck.swap(i, index_rand);
-	}
+	for (auto& card : m_deck)
+		card.set_owner(*this);
 
 	m_library = m_deck;
-	for(int i = 0; i < 7; i++)
+
+	// Shuffle the library
+	for (int i = 0; i < m_library.size(); i++)
+		m_library.swap(i, (size_t)random_int(0, (int)m_deck.size()));
+
+	for (int i = 0; i < 7; i++)
 		draw_card();
 }
 
@@ -134,7 +133,7 @@ bool Player::is_creature_playable(const Creature& creature)
 		to_engage[Card::Color::Colorless] += cost_map[Card::Color::Colorless];
 	}
 
-    // TODO : mettre tout ça dans une autre fonction ?
+	// TODO : mettre tout ça dans une autre fonction ?
 
 	size_t number;
 
@@ -206,14 +205,11 @@ void Player::disengage_cards()
 
 void Player::main_phase()
 {
-	bool stop = false;
-	size_t number;
+	std::cout << yellow << bold << "--=( Main Phase )=--" << End(2);
 
 	while (m_hand.size() > 0)
 	{
-		std::cout << End(2) << yellow << bold << "--=( Main Phase )=--" << End(2);
-		std::cout << "Your hand:" << End(2);
-
+		std::cout << "Your hand:" << End(1);
 		std::vector<std::string> hand_names = {};
 		std::vector<std::string_view> hand_colors = {};
 
@@ -223,34 +219,20 @@ void Player::main_phase()
 			hand_colors.push_back(get_color(m_hand[i].get_color()));
 		}
 
-		choice(hand_names, hand_colors);
-		std::cin >> number;
+		int res = choice(hand_names, hand_colors);
 
-		if (number == 0)
-			break;
+		if (m_hand[res].get_type() == Card::Type::Creature)
+		{
+			Creature& creature = (Creature&)m_hand[res];
+
+			if (!is_creature_playable(creature))
+				std::cout << red << "You don't have enough lands." << End(2);
+			else
+				play_card(creature);
+		}
 
 		else
-		{
-			number--;
-
-			if (number > m_hand.size())
-				std::cout << "Vous avez entre un numero invalide." << std::endl;
-
-			else
-			{
-				if (m_hand[number].get_type() == Card::Type::Creature)
-				{
-					Creature& creature = (Creature&)m_hand[number];
-					if (!is_creature_playable(creature))
-						std::cout << "Vous n'avez pas suffisamment de terrains pour jouer cette carte." << std::endl;
-					else
-						play_card(creature);
-				}
-
-				else
-					play_card(m_hand[number]);
-			}
-		}
+			play_card(m_hand[res]);
 	}
 
 	combat_phase();

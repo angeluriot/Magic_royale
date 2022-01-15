@@ -112,3 +112,9 @@ void clear_console()
 		system("clear");
 	#endif
 }
+
+void print_error(const std::string& error)
+{
+	std::cout << red << bold << "Error: " << no_bold << error << End(1);
+	exit(EXIT_FAILURE);
+}

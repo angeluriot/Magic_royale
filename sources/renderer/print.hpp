@@ -46,5 +46,6 @@ int choice(const std::vector<std::string>& choices, const std::vector<std::strin
 std::string_view get_color(Card::Color color);
 void confirm();
 void clear_console();
+void print_error(const std::string& error);
 
 #endif

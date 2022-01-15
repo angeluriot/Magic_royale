@@ -144,7 +144,7 @@ public:
 
 	void swap(size_t index_1, size_t index_2)
 	{
-		if(index_1 != index_2)
+		if (index_1 != index_2)
 			std::swap(m_list[index_1], m_list[index_2]);
 	}
 

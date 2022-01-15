@@ -6,6 +6,7 @@
 
 int main()
 {
+	srand((unsigned int)time(NULL));
 	clear_console();
 	std::cout << yellow << bold <<
 		"                     _                               _\n"

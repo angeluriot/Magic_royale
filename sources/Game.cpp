@@ -12,20 +12,23 @@
 #include "cards/lands/Island.hpp"
 #include "cards/lands/Plain.hpp"
 #include "cards/lands/Swamp.hpp"
+#include "utils/utils.hpp"
+#include "utils/files.hpp"
+#include <filesystem>
 
 Player player_1;
 Player player_2;
 std::array<Player, 2> Game::players = { player_1, player_2 };
 int Game::turn = 0;
+const int Game::deck_size = 30;
 
 void Game::start()
 {
 	for (int i = 0; i < 2; i++)
 	{
-		std::string name = input(std::string(bold.data()) + std::string(yellow.data()) + "Player " +
-			std::to_string(i + 1) + std::string(reset.data()) + " name: ");
-
-		players[i].set_name(name == "" ? "Player " + std::to_string(i + 1) : name);
+		std::string name = input(to_str(bold) + to_str(yellow) + "Player " + to_str(i + 1) + to_str(reset) + " name:");
+		name = remove_spaces(name);
+		players[i].set_name(name == "" ? "Player " + to_str(i + 1) : name);
 	}
 
 	if (players[0].get_name() == players[1].get_name())
@@ -36,31 +39,21 @@ void Game::start()
 
 void Game::create_decks()
 {
-	PtrList<Card> deck_1;
+	if (!std::filesystem::exists("decks"))
+		print_error("No decks directory.");
 
-	deck_1.add(LavaHound());
-	deck_1.add(Pekka());
-	deck_1.add(IceWizard());
-	deck_1.add(ElectroGiant());
-	deck_1.add(Golem());
-	deck_1.add(RoyalGiant());
-	deck_1.add(MegaKnight());
-	deck_1.add(Forest());
-	deck_1.add(Forest());
-	deck_1.add(Island());
-	deck_1.add(Island());
-	deck_1.add(Plain());
-	deck_1.add(Plain());
-	deck_1.add(Swamp());
-	deck_1.add(Swamp());
+	auto files = get_decks_name();
 
-	PtrList<Card> deck_2 = deck_1;
+	if (files.size() == 0)
+		print_error("No decks found.");
 
-	players[0].set_name("player_1");
-	players[1].set_name("player_2");
-
-	players[0].create_deck(deck_1);
-	players[1].create_deck(deck_2);
+	for (auto& player : players)
+	{
+		std::cout << yellow << bold << player.get_name() << reset << ", which deck do you want to use?" << End(1);
+		int res = choice(files);
+		auto cards = Card::get_cards_from_string(get_cards_from_deck(files[res]));
+		player.create_deck(cards);
+	}
 }
 
 void Game::play()
