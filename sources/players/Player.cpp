@@ -1,5 +1,6 @@
 #include "players/Player.hpp"
 #include "Game.hpp"
+#include "renderer/print.hpp"
 
 Player::Player(): m_name(""), m_health(20), m_alive(true) {}
 
@@ -208,24 +209,30 @@ void Player::main_phase()
 	bool stop = false;
 	size_t number;
 
-	while (!stop && m_hand.size() > 0)
+	while (m_hand.size() > 0)
 	{
-		std::cout << std::endl << "Phase principale" << std::endl;
-		std::cout << "Veuillez selectionner une carte que vous voulez jouer en entrant son numero." << std::endl;
-		std::cout << "Si vous avez fini de placer des cartes, tapez 0." << std::endl << std::endl;
+		std::cout << End(2) << yellow << bold << "--=( Main Phase )=--" << End(2);
+		std::cout << "Your hand:" << End(2);
 
-		for(int i = 0; i < m_hand.size(); i++)
+		std::vector<std::string> hand_names = {};
+		std::vector<std::string_view> hand_colors = {};
+
+		for (int i = 0; i < m_hand.size(); i++)
 		{
-			std::cout << m_hand[i].get_name() << " " << i + 1 << std::endl;
+			hand_names.push_back(m_hand[i].get_name());
+			hand_colors.push_back(get_color(m_hand[i].get_color()));
 		}
 
+		choice(hand_names, hand_colors);
 		std::cin >> number;
 
 		if (number == 0)
-			stop = true;
+			break;
+
 		else
 		{
 			number--;
+
 			if (number > m_hand.size())
 				std::cout << "Vous avez entre un numero invalide." << std::endl;
 

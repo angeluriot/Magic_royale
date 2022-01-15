@@ -7,7 +7,7 @@
 int main()
 {
 	clear_console();
-	std::cout << yellow <<
+	std::cout << yellow << bold <<
 		"                     _                               _\n"
 		"   /\\/\\   __ _  __ _(_) ___    _ __ ___  _   _  __ _| | ___\n"
 		"  /    \\ / _` |/ _` | |/ __|  | '__/ _ \\| | | |/ _` | |/ _ \\\n"
@@ -17,9 +17,9 @@ int main()
 		" ___________________________________________________________\n"
 		"|___________________________________________________________|" << End(2);
 
-	std::cout << yellow << "Welcome to " << bold << "Magic Royale" << no_bold << "!" << End(2);
+	std::cout << yellow << bold << "--=( Welcome to Magic Royale! )=--" << End(2);
 	std::cout << "What do you want to do?" << End(1);
-	int res = choice({ "1. Play", "2. Quit" });
+	int res = choice({ "Play", "Quit" });
 
 	if (res == 0)
 	{

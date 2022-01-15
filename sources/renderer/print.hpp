@@ -40,8 +40,9 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const End& end);
 };
 
-std::string input(std::string prompt, bool same_line = true);
-int choice(std::vector<std::string> choices, int initial_choice = 0);
+std::string input(const std::string& prompt, bool same_line = true);
+int choice(const std::vector<std::string>& choices, int initial_choice = 0);
+int choice(const std::vector<std::string>& choices, const std::vector<std::string_view>& choice_colors, int initial_choice = 0);
 std::string_view get_color(Card::Color color);
 void confirm();
 void clear_console();

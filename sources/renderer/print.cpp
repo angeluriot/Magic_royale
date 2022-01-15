@@ -1,35 +1,41 @@
 #include "renderer/print.hpp"
 #include "renderer/inputs.hpp"
 
-std::string input(std::string prompt, bool same_line)
+std::string input(const std::string& prompt, bool same_line)
 {
-	std::cout << prompt << " ";
+	std::cout << prompt << " " << End();
 	std::string res;
 
-	if (same_line)
+	if (!same_line)
 		std::cout << End(2);
 
+	std::cout << cyan;
 	std::getline(std::cin, res);
 	return res;
 }
 
-void print_choices(std::vector<std::string> choices, int choice_id)
+void print_choices(const std::vector<std::string>& choices, const std::vector<std::string_view>& choice_colors, int choice_id)
 {
 	for (int i = 0; i < choices.size(); i++)
 	{
 		if (i == choice_id)
-			std::cout << reverse << white << choices[i] << reset << "   " << End();
+			std::cout << reverse << choice_colors[i] << " " << choices[i] << " " << reset << "  " << End();
 		else
-			std::cout << white << choices[i] << "   " << End();
+			std::cout << choice_colors[i] << " " << choices[i] << "   " << End();
 	}
 }
 
-int choice(std::vector<std::string> choices, int initial_choice)
+int choice(const std::vector<std::string>& choices, int initial_choice)
+{
+	return choice(choices, std::vector<std::string_view>(choices.size(), white), initial_choice);
+}
+
+int choice(const std::vector<std::string>& choices, const std::vector<std::string_view>& choice_colors, int initial_choice)
 {
 	Key key;
 	int actual_choice = initial_choice;
 	std::cout << End(1);
-	print_choices(choices, actual_choice);
+	print_choices(choices, choice_colors, actual_choice);
 
 	while (true)
 	{
@@ -39,14 +45,14 @@ int choice(std::vector<std::string> choices, int initial_choice)
 		{
 			actual_choice--;
 			std::cout << '\r' << End();
-			print_choices(choices, actual_choice);
+			print_choices(choices, choice_colors, actual_choice);
 		}
 
 		if (key == Key::Right && actual_choice < choices.size() - 1)
 		{
 			actual_choice++;
 			std::cout << '\r' << End();
-			print_choices(choices, actual_choice);
+			print_choices(choices, choice_colors, actual_choice);
 		}
 
 		if (key == Key::Enter)

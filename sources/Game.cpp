@@ -22,12 +22,16 @@ void Game::start()
 {
 	for (int i = 0; i < 2; i++)
 	{
-		std::cout << yellow << "Player " << i + 1 << reset << ", what is your name?" << End(2);
-		std::string name;
-		getline(std::cin, name);
-		std::cout << End(2);
-		players[i].set_name(name);
+		std::string name = input(std::string(bold.data()) + std::string(yellow.data()) + "Player " +
+			std::to_string(i + 1) + std::string(reset.data()) + " name: ");
+
+		players[i].set_name(name == "" ? "Player " + std::to_string(i + 1) : name);
 	}
+
+	if (players[0].get_name() == players[1].get_name())
+		players[1].set_name(players[1].get_name() + " (2)");
+
+	std::cout << End(1);
 }
 
 void Game::create_decks()
