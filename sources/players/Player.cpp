@@ -57,6 +57,12 @@ Player::Resources Player::get_resources()
 	return res;
 }
 
+void Player::remove_target(const Creature& target)
+{
+	for(auto& creature : m_creatures)
+		creature.remove_target(target);
+}
+
 PtrList<Card> Player::get_deck()
 {
 	return m_deck;
@@ -79,7 +85,6 @@ void Player::create_deck(const PtrList<Card>& deck)
 		draw_card();
 }
 
-// séparer en play_creature / play_land ?
 void Player::play_card(const Card& card)
 {
 	if (card.get_type() == Card::Type::Creature)
@@ -182,6 +187,9 @@ void Player::begin_turn()
 	draw_card();
 	disengage_cards();
 	main_phase();
+	combat_phase();
+	secondary_phase();
+	end_turn();
 }
 
 void Player::draw_card()
@@ -234,27 +242,112 @@ void Player::main_phase()
 		else
 			play_card(m_hand[res]);
 	}
-
-	combat_phase();
 }
 
 void Player::combat_phase()
 {
-	// TODO
+	int number;
+	std::vector<std::string> attacking_creatures_choice;
 
-	secondary_phase();
+	for (int i = 0; i < m_creatures.size(); i++)
+	{
+		attacking_creatures_choice.push_back(m_creatures[i].get_name());
+	}
+
+	attacking_creatures_choice.push_back("Termine");
+
+	while (true)
+	{
+		std::cout << std::endl << "Phase de combat" << std::endl;
+		std::cout << "Veuillez selectionner une creature que vous voulez faire attaquer" << std::endl;
+
+		number = choice(attacking_creatures_choice);
+
+		if (number == attacking_creatures_choice.size() - 1)
+		{
+			break;
+		}
+
+		else if (m_creatures[number].is_attacking())
+		{
+			m_creatures[number].will_not_attack();
+			std::cout << "Vous avez annule l'attaque de cette creature." << std::endl;
+		}
+			
+		else
+		{
+			m_creatures[number].will_attack();
+			std::cout << "Cette creature attaquera durant votre tour." << std::endl;
+		}
+	}
+
+	int number2;
+	int number3;
+	std::vector<std::string> blocking_creatures_choice;
+	std::vector<std::string> creature_to_block_choice;
+
+	for (int i = 0; i < get_opponent().m_creatures.size(); i++)
+	{
+		blocking_creatures_choice.push_back(get_opponent().m_creatures[i].get_name());
+	}
+
+	blocking_creatures_choice.push_back("Termine");
+	
+	for (int i = 0; i < m_creatures.size(); i++)
+	{
+		if(m_creatures[i].is_attacking() && m_creatures[i].is_blockable())
+			creature_to_block_choice.push_back(m_creatures[i].get_name());
+	}
+
+	while(true)
+	{
+		std::cout << get_opponent().get_name() << ", veuillez selectionner les creatures qui vont bloquer." << std::endl;
+
+		number2 = choice(blocking_creatures_choice);
+
+		if (number2 == blocking_creatures_choice.size() - 1)
+			break;
+
+		else if (get_opponent().m_creatures[number2].is_blocking())
+			std::cout << "Vous avez deja selectionne cette creature" << std::endl;
+
+		else
+		{
+			std::cout << "Selectionnez la creature que vous souhaitez bloquer." << std::endl;
+			number3 = choice(creature_to_block_choice);
+			get_opponent().m_creatures[number2].will_block(m_creatures[number3]);
+		}
+	}
 }
 
 void Player::secondary_phase()
 {
-	// TODO
-
-	end_turn();
+	main_phase();
 }
 
 void Player::end_turn()
 {
-	// TODO
+	if (m_hand.size() > 7)
+	{
+		int number;
+		std::vector<std::string> discard_choice;
+
+		for (int i = 0; i < m_hand.size(); i++)
+		{
+			discard_choice.push_back(m_hand[i].get_name());
+		}
+
+		while (m_hand.size() > 7)
+		{
+			std::cout << std::endl << "Fin de phase" << std::endl;
+			std::cout << "Vous avez plus de 7 cartes dans votre main, veuillez selectionner une carte a defausser" << std::endl;
+
+			number = choice(discard_choice);
+
+			m_graveyard.add(m_hand[number]);
+			m_hand.remove(number);
+		}
+	}
 }
 
 void Player::play()
