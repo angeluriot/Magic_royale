@@ -1,7 +1,7 @@
 #include "cards/creatures/whites/MegaKnight.hpp"
 #include "players/Player.hpp"
 
-MegaKnight::MegaKnight(): Creature() {}
+MegaKnight::MegaKnight(): Creature(get_full_power(), get_full_toughness()) {}
 
 MegaKnight::~MegaKnight() {}
 

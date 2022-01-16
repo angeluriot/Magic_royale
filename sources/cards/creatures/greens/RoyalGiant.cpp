@@ -1,6 +1,6 @@
 #include "cards/creatures/greens/RoyalGiant.hpp"
 
-RoyalGiant::RoyalGiant(): Creature() {}
+RoyalGiant::RoyalGiant(): Creature(get_full_power(), get_full_toughness()) {}
 
 RoyalGiant::~RoyalGiant() {}
 

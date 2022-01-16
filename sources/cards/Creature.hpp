@@ -36,7 +36,7 @@ protected:
 
 public:
 
-	Creature();
+	Creature(int full_power, int full_toughness);
 	Creature(const Creature& other) = default;
 	virtual ~Creature();
 
@@ -45,8 +45,8 @@ public:
 	virtual Type get_type() const override;
 	virtual std::string get_full_type() const override;
 	virtual std::vector<Capacity> get_capacities() const;
-	virtual int get_full_power() const;
-	virtual int get_full_toughness() const;
+	virtual int get_full_power() const = 0;
+	virtual int get_full_toughness() const = 0;
 	virtual int get_power() const;
 	virtual int get_toughness() const;
 	virtual void reduce_toughness(int amount);

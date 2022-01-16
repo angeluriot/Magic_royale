@@ -1,6 +1,6 @@
 #include "cards/creatures/blacks/Pekka.hpp"
 
-Pekka::Pekka(): Creature() {}
+Pekka::Pekka(): Creature(get_full_power(), get_full_toughness()) {}
 
 Pekka::~Pekka() {}
 

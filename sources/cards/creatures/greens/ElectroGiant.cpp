@@ -1,6 +1,6 @@
 #include "cards/creatures/greens/ElectroGiant.hpp"
 
-ElectroGiant::ElectroGiant(): Creature() {}
+ElectroGiant::ElectroGiant(): Creature(get_full_power(), get_full_toughness()) {}
 
 ElectroGiant::~ElectroGiant() {}
 
