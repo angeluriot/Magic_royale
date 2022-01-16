@@ -22,6 +22,11 @@ Creature::Creature(): Card(), m_power(get_full_power()), m_toughness(get_full_to
 
 Creature::~Creature() {}
 
+bool Creature::is_alive()
+{
+	return m_alive;
+}
+
 Card::Type Creature::get_type() const
 {
 	return Type::Creature;
@@ -148,10 +153,8 @@ void Creature::will_not_block()
 
 void Creature::attack()
 {
-	if (m_targets.empty())
-		Game::players[1 - Game::turn].reduce_health(m_power);
-
-	else
+	if (!m_targets.empty())
+	{
 		for (Creature* target : m_targets)
 		{
 			target->reduce_toughness(m_power);
@@ -160,6 +163,8 @@ void Creature::attack()
 			if (!m_alive)
 				break;
 		}
+	}
+
 
 	for (auto& target : m_targets)
 		target->m_blocking = false;

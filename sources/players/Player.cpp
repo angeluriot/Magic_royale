@@ -5,6 +5,11 @@
 
 Player::Player(): m_name(""), m_health(20), m_alive(true) {}
 
+bool Player::is_alive()
+{
+	return m_alive;
+}
+
 std::string Player::get_name() const
 {
 	return m_name;
@@ -138,8 +143,6 @@ bool Player::is_creature_playable(const Creature& creature)
 		to_engage[Card::Color::Colorless] += cost_map[Card::Color::Colorless];
 	}
 
-	// TODO : mettre tout ça dans une autre fonction ?
-
 	while (to_engage[Card::Color::White] > 0 || to_engage[Card::Color::Blue] > 0 || to_engage[Card::Color::Black] > 0 ||
 		to_engage[Card::Color::Red] > 0 || to_engage[Card::Color::Green] > 0 || to_engage[Card::Color::Colorless] > 0)
 	{
@@ -255,32 +258,70 @@ bool Player::is_creature_playable(const Creature& creature)
 	return true;
 }
 
+void Player::show_board()
+{
+	Resources enemy_resources_map = get_opponent().get_resources();
+	Resources resources_map = get_resources();
+	std::cout << End(1) << "Enemy HP : " << get_opponent().get_health() << End(2);
+	std::cout << "Available lands : " 	<< white << enemy_resources_map[Card::Color::White] << reset;
+	std::cout << " " 				  	<< blue  << enemy_resources_map[Card::Color::Blue] << reset;
+	std::cout << " " 				  	<< black << enemy_resources_map[Card::Color::Black] << reset;
+	std::cout << " " 				  	<< red 	 << enemy_resources_map[Card::Color::Red] << reset;
+	std::cout << " " 				  	<< green << enemy_resources_map[Card::Color::Green] << End(1);
+
+	std::cout << "Available lands : " 	<< white << resources_map[Card::Color::White] << reset;
+	std::cout << " " 				  	<< blue  << resources_map[Card::Color::Blue] << reset;
+	std::cout << " " 				  	<< black << resources_map[Card::Color::Black] << reset;
+	std::cout << " " 				  	<< red 	 << resources_map[Card::Color::Red] << reset;
+	std::cout << " " 				  	<< green << resources_map[Card::Color::Green] << End(1);
+	std::cout << "Your HP : " << get_health() << End(2);
+}
+
 void Player::begin_turn()
 {
 	std::cout << End(1) << magenta << bold << "--=( " + get_name() + "'s turn )=--" << End(2);
 
+	for (auto& creature : m_creatures)
+	{
+		if (creature.is_blocking())
+			creature.will_not_block();
+	}
+
+	// TODO : les créatures regagnent leurs points de vie / endurance au début du tour
+
 	draw_card();
-	disengage_cards();
 
-	std::cout << End(1) << yellow << bold << "--=( Main Phase )=--" << End(2);
-	main_phase();
+	if (m_alive)
+	{
+		disengage_cards();
 
-	std::cout << End(1) << yellow << bold << "--=( Combat Phase )=--" << End(2);
-	combat_phase();
+		std::cout << End(1) << yellow << bold << "--=( Main Phase )=--" << End(2);
+		main_phase();
 
-	std::cout << End(1) << yellow << bold << "--=( Secondary Phase )=--" << End(2);
-	secondary_phase();
+		std::cout << End(1) << yellow << bold << "--=( Combat Phase )=--" << End(2);
+		combat_phase();
 
-	std::cout << End(1) << yellow << bold << "--=( End of turn )=--" << End(2);
-	end_turn();
+		if (get_opponent().is_alive())
+		{
+			std::cout << End(1) << yellow << bold << "--=( Secondary Phase )=--" << End(2);
+			secondary_phase();
+
+			std::cout << End(1) << yellow << bold << "--=( End of turn )=--" << End(2);
+			end_turn();
+		}
+	}
 }
 
 void Player::draw_card()
 {
-	m_hand.add(m_library.back());
-	m_library.remove(m_library.back());
-	// TODO : si plus de cartes à piocher, le joueur perd la partie
-	// TODO : si déjà 7 cartes en main, défausser la carte (-> cimetière)
+	if (m_library.empty())
+		m_alive = false;
+
+	else
+	{
+		m_hand.add(m_library.back());
+		m_library.remove(m_library.back());
+	}
 }
 
 void Player::disengage_cards()
@@ -400,27 +441,45 @@ void Player::combat_phase()
 			creature_to_block_color.push_back(get_color(m_creatures[i].get_color()));
 		}
 
-	while (true)
+	if (creature_to_block_choice.size() > 0)
 	{
-		std::cout << magenta << bold << get_opponent().get_name() << reset << ", select creatures to block "
-			<< magenta << bold << get_name() << reset << "'s attack:" << End(1);
-
-		int res = choice(blocking_creatures_choice, blocking_creatures_color, { "- Next -" });
-
-		if (res == blocking_creatures_choice.size())
-			break;
-
-		if (get_opponent().m_creatures[res].is_blocking())
-			std::cout << red << "You already selected this creature." << End(1);
-			// TODO: Change target block
-
-		else
+		while (true)
 		{
-			std::cout << "Select the creature you want to block:" << End(1);
-			int res_2 = choice(creature_to_block_choice, creature_to_block_color);
-			get_opponent().m_creatures[res].will_block(m_creatures[res_2]);
+			std::cout << magenta << bold << get_opponent().get_name() << reset << ", select creatures to block "
+				<< magenta << bold << get_name() << reset << "'s attack:" << End(1);
+
+			int res = choice(blocking_creatures_choice, blocking_creatures_color, { "- Next -" });
+
+			if (res == blocking_creatures_choice.size())
+				break;
+
+			if (get_opponent().m_creatures[res].is_blocking())
+				std::cout << red << "You already selected this creature." << End(1);
+				// TODO: Change target block
+
+			else
+			{
+				std::cout << "Select the creature you want to block:" << End(1);
+				int res_2 = choice(creature_to_block_choice, creature_to_block_color);
+				get_opponent().m_creatures[res].will_block(m_creatures[res_2]);
+			}
 		}
 	}
+
+	for (auto& creature : m_creatures)
+		if (creature.is_attacking())
+		{
+			creature.attack();
+
+			if (creature.is_alive())
+			{
+				std::cout << creature.get_name() << " inflige " << creature.get_power() << " points de degats !" << std::endl;
+
+				get_opponent().reduce_health(creature.get_power());
+
+				std::cout << "Le joueur adverse a " << get_opponent().get_health();
+			}
+		}
 
 	// TODO: Change order of targets
 }
@@ -432,6 +491,8 @@ void Player::secondary_phase()
 
 void Player::end_turn()
 {
+	std::cout << "le joueur " << get_name() << " a " << get_health() << std::endl;
+	std::cout << "le joueur " << get_opponent().get_name() << " a " << get_opponent().get_health() << std::endl;
 	if (m_hand.size() > 7)
 	{
 		std::vector<std::string> discard_choice;

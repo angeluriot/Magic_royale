@@ -59,6 +59,27 @@ void Game::create_decks()
 void Game::play()
 {
 	while (true)
+	{
 		for (auto& player : players)
-			player.begin_turn();
+		{
+			if (player.is_alive())
+			{
+				if (player.get_opponent().is_alive())
+					player.begin_turn();
+				else
+				{
+					std::cout << magenta << bold << player.get_opponent().get_name() << reset << " has lost!" << End(1);
+					std::cout << magenta << bold << player.get_name() << reset << " wins this game!" << End(1);
+					return;
+				}
+			}
+
+			else
+			{
+				std::cout << magenta << bold << player.get_name() << reset << " has lost!" << End(1);
+				std::cout << magenta << bold << player.get_opponent().get_name() << reset << " wins this game!" << End(1);
+				return;
+			}
+		}
+	}
 }

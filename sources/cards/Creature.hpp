@@ -42,6 +42,8 @@ public:
 
 	Creature& operator=(const Creature& other) = default;
 
+	bool is_alive();
+
 	virtual Type get_type() const override;
 	virtual std::string get_full_type() const override;
 	virtual std::vector<Capacity> get_capacities() const;

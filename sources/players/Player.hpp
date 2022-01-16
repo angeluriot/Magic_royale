@@ -31,6 +31,7 @@ public:
 
 	Player();
 
+	bool is_alive();
 	std::string get_name() const;
 	void set_name(const std::string& name);
 	int get_health() const;
@@ -42,6 +43,7 @@ public:
 	void create_deck(const PtrList<Card>& deck);
 	void play_card(const Card& card);
 	bool is_creature_playable(const Creature& creature);
+	void show_board();
 	void begin_turn();
 	void draw_card();
 	void disengage_cards();
