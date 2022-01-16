@@ -84,7 +84,7 @@ void Creature::special_ability() {}
 bool Creature::is_blockable() const
 {
 	auto capacities = get_capacities();
-	return std::find(capacities.begin(), capacities.end(), Capacity::Unblockable) != capacities.end();
+	return !(std::find(capacities.begin(), capacities.end(), Capacity::Unblockable) != capacities.end());
 }
 
 bool Creature::can_attack() const
@@ -164,7 +164,6 @@ void Creature::attack()
 				break;
 		}
 	}
-
 
 	for (auto& target : m_targets)
 		target->m_blocking = false;

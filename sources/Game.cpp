@@ -69,7 +69,8 @@ void Game::play()
 				else
 				{
 					std::cout << magenta << bold << player.get_opponent().get_name() << reset << " has lost!" << End(1);
-					std::cout << magenta << bold << player.get_name() << reset << " wins this game!" << End(1);
+					std::cout << magenta << bold << player.get_name() << reset << " wins this game!" << End(2);
+					player.get_opponent().revive();
 					return;
 				}
 			}
@@ -77,7 +78,8 @@ void Game::play()
 			else
 			{
 				std::cout << magenta << bold << player.get_name() << reset << " has lost!" << End(1);
-				std::cout << magenta << bold << player.get_opponent().get_name() << reset << " wins this game!" << End(1);
+				std::cout << magenta << bold << player.get_opponent().get_name() << reset << " wins this game!" << End(2);
+				player.revive();
 				return;
 			}
 		}

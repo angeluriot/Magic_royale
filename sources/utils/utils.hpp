@@ -41,7 +41,7 @@ inline void quit_game()
 {
 	std::cout << red << "Do you really want to leave the game?" << End(1);
 
-	if (choice({ "No I stay", "Yes I want to leave" }, { green, red }) == 1)
+	if (choice({ "No, I want to keep playing", "Yes, I want to leave" }, { green, red }) == 1)
 	{
 		std::cout << bold << yellow << "Bye!" << End(1);
 		exit(EXIT_SUCCESS);
