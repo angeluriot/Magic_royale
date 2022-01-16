@@ -41,8 +41,8 @@ public:
 };
 
 std::string input(const std::string& prompt, bool same_line = true);
-int choice(const std::vector<std::string>& choices, int initial_choice = 0);
-int choice(const std::vector<std::string>& choices, const std::vector<std::string_view>& choice_colors, int initial_choice = 0);
+int choice(const std::vector<std::string>& choices, const std::vector<std::string>& additional = {});
+int choice(const std::vector<std::string>& choices, const std::vector<std::string_view>& choice_colors, const std::vector<std::string>& additional = {});
 std::string_view get_color(Card::Color color);
 void confirm();
 void clear_console();

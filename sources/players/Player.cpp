@@ -140,43 +140,116 @@ bool Player::is_creature_playable(const Creature& creature)
 
 	// TODO : mettre tout ça dans une autre fonction ?
 
-	size_t number;
-
-	while (to_engage[Card::Color::Colorless] > 0)
+	while (to_engage[Card::Color::White] > 0 || to_engage[Card::Color::Blue] > 0 || to_engage[Card::Color::Black] > 0 ||
+		to_engage[Card::Color::Red] > 0 || to_engage[Card::Color::Green] > 0 || to_engage[Card::Color::Colorless] > 0)
 	{
-		// TODO : afficher uniquement si le nb de terrains est > 0 et avec la bonne orthographe si = 1
-		std::cout << "Choisissez un terrain a engager." << std::endl;
-		std::cout << "Vous devez encore engager " << to_engage[Card::Color::White] << " terrains blancs, ";
-		std::cout << to_engage[Card::Color::Blue] << " terrains bleus, ";
-		std::cout << to_engage[Card::Color::Black] << " terrains noirs, ";
-		std::cout << to_engage[Card::Color::Red] << " terrains rouges, ";
-		std::cout << to_engage[Card::Color::Green] << " terrains verts et ";
-		std::cout << to_engage[Card::Color::Colorless] << " autres terrains de n'importe quelle couleur." << std::endl << std::endl;
+		std::cout << "You have to engage" << End();
+		bool is_first = true;
 
-		for(int i = 0; i < m_lands.size(); i++)
+		if (to_engage[Card::Color::White] > 0)
 		{
-			std::cout << m_lands[i].get_name() << " " << i + 1 << std::endl;
+			if (!is_first)
+				std::cout << ",";
+
+			std::cout << " " << to_engage[Card::Color::White] << white << " white " << (to_engage[Card::Color::White] > 1 ? "lands" : "land") << End();
+			is_first = false;
 		}
 
-		// TODO : afficher les numeros correspondant aux terrains que l'on peut engager
-		std::cin >> number;
-		number--;
-		if (number > m_lands.size())
-			std::cout << "Vous avez entre un numero incorrect." << std::endl;
+		if (to_engage[Card::Color::Blue] > 0)
+		{
+			if (!is_first)
+			{
+				if (to_engage[Card::Color::Black] == 0 && to_engage[Card::Color::Red] == 0 &&
+					to_engage[Card::Color::Green] == 0 && to_engage[Card::Color::Colorless] == 0)
+					std::cout << " and ";
+				else
+					std::cout << ",";
+			}
 
-		else if (m_lands[number].is_engaged())
-			std::cout << "Ce terrain est deja engage." << std::endl;
+			std::cout << " " << to_engage[Card::Color::Blue] << blue << " blue " << (to_engage[Card::Color::Blue] > 1 ? "lands" : "land") << End();
+			is_first = false;
+		}
+
+		if (to_engage[Card::Color::Black] > 0)
+		{
+			if (!is_first)
+			{
+				if (to_engage[Card::Color::Red] == 0 && to_engage[Card::Color::Green] == 0 && to_engage[Card::Color::Colorless] == 0)
+					std::cout << " and ";
+				else
+					std::cout << ",";
+			}
+
+			std::cout << " " << to_engage[Card::Color::Black] << gray << " black " << (to_engage[Card::Color::Black] > 1 ? "lands" : "land") << End();
+			is_first = false;
+		}
+
+		if (to_engage[Card::Color::Red] > 0)
+		{
+			if (!is_first)
+			{
+				if (to_engage[Card::Color::Green] == 0 && to_engage[Card::Color::Colorless] == 0)
+					std::cout << " and ";
+				else
+					std::cout << ",";
+			}
+
+			std::cout << " " << to_engage[Card::Color::Red] << red << " red " << (to_engage[Card::Color::Red] > 1 ? "lands" : "land") << End();
+			is_first = false;
+		}
+
+		if (to_engage[Card::Color::Green] > 0)
+		{
+			if (!is_first)
+			{
+				if (to_engage[Card::Color::Colorless] == 0)
+					std::cout << " and ";
+				else
+					std::cout << ",";
+			}
+
+			std::cout << " " << to_engage[Card::Color::Green] << green << " green " << (to_engage[Card::Color::Green] > 1 ? "lands" : "land") << End();
+			is_first = false;
+		}
+
+		if (to_engage[Card::Color::Colorless] > 0)
+		{
+			if (!is_first)
+				std::cout << " and";
+
+			std::cout << " " << to_engage[Card::Color::Colorless] << (to_engage[Card::Color::Colorless] > 1 ? " lands" : " land") << " of the color you want." << End();
+			is_first = false;
+		}
+
+		std::cout << End(2) << "Choose a land to engage:" << End(1);
+		std::vector<std::string> choices;
+		std::vector<std::string_view> colors;
+
+		for (int i = 0; i < m_lands.size(); i++)
+			if (!m_lands[i].is_engaged())
+			{
+				choices.push_back(m_lands[i].get_name());
+				colors.push_back(get_color(m_lands[i].get_color()));
+			}
+
+		// TODO : Back button
+		int res = choice(choices, colors/*, { "- Back -" }*/);
+		m_lands[res].engage();
+
+		if (to_engage[m_lands[res].get_color()] > 0)
+		{
+			m_lands[res].engage();
+			to_engage[m_lands[res].get_color()] -= 1;
+		}
+
+		else if (to_engage[Card::Color::Colorless] > 0)
+		{
+			m_lands[res].engage();
+			to_engage[Card::Color::Colorless] -= 1;
+		}
 
 		else
-		{
-			m_lands[number].engage();
-			if(to_engage[m_lands[number].get_color()] > 0)
-				to_engage[m_lands[number].get_color()] -= 1;
-			else if(to_engage[Card::Color::Colorless] > 0)
-				to_engage[Card::Color::Colorless] -= 1;
-			else
-				std::cout << "Vous n'avez pas besoin d'engager ce terrain." << std::endl;
-		}
+			std::cout << red << "You don't need to engage this land." << End(2);
 	}
 
 	return true;
@@ -184,11 +257,21 @@ bool Player::is_creature_playable(const Creature& creature)
 
 void Player::begin_turn()
 {
+	std::cout << End(1) << magenta << bold << "--=( " + get_name() + "'s turn )=--" << End(2);
+
 	draw_card();
 	disengage_cards();
+
+	std::cout << End(1) << yellow << bold << "--=( Main Phase )=--" << End(2);
 	main_phase();
+
+	std::cout << End(1) << yellow << bold << "--=( Combat Phase )=--" << End(2);
 	combat_phase();
+
+	std::cout << End(1) << yellow << bold << "--=( Secondary Phase )=--" << End(2);
 	secondary_phase();
+
+	std::cout << End(1) << yellow << bold << "--=( End of turn )=--" << End(2);
 	end_turn();
 }
 
@@ -213,8 +296,6 @@ void Player::disengage_cards()
 
 void Player::main_phase()
 {
-	std::cout << yellow << bold << "--=( Main Phase )=--" << End(2);
-
 	while (m_hand.size() > 0)
 	{
 		std::cout << "Your hand:" << End(1);
@@ -223,11 +304,20 @@ void Player::main_phase()
 
 		for (int i = 0; i < m_hand.size(); i++)
 		{
-			hand_names.push_back(m_hand[i].get_name());
+			hand_names.push_back(m_hand[i].get_name() + " (" + to_str(m_hand[i].get_type()) + ")");
 			hand_colors.push_back(get_color(m_hand[i].get_color()));
 		}
 
-		int res = choice(hand_names, hand_colors);
+		int res = choice(hand_names, hand_colors, { "- Next -", "- Quit -" });
+
+		if (res == m_hand.size())
+			break;
+
+		if (res == m_hand.size() + 1)
+		{
+			quit_game();
+			continue;
+		}
 
 		if (m_hand[res].get_type() == Card::Type::Creature)
 		{
@@ -235,89 +325,104 @@ void Player::main_phase()
 
 			if (!is_creature_playable(creature))
 				std::cout << red << "You don't have enough lands." << End(2);
+
 			else
+			{
+				std::cout << cyan << "[INFO] " << reset << "You played " << get_color(creature.get_color()) <<
+					italic << creature.get_name() << reset << "." << End(2);
 				play_card(creature);
+			}
 		}
 
 		else
+		{
+			std::cout << cyan << "[INFO] " << reset << "You played " << get_color(m_hand[res].get_color()) <<
+				italic << m_hand[res].get_name() << reset << "." << End(2);
 			play_card(m_hand[res]);
+		}
 	}
 }
 
 void Player::combat_phase()
 {
-	int number;
-	std::vector<std::string> attacking_creatures_choice;
-
-	for (int i = 0; i < m_creatures.size(); i++)
-	{
-		attacking_creatures_choice.push_back(m_creatures[i].get_name());
-	}
-
-	attacking_creatures_choice.push_back("Termine");
-
 	while (true)
 	{
-		std::cout << std::endl << "Phase de combat" << std::endl;
-		std::cout << "Veuillez selectionner une creature que vous voulez faire attaquer" << std::endl;
+		std::vector<std::string> attacking_creatures_choice;
+		std::vector<std::string_view> attacking_creatures_color;
 
-		number = choice(attacking_creatures_choice);
-
-		if (number == attacking_creatures_choice.size() - 1)
+		for (int i = 0; i < m_creatures.size(); i++)
 		{
+			attacking_creatures_choice.push_back(m_creatures[i].get_name() + (m_creatures[i].is_engaged() ? " (E)" : ""));
+			attacking_creatures_color.push_back(get_color(m_creatures[i].get_color()));
+		}
+
+		std::cout << "Select a creature to attack:" << End(1);
+
+		int res = choice(attacking_creatures_choice, attacking_creatures_color, { "- Next -", "- Quit -" });
+
+		if (res == attacking_creatures_choice.size())
 			break;
+
+		if (res == attacking_creatures_choice.size() + 1)
+		{
+			quit_game();
+			continue;
 		}
 
-		else if (m_creatures[number].is_attacking())
+		if (m_creatures[res].is_attacking())
 		{
-			m_creatures[number].will_not_attack();
-			std::cout << "Vous avez annule l'attaque de cette creature." << std::endl;
+			m_creatures[res].will_not_attack();
+			std::cout << cyan << "[INFO] " << reset << "You cancelled the attack of this creature." << End(2);
 		}
-			
+
 		else
 		{
-			m_creatures[number].will_attack();
-			std::cout << "Cette creature attaquera durant votre tour." << std::endl;
+			m_creatures[res].will_attack();
+			std::cout << cyan << "[INFO] " << reset << "This creature will attack." << End(2);
 		}
 	}
 
-	int number2;
-	int number3;
 	std::vector<std::string> blocking_creatures_choice;
+	std::vector<std::string_view> blocking_creatures_color;
 	std::vector<std::string> creature_to_block_choice;
+	std::vector<std::string_view> creature_to_block_color;
 
 	for (int i = 0; i < get_opponent().m_creatures.size(); i++)
 	{
 		blocking_creatures_choice.push_back(get_opponent().m_creatures[i].get_name());
+		blocking_creatures_color.push_back(get_color(get_opponent().m_creatures[i].get_color()));
 	}
 
-	blocking_creatures_choice.push_back("Termine");
-	
 	for (int i = 0; i < m_creatures.size(); i++)
-	{
-		if(m_creatures[i].is_attacking() && m_creatures[i].is_blockable())
+		if (m_creatures[i].is_attacking() && m_creatures[i].is_blockable())
+		{
 			creature_to_block_choice.push_back(m_creatures[i].get_name());
-	}
+			creature_to_block_color.push_back(get_color(m_creatures[i].get_color()));
+		}
 
-	while(true)
+	while (true)
 	{
-		std::cout << get_opponent().get_name() << ", veuillez selectionner les creatures qui vont bloquer." << std::endl;
+		std::cout << magenta << bold << get_opponent().get_name() << reset << ", select creatures to block "
+			<< magenta << bold << get_name() << reset << "'s attack:" << End(1);
 
-		number2 = choice(blocking_creatures_choice);
+		int res = choice(blocking_creatures_choice, blocking_creatures_color, { "- Next -" });
 
-		if (number2 == blocking_creatures_choice.size() - 1)
+		if (res == blocking_creatures_choice.size())
 			break;
 
-		else if (get_opponent().m_creatures[number2].is_blocking())
-			std::cout << "Vous avez deja selectionne cette creature" << std::endl;
+		if (get_opponent().m_creatures[res].is_blocking())
+			std::cout << red << "You already selected this creature." << End(1);
+			// TODO: Change target block
 
 		else
 		{
-			std::cout << "Selectionnez la creature que vous souhaitez bloquer." << std::endl;
-			number3 = choice(creature_to_block_choice);
-			get_opponent().m_creatures[number2].will_block(m_creatures[number3]);
+			std::cout << "Select the creature you want to block:" << End(1);
+			int res_2 = choice(creature_to_block_choice, creature_to_block_color);
+			get_opponent().m_creatures[res].will_block(m_creatures[res_2]);
 		}
 	}
+
+	// TODO: Change order of targets
 }
 
 void Player::secondary_phase()
@@ -329,23 +434,21 @@ void Player::end_turn()
 {
 	if (m_hand.size() > 7)
 	{
-		int number;
 		std::vector<std::string> discard_choice;
+		std::vector<std::string_view> discard_color;
 
 		for (int i = 0; i < m_hand.size(); i++)
 		{
-			discard_choice.push_back(m_hand[i].get_name());
+			discard_choice.push_back(m_hand[i].get_name() + " (" + to_str(m_hand[i].get_type()) + ")");
+			discard_color.push_back(get_color(m_hand[i].get_color()));
 		}
 
 		while (m_hand.size() > 7)
 		{
-			std::cout << std::endl << "Fin de phase" << std::endl;
-			std::cout << "Vous avez plus de 7 cartes dans votre main, veuillez selectionner une carte a defausser" << std::endl;
-
-			number = choice(discard_choice);
-
-			m_graveyard.add(m_hand[number]);
-			m_hand.remove(number);
+			std::cout << red << "You have more than 7 cards in your hand, select a card to discard:" << End(1);
+			int res = choice(discard_choice, discard_color);
+			m_graveyard.add(m_hand[res]);
+			m_hand.remove(res);
 		}
 	}
 }

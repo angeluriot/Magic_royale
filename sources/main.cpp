@@ -3,6 +3,7 @@
 #include "renderer/print.hpp"
 #include "utils/PtrList.hpp"
 #include "cards/creatures/blues/IceWizard.hpp"
+#include "utils/utils.hpp"
 
 int main()
 {
@@ -18,19 +19,26 @@ int main()
 		" ___________________________________________________________\n"
 		"|___________________________________________________________|" << End(2);
 
-	std::cout << yellow << bold << "--=( Welcome to Magic Royale! )=--" << End(2);
-	std::cout << "What do you want to do?" << End(1);
-	int res = choice({ "Play", "Quit" });
+	std::cout << End(1) << yellow << bold << "--=( Welcome to Magic Royale! )=--" << End(2);
 
-	if (res == 0)
+	while (true)
 	{
-		Game::start();
-		Game::create_decks();
-		Game::play();
-	}
+		std::cout << "What do you want to do?" << End(1);
+		int res = choice({ "- Play -", "- Quit -" }, { green, red });
 
-	else
-		std::cout << yellow << "Bye!" << End(2);
+		if (res == 0)
+		{
+			Game::start();
+			Game::create_decks();
+			Game::play();
+		}
+
+		else
+		{
+			quit_game();
+			continue;
+		}
+	}
 
 	return EXIT_SUCCESS;
 }

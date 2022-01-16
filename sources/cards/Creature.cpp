@@ -67,7 +67,9 @@ void Creature::reduce_toughness(int amount)
 
 void Creature::remove_target(const Creature& target)
 {
-	std::remove(m_targets.begin(), m_targets.end(), &target);
+	for (auto it = m_targets.begin(); it != m_targets.end(); ++it)
+		if (*it == &target)
+			m_targets.erase(it);
 }
 
 void Creature::spawn() {}

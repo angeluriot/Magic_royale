@@ -26,7 +26,7 @@ void Game::start()
 {
 	for (int i = 0; i < 2; i++)
 	{
-		std::string name = input(to_str(bold) + to_str(yellow) + "Player " + to_str(i + 1) + to_str(reset) + " name:");
+		std::string name = input(to_str(bold) + to_str(magenta) + "Player " + to_str(i + 1) + to_str(reset) + " name:");
 		name = remove_spaces(name);
 		players[i].set_name(name == "" ? "Player " + to_str(i + 1) : name);
 	}
@@ -49,7 +49,7 @@ void Game::create_decks()
 
 	for (auto& player : players)
 	{
-		std::cout << yellow << bold << player.get_name() << reset << ", which deck do you want to use?" << End(1);
+		std::cout << magenta << bold << player.get_name() << reset << ", which deck do you want to use?" << End(1);
 		int res = choice(files);
 		auto cards = Card::get_cards_from_string(get_cards_from_deck(files[res]));
 		player.create_deck(cards);
@@ -59,8 +59,6 @@ void Game::create_decks()
 void Game::play()
 {
 	while (true)
-	{
-		players[0].begin_turn();
-		players[1].begin_turn();
-	}
+		for (auto& player : players)
+			player.begin_turn();
 }

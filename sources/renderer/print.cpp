@@ -14,7 +14,7 @@ std::string input(const std::string& prompt, bool same_line)
 	return res;
 }
 
-void print_choices(const std::vector<std::string>& choices, const std::vector<std::string_view>& choice_colors, int choice_id)
+void print_choices(const std::vector<std::string>& choices, const std::vector<std::string_view>& choice_colors, const std::vector<std::string>& additional, int choice_id)
 {
 	for (int i = 0; i < choices.size(); i++)
 	{
@@ -23,19 +23,33 @@ void print_choices(const std::vector<std::string>& choices, const std::vector<st
 		else
 			std::cout << choice_colors[i] << " " << choices[i] << "   " << End();
 	}
+
+	if (!additional.empty())
+		std::cout << yellow << "|  " << End();
+
+	for (int i = 0; i < additional.size(); i++)
+	{
+		if (choices.size() + i == choice_id)
+			std::cout << reverse << yellow << " " << additional[i] << " " << reset << "  " << End();
+		else
+			std::cout << yellow << " " << additional[i] << "   " << End();
+	}
+
+	if (!additional.empty())
+		std::cout << yellow << "|   " << End();
 }
 
-int choice(const std::vector<std::string>& choices, int initial_choice)
+int choice(const std::vector<std::string>& choices, const std::vector<std::string>& additional)
 {
-	return choice(choices, std::vector<std::string_view>(choices.size(), white), initial_choice);
+	return choice(choices, std::vector<std::string_view>(choices.size(), white), additional);
 }
 
-int choice(const std::vector<std::string>& choices, const std::vector<std::string_view>& choice_colors, int initial_choice)
+int choice(const std::vector<std::string>& choices, const std::vector<std::string_view>& choice_colors, const std::vector<std::string>& additional)
 {
 	Key key;
-	int actual_choice = initial_choice;
+	int actual_choice = 0;
 	std::cout << End(1);
-	print_choices(choices, choice_colors, actual_choice);
+	print_choices(choices, choice_colors, additional, actual_choice);
 
 	while (true)
 	{
@@ -45,14 +59,14 @@ int choice(const std::vector<std::string>& choices, const std::vector<std::strin
 		{
 			actual_choice--;
 			std::cout << '\r' << End();
-			print_choices(choices, choice_colors, actual_choice);
+			print_choices(choices, choice_colors, additional, actual_choice);
 		}
 
-		if (key == Key::Right && actual_choice < choices.size() - 1)
+		if (key == Key::Right && actual_choice < choices.size() + additional.size() - 1)
 		{
 			actual_choice++;
 			std::cout << '\r' << End();
-			print_choices(choices, choice_colors, actual_choice);
+			print_choices(choices, choice_colors, additional, actual_choice);
 		}
 
 		if (key == Key::Enter)
