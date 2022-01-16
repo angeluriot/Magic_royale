@@ -2,7 +2,7 @@
 #include "players/Player.hpp"
 #include "cards/creatures/generateds/Golemites.hpp"
 
-Golem::Golem(): Creature() {}
+Golem::Golem(): Creature(get_full_power(), get_full_toughness()) {}
 
 Golem::~Golem() {}
 

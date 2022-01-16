@@ -1,6 +1,6 @@
 #include "cards/creatures/generateds/LavaPups.hpp"
 
-LavaPups::LavaPups(): Creature() {}
+LavaPups::LavaPups(): Creature(get_full_power(), get_full_toughness()) {}
 
 LavaPups::~LavaPups() {}
 

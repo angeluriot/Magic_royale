@@ -1,6 +1,6 @@
 #include "cards/creatures/blues/IceWizard.hpp"
 
-IceWizard::IceWizard(): Creature() {}
+IceWizard::IceWizard(): Creature(get_full_power(), get_full_toughness()) {}
 
 IceWizard::~IceWizard() {}
 

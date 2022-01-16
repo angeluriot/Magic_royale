@@ -2,7 +2,7 @@
 #include "players/Player.hpp"
 #include "cards/creatures/generateds/LavaPups.hpp"
 
-LavaHound::LavaHound(): Creature() {}
+LavaHound::LavaHound(): Creature(get_full_power(), get_full_toughness()) {}
 
 LavaHound::~LavaHound() {}
 

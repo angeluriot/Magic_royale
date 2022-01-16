@@ -1,6 +1,6 @@
 #include "cards/creatures/generateds/Golemites.hpp"
 
-Golemites::Golemites(): Creature() {}
+Golemites::Golemites(): Creature(get_full_power(), get_full_toughness()) {}
 
 Golemites::~Golemites() {}
 

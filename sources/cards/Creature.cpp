@@ -5,8 +5,8 @@
 #include "Game.hpp"
 #include "renderer/print.hpp"
 
-Creature::Creature(): Card(), m_power(get_full_power()), m_toughness(get_full_toughness()), m_can_attack(false),
-	m_attacking(false), m_blocking(false), m_shield(false), m_alive(true)
+Creature::Creature(int full_power, int full_toughness): Card(), m_power(full_power), m_toughness(full_toughness),
+	m_can_attack(false), m_attacking(false), m_blocking(false), m_shield(false), m_alive(true)
 {
 	auto capacities = get_capacities();
 
