@@ -1,8 +1,6 @@
 #include <iostream>
 #include "Game.hpp"
 #include "renderer/print.hpp"
-#include "utils/PtrList.hpp"
-#include "cards/creatures/blues/IceWizard.hpp"
 #include "utils/utils.hpp"
 
 int main()

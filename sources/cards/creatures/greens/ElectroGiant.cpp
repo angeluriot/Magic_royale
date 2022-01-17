@@ -1,6 +1,6 @@
 #include "cards/creatures/greens/ElectroGiant.hpp"
 
-ElectroGiant::ElectroGiant(): Creature(get_full_power(), get_full_toughness()) {}
+ElectroGiant::ElectroGiant(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
 
 ElectroGiant::~ElectroGiant() {}
 
@@ -31,7 +31,7 @@ std::vector<Creature::Capacity> ElectroGiant::get_capacities() const
 
 std::string ElectroGiant::get_description() const
 {
-	return "";
+	return Creature::get_description() + "";
 }
 
 Card::Cost ElectroGiant::get_cost() const

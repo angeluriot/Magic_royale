@@ -1,8 +1,8 @@
-#include "cards/creatures/blacks/LavaHound.hpp"
+#include "cards/creatures/reds/LavaHound.hpp"
 #include "players/Player.hpp"
 #include "cards/creatures/generateds/LavaPups.hpp"
 
-LavaHound::LavaHound(): Creature(get_full_power(), get_full_toughness()) {}
+LavaHound::LavaHound(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
 
 LavaHound::~LavaHound() {}
 
@@ -13,7 +13,7 @@ std::string LavaHound::get_full_type() const
 
 Card::Color LavaHound::get_color() const
 {
-	return Color::Black;
+	return Color::Red;
 }
 
 std::string LavaHound::get_name() const
@@ -33,15 +33,15 @@ std::vector<Creature::Capacity> LavaHound::get_capacities() const
 
 std::string LavaHound::get_description() const
 {
-	return "";
+	return Creature::get_description() + "";
 }
 
 Card::Cost LavaHound::get_cost() const
 {
 	return
 	{
-		{ Color::Colorless, 1 },
-		{ Color::Black, 1 }
+		{ Color::Colorless, 5 },
+		{ Color::Red, 2 }
 	};
 }
 

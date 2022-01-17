@@ -1,6 +1,6 @@
 #include "cards/creatures/blues/IceWizard.hpp"
 
-IceWizard::IceWizard(): Creature(get_full_power(), get_full_toughness()) {}
+IceWizard::IceWizard(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
 
 IceWizard::~IceWizard() {}
 
@@ -31,7 +31,7 @@ std::vector<Creature::Capacity> IceWizard::get_capacities() const
 
 std::string IceWizard::get_description() const
 {
-	return "";
+	return Creature::get_description() + "";
 }
 
 Card::Cost IceWizard::get_cost() const

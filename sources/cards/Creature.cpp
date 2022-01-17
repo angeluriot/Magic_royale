@@ -4,12 +4,11 @@
 #include "cards/Creature.hpp"
 #include "Game.hpp"
 #include "renderer/print.hpp"
+#include "utils/utils.hpp"
 
-Creature::Creature(int full_power, int full_toughness): Card(), m_power(full_power), m_toughness(full_toughness),
-	m_can_attack(false), m_attacking(false), m_blocking(false), m_shield(false), m_alive(true)
+Creature::Creature(int full_power, int full_toughness, const std::vector<Creature::Capacity>& capacities): Card(),
+	m_power(full_power), m_toughness(full_toughness), m_can_attack(false), m_attacking(false), m_blocking(false), m_shield(false), m_alive(true)
 {
-	auto capacities = get_capacities();
-
 	for (auto& capacity : capacities)
 	{
 		if (capacity == Capacity::Shield)
@@ -30,6 +29,47 @@ Card::Type Creature::get_type() const
 std::string Creature::get_full_type() const
 {
 	return "Creature";
+}
+
+std::string Creature::get_description() const
+{
+	auto capacities = get_capacities();
+	std::string description = "";
+
+	for (auto& capacity : capacities)
+	{
+		if (capacity == Capacity::Flying)
+			description += "- " + to_str(underline) + "Flying:" + to_str(no_underline) + " Only creatures whith " + to_str(italic) + "Reach" + to_str(no_italic) + " can attack it.\n";
+
+		if (capacity == Capacity::Reach)
+			description += "- " + to_str(underline) + "Reach:" + to_str(no_underline) + " Can attack " + to_str(italic) + "Flying" + to_str(no_italic) + " creatures.\n";
+
+		if (capacity == Capacity::FirstStrike)
+			description += "- " + to_str(underline) + "First Strike:" + to_str(no_underline) + " Attack first.\n";
+
+		if (capacity == Capacity::Haste)
+			description += "- " + to_str(underline) + "Haste:" + to_str(no_underline) + " Can attack on first turn.\n";
+
+		if (capacity == Capacity::Unblockable)
+			description += "- " + to_str(underline) + "Unblockable:" + to_str(no_underline) + " Can't be blocked.\n";
+
+		if (capacity == Capacity::ZoneDamage)
+			description += "- " + to_str(underline) + "Zone Damage:" + to_str(no_underline) + " Damages go to all blockers.\n";
+
+		if (capacity == Capacity::MultiHit)
+			description += "- " + to_str(underline) + "Multi Hit:" + to_str(no_underline) + " Attack both blockers and the player.\n";
+
+		if (capacity == Capacity::Freeze)
+			description += "- " + to_str(underline) + "Freeze:" + to_str(no_underline) + " Low the blocker's dammages.\n";
+
+		if (capacity == Capacity::Kamikaze)
+			description += "- " + to_str(underline) + "Kamikaze:" + to_str(no_underline) + " Die on attack.\n";
+
+		if (capacity == Capacity::Shield)
+			description += "- " + to_str(underline) + "Shield:" + to_str(no_underline) + " The shield takes the first hit.\n";
+	}
+
+	return (description == "" ? "" : "\n" + description);
 }
 
 std::vector<Creature::Capacity> Creature::get_capacities() const
@@ -184,8 +224,14 @@ void Creature::reset()
 void Creature::print() const
 {
 	Card::print();
-	std::cout << bold << "Power/Toughness: " << ::reset << ::get_color(get_color()) << get_full_power() + " / " + get_full_toughness() << End(1);
-	std::cout << bold << "Description: " << ::reset << ::get_color(get_color()) << get_description() << End(1);
+	std::cout << bold << "Power/Toughness: " << ::reset << ::get_color(get_color()) << get_full_power() << " / " << get_full_toughness() << End(1);
+
+	std::string description = get_description();
+
+	if (description != "" && description.back() == '\n')
+		description.pop_back();
+
+	std::cout << bold << "Description: " << ::reset << ::get_color(get_color()) << description << End(1);
 }
 
 void Creature::die() {}

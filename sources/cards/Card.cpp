@@ -5,7 +5,7 @@
 #include "utils/utils.hpp"
 #include "Game.hpp"
 
-#include "cards/creatures/blacks/LavaHound.hpp"
+#include "cards/creatures/reds/LavaHound.hpp"
 #include "cards/creatures/blacks/Pekka.hpp"
 #include "cards/creatures/blues/iceWizard.hpp"
 #include "cards/creatures/greens/ElectroGiant.hpp"
@@ -112,10 +112,10 @@ void Card::print() const
 
 			else
 			{
-				for (int i = 0; i < cost; i++)
-					std::cout << bold << ::get_color(color) << "*" << End();
-
 				std::cout << " " << End();
+
+				for (int i = 0; i < cost; i++)
+					std::cout << ::get_color(color) << "*" << End();
 			}
 		}
 

@@ -1,6 +1,6 @@
 #include "cards/creatures/greens/RoyalGiant.hpp"
 
-RoyalGiant::RoyalGiant(): Creature(get_full_power(), get_full_toughness()) {}
+RoyalGiant::RoyalGiant(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
 
 RoyalGiant::~RoyalGiant() {}
 
@@ -30,7 +30,7 @@ std::vector<Creature::Capacity> RoyalGiant::get_capacities() const
 
 std::string RoyalGiant::get_description() const
 {
-	return "";
+	return Creature::get_description() + "";
 }
 
 Card::Cost RoyalGiant::get_cost() const

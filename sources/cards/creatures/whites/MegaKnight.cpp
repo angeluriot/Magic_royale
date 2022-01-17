@@ -1,7 +1,7 @@
 #include "cards/creatures/whites/MegaKnight.hpp"
 #include "players/Player.hpp"
 
-MegaKnight::MegaKnight(): Creature(get_full_power(), get_full_toughness()) {}
+MegaKnight::MegaKnight(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
 
 MegaKnight::~MegaKnight() {}
 
@@ -30,7 +30,7 @@ std::vector<Creature::Capacity> MegaKnight::get_capacities() const
 
 std::string MegaKnight::get_description() const
 {
-	return "";
+	return Creature::get_description() + "";
 }
 
 Card::Cost MegaKnight::get_cost() const

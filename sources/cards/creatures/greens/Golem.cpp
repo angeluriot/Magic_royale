@@ -2,7 +2,7 @@
 #include "players/Player.hpp"
 #include "cards/creatures/generateds/Golemites.hpp"
 
-Golem::Golem(): Creature(get_full_power(), get_full_toughness()) {}
+Golem::Golem(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
 
 Golem::~Golem() {}
 
@@ -31,7 +31,7 @@ std::vector<Creature::Capacity> Golem::get_capacities() const
 
 std::string Golem::get_description() const
 {
-	return "";
+	return Creature::get_description() + "";
 }
 
 Card::Cost Golem::get_cost() const
