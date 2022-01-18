@@ -47,7 +47,7 @@ Card::Cost LavaHound::get_cost() const
 
 int LavaHound::get_full_power() const
 {
-	return 2;
+	return 10;
 }
 
 int LavaHound::get_full_toughness() const

@@ -21,6 +21,11 @@ Creature::Creature(int full_power, int full_toughness, const std::vector<Creatur
 
 Creature::~Creature() {}
 
+bool Creature::is_alive()
+{
+	return m_alive;
+}
+
 Card::Type Creature::get_type() const
 {
 	return Type::Creature;
@@ -119,7 +124,7 @@ void Creature::special_ability() {}
 bool Creature::is_blockable() const
 {
 	auto capacities = get_capacities();
-	return std::find(capacities.begin(), capacities.end(), Capacity::Unblockable) != capacities.end();
+	return !(std::find(capacities.begin(), capacities.end(), Capacity::Unblockable) != capacities.end());
 }
 
 bool Creature::can_attack() const
@@ -188,10 +193,8 @@ void Creature::will_not_block()
 
 void Creature::attack()
 {
-	if (m_targets.empty())
-		Game::players[1 - Game::turn].reduce_health(m_power);
-
-	else
+	if (!m_targets.empty())
+	{
 		for (Creature* target : m_targets)
 		{
 			target->reduce_toughness(m_power);
@@ -200,6 +203,7 @@ void Creature::attack()
 			if (!m_alive)
 				break;
 		}
+	}
 
 	for (auto& target : m_targets)
 		target->m_blocking = false;
