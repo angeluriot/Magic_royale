@@ -66,7 +66,9 @@ public:
 	virtual void change_order();
 	virtual void will_block(Creature& card);
 	virtual void will_not_block();
+	virtual void apply_attack();
 	virtual void attack();
+	virtual void attack(Creature& card);
 	virtual void block(Creature& card);
 	virtual void reset() override;
 	virtual void print() const override;

@@ -118,9 +118,7 @@ void Player::play_card(const Card& card)
 	}
 
 	else
-	{
 		m_lands.add(card);
-	}
 
 	m_hand.remove(card);
 	// TODO : set_player()
@@ -283,53 +281,33 @@ void Player::show_board()
 {
 	Resources enemy_resources_map = get_opponent().get_resources();
 	Resources resources_map = get_resources();
-	std::cout << End(1) << "Enemy HP: " << get_opponent().get_health() << End(2);
+	std::cout << "Enemy HP: " << green << get_opponent().get_health() << End(1);
 
-	std::cout << "Available lands: " 	<< white << enemy_resources_map[Card::Color::White] << End();
-	std::cout << " " 				  	<< blue  << enemy_resources_map[Card::Color::Blue] 	<< End();
-	std::cout << " " 				  	<< gray  << enemy_resources_map[Card::Color::Black] << End();
-	std::cout << " " 				  	<< red 	 << enemy_resources_map[Card::Color::Red] 	<< End();
-	std::cout << " " 				  	<< green << enemy_resources_map[Card::Color::Green] << End(2);
+	std::cout << "Available lands: " << white << enemy_resources_map[Card::Color::White] << End();
+	std::cout << " " << blue << enemy_resources_map[Card::Color::Blue] << End();
+	std::cout << " " << gray << enemy_resources_map[Card::Color::Black] << End();
+	std::cout << " " << red << enemy_resources_map[Card::Color::Red] << End();
+	std::cout << " " << green << enemy_resources_map[Card::Color::Green] << End(1);
 
-	std::cout << "Enemy creatures: ";
+	std::cout << "Enemy creatures: " << End();
 	get_opponent().show_creatures();
-
-	std::cout << End(3);
-
-	std::cout << "Your creatures: ";
+	std::cout << End(1) << "Your creatures: " << End();
 	show_creatures();
 
-	std::cout << End(1) << "Available lands: " 	<< white << resources_map[Card::Color::White] 		<< End();
-	std::cout << " " 				  				<< blue  << resources_map[Card::Color::Blue] 		<< End();
-	std::cout << " " 				  				<< gray  << resources_map[Card::Color::Black] 		<< End();
-	std::cout << " " 				  				<< red 	 << resources_map[Card::Color::Red] 		<< End();
-	std::cout << " " 				  				<< green << resources_map[Card::Color::Green] 		<< End(2);
+	std::cout << "Available lands: " << white << resources_map[Card::Color::White] << End();
+	std::cout << " " << blue << resources_map[Card::Color::Blue] << End();
+	std::cout << " " << gray << resources_map[Card::Color::Black] << End();
+	std::cout << " " << red << resources_map[Card::Color::Red] << End();
+	std::cout << " " << green << resources_map[Card::Color::Green] << End(1);
 
-	std::cout << "Your HP: " << get_health() << End(2);
+	std::cout << "Your HP: " << green << get_health() << End(2);
 }
 
 void Player::show_creatures()
 {
 	for (auto& creature : m_creatures)
 		if (creature.is_alive())
-		{
-			if (creature.get_color() == Card::Color::White)
-				std::cout << white;
-
-			else if (creature.get_color() == Card::Color::Blue)
-				std::cout << blue;
-
-			else if (creature.get_color() == Card::Color::Black)
-				std::cout << gray;
-
-			else if (creature.get_color() == Card::Color::Red)
-				std::cout << red;
-
-			else
-				std::cout << green;
-
-			std::cout << creature.get_name() << " (" << creature.get_power() << ", " << creature.get_toughness() << ")  " << End();
-		}
+			std::cout << get_color(creature.get_color()) << creature.get_name() << " (" << creature.get_power() << ", " << creature.get_toughness() << ")  " << End();
 
 	std::cout << End(1);
 }
@@ -337,32 +315,8 @@ void Player::show_creatures()
 void Player::begin_turn()
 {
 	std::cout << End(1) << magenta << bold << "--=( " + get_name() + "'s turn )=--" << End(2);
-
-	std::vector<Creature*> dead_creatures;
-
-	for (auto& creature : m_creatures)
-	{
-		if (creature.is_blocking())
-			creature.will_not_block();
-
-		if (!creature.is_alive())
-		{
-			dead_creatures.push_back(&creature);
-			creature.die();
-		}
-
-		else
-			creature.reset();
-	}
-
-	for (auto& dead_creature_ptr : dead_creatures)
-	{
-		m_graveyard.add(*dead_creature_ptr);
-		m_creatures.remove(*dead_creature_ptr);
-	}
-
-	// TODO : les créatures regagnent leurs points de vie / endurance au début du tour
-
+	reset_creatures();
+	get_opponent().reset_creatures();
 	draw_card();
 
 	if (m_alive)
@@ -465,6 +419,9 @@ void Player::main_phase()
 			play_card(m_hand[res]);
 		}
 	}
+
+	check_creatures_death();
+	get_opponent().check_creatures_death();
 }
 
 void Player::combat_phase()
@@ -562,16 +519,14 @@ void Player::combat_phase()
 		}
 	}
 
+	// TODO: Change order of targets
+
 	for (auto& creature : m_creatures)
 		if (creature.is_attacking())
-		{
-			creature.attack();
+			creature.apply_attack();
 
-			if (creature.is_alive())
-				get_opponent().reduce_health(creature.get_power());
-		}
-
-	// TODO: Change order of targets
+	check_creatures_death();
+	get_opponent().check_creatures_death();
 }
 
 void Player::secondary_phase()
@@ -625,3 +580,29 @@ void Player::add_creature(const Creature& creature)
 {
 	m_creatures.add(creature);
 }
+
+void Player::reset_creatures()
+{
+	for (auto& creature : m_creatures)
+		creature.reset();
+}
+
+void Player::check_creatures_death()
+{
+	std::vector<Creature*> dead_creatures;
+
+	for (auto& creature : m_creatures)
+		if (!creature.is_alive())
+		{
+			dead_creatures.push_back(&creature);
+			creature.die();
+		}
+
+	for (auto& dead_creature : dead_creatures)
+	{
+		dead_creature->reset();
+		m_graveyard.add(*dead_creature);
+		m_creatures.remove(*dead_creature);
+	}
+}
+

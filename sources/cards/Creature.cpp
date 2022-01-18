@@ -191,13 +191,16 @@ void Creature::will_not_block()
 	m_owner->get_opponent().remove_target(*this);
 }
 
-void Creature::attack()
+void Creature::apply_attack()
 {
-	if (!m_targets.empty())
+	if (m_targets.empty())
+		attack();
+
+	else
 	{
 		for (Creature* target : m_targets)
 		{
-			target->reduce_toughness(m_power);
+			attack(*target);
 			target->block(*this);
 
 			if (!m_alive)
@@ -212,6 +215,16 @@ void Creature::attack()
 	m_attacking = false;
 }
 
+void Creature::attack()
+{
+	m_owner->get_opponent().reduce_health(get_power());
+}
+
+void Creature::attack(Creature& card)
+{
+	card.reduce_toughness(get_power());
+}
+
 void Creature::block(Creature& card)
 {
 	card.reduce_toughness(get_power());
@@ -222,7 +235,10 @@ void Creature::reset()
 	Card::reset();
 	m_power = get_full_power();
 	m_toughness = get_full_toughness();
-	allow_attack();
+	m_can_attack = true;
+	m_attacking = false;
+	m_blocking = false;
+	m_targets.clear();
 }
 
 void Creature::print() const

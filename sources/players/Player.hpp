@@ -59,6 +59,8 @@ public:
 	void reduce_creatures_health(int amount);
 	Player& get_opponent() const;
 	void add_creature(const Creature& creature);
+	void reset_creatures();
+	void check_creatures_death();
 };
 
 #endif
