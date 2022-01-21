@@ -55,7 +55,9 @@ int MegaKnight::get_full_toughness() const
 void MegaKnight::spawn()
 {
 	Creature::spawn();
-	m_owner->get_opponent().reduce_creatures_health(1);
+
+	for (auto& creature : m_owner->get_opponent().creatures)
+		creature.reduce_toughness(1);
 }
 
 Card* MegaKnight::clone() const

@@ -32,6 +32,7 @@ protected:
 	bool m_blocking;
 	bool m_shield;
 	bool m_alive;
+	bool m_clone;
 	std::vector<Creature*> m_targets;
 
 public:
@@ -47,7 +48,7 @@ public:
 	virtual Type get_type() const override;
 	virtual std::string get_full_type() const override;
 	virtual std::string get_description() const override;
-	virtual std::vector<Capacity> get_capacities() const;
+	virtual std::vector<Capacity> get_capacities() const = 0;
 	virtual int get_full_power() const = 0;
 	virtual int get_full_toughness() const = 0;
 	virtual int get_power() const;
@@ -64,12 +65,12 @@ public:
 	virtual void will_attack();
 	virtual void will_not_attack();
 	virtual void change_order();
-	virtual void will_block(Creature& card);
+	virtual void will_block(Creature& creature);
 	virtual void will_not_block();
 	virtual void apply_attack();
 	virtual void attack();
-	virtual void attack(Creature& card);
-	virtual void block(Creature& card);
+	virtual void attack(Creature& creature);
+	virtual void block(Creature& creature);
 	virtual void reset() override;
 	virtual void print() const override;
 	virtual void die();

@@ -17,7 +17,7 @@ bool Player::is_alive()
 
 bool Player::can_attack()
 {
-	for (auto& creature : m_creatures)
+	for (auto& creature : creatures)
 		if (creature.can_attack())
 			return true;
 
@@ -26,7 +26,7 @@ bool Player::can_attack()
 
 bool Player::can_block()
 {
-	return m_creatures.size() > 0;
+	return creatures.size() > 0;
 }
 
 std::string Player::get_name() const
@@ -47,14 +47,17 @@ int Player::get_health() const
 void Player::set_health(int health)
 {
 	m_health = health;
+
+	if (m_health <= 0)
+	{
+		m_alive = false;
+		m_health = 0;
+	}
 }
 
 void Player::reduce_health(int amount)
 {
-	m_health -= amount;
-
-	if (m_health <= 0)
-		m_alive = false;
+	set_health(m_health - amount);
 }
 
 Player::Resources Player::get_resources()
@@ -69,41 +72,34 @@ Player::Resources Player::get_resources()
 		{ Card::Color::Green, 0 }
 	};
 
-	for (auto& land : m_lands)
-	{
+	for (auto& land : lands)
 		if (!land.is_engaged())
 		{
 			res[Card::Color::Colorless]++;
 			res[land.get_color()]++;
 		}
-	}
 
 	return res;
 }
 
 void Player::remove_target(const Creature& target)
 {
-	for(auto& creature : m_creatures)
+	for (auto& creature : creatures)
 		creature.remove_target(target);
-}
-
-PtrList<Card> Player::get_deck()
-{
-	return m_deck;
 }
 
 void Player::create_deck(const PtrList<Card>& deck)
 {
-	m_deck = deck;
+	this->deck = deck;
 
-	for (auto& card : m_deck)
+	for (auto& card : this->deck)
 		card.set_owner(*this);
 
-	m_library = m_deck;
+	library = this->deck;
 
 	// Shuffle the library
-	for (int i = 0; i < m_library.size(); i++)
-		m_library.swap(i, (size_t)random_int(0, (int)m_deck.size()));
+	for (int i = 0; i < library.size(); i++)
+		library.swap(i, (size_t)random_int(0, (int)this->deck.size()));
 
 	for (int i = 0; i < 6; i++)
 		draw_card();
@@ -113,20 +109,20 @@ void Player::play_card(const Card& card)
 {
 	if (card.get_type() == Card::Type::Creature)
 	{
-		m_creatures.add(card);
-		m_creatures.back().spawn();
+		creatures.add(card);
+		creatures.back().spawn();
 	}
 
 	else
-		m_lands.add(card);
+		lands.add(card);
 
-	m_hand.remove(card);
+	hand.remove(card);
 	// TODO : set_player()
 }
 
-bool Player::is_creature_playable(const Creature& creature)
+bool Player::is_card_playable(const Card& card)
 {
-	Card::Cost cost_map = creature.get_cost();
+	Card::Cost cost_map = card.get_cost();
 	Resources resources_map = get_resources();
 	Resources to_engage =
 	{
@@ -247,26 +243,26 @@ bool Player::is_creature_playable(const Creature& creature)
 		std::vector<std::string_view> colors;
 		std::vector<size_t> indexes;
 
-		for (int i = 0; i < m_lands.size(); i++)
-			if (!m_lands[i].is_engaged())
+		for (int i = 0; i < lands.size(); i++)
+			if (!lands[i].is_engaged())
 			{
-				choices.push_back(m_lands[i].get_name());
-				colors.push_back(get_color(m_lands[i].get_color()));
+				choices.push_back(lands[i].get_name());
+				colors.push_back(get_color(lands[i].get_color()));
 				indexes.push_back(i);
 			}
 
 		// TODO : Back button
 		int res = choice(choices, colors/*, { "- Back -" }*/);
 
-		if (to_engage[m_lands[indexes.at(res)].get_color()] > 0)
+		if (to_engage[lands[indexes.at(res)].get_color()] > 0)
 		{
-			m_lands[indexes.at(res)].engage();
-			to_engage[m_lands[indexes.at(res)].get_color()] -= 1;
+			lands[indexes.at(res)].engage();
+			to_engage[lands[indexes.at(res)].get_color()] -= 1;
 		}
 
 		else if (to_engage[Card::Color::Colorless] > 0)
 		{
-			m_lands[indexes.at(res)].engage();
+			lands[indexes.at(res)].engage();
 			to_engage[Card::Color::Colorless] -= 1;
 		}
 
@@ -305,7 +301,7 @@ void Player::show_board()
 
 void Player::show_creatures()
 {
-	for (auto& creature : m_creatures)
+	for (auto& creature : creatures)
 		if (creature.is_alive())
 			std::cout << get_color(creature.get_color()) << creature.get_name() << " (" << creature.get_power() << ", " << creature.get_toughness() << ")  " << End();
 
@@ -348,30 +344,30 @@ void Player::begin_turn()
 
 void Player::draw_card()
 {
-	if (m_library.empty())
+	if (library.empty())
 		m_alive = false;
 
 	else
 	{
-		m_hand.add(m_library.back());
-		m_library.remove(m_library.back());
+		hand.add(library.back());
+		library.remove(library.back());
 	}
 }
 
 void Player::disengage_cards()
 {
-	for (auto& creature : m_creatures)
+	for (auto& creature : creatures)
 		if (creature.is_engaged())
 			creature.disengage();
 
-	for (auto& land : m_lands)
+	for (auto& land : lands)
 		if (land.is_engaged())
 			land.disengage();
 }
 
 void Player::main_phase()
 {
-	while (m_hand.size() > 0)
+	while (hand.size() > 0)
 	{
 		show_board();
 
@@ -379,28 +375,28 @@ void Player::main_phase()
 		std::vector<std::string> hand_names = {};
 		std::vector<std::string_view> hand_colors = {};
 
-		for (int i = 0; i < m_hand.size(); i++)
+		for (int i = 0; i < hand.size(); i++)
 		{
-			hand_names.push_back(m_hand[i].get_name() + " (" + to_str(m_hand[i].get_type()) + ")");
-			hand_colors.push_back(get_color(m_hand[i].get_color()));
+			hand_names.push_back(hand[i].get_name() + " (" + to_str(hand[i].get_type()) + ")");
+			hand_colors.push_back(get_color(hand[i].get_color()));
 		}
 
 		int res = choice(hand_names, hand_colors, { "- Next -", "- Quit -" });
 
-		if (res == m_hand.size())
+		if (res == hand.size())
 			break;
 
-		if (res == m_hand.size() + 1)
+		if (res == hand.size() + 1)
 		{
 			quit_game();
 			continue;
 		}
 
-		if (m_hand[res].get_type() == Card::Type::Creature)
+		if (hand[res].get_type() == Card::Type::Creature)
 		{
-			Creature& creature = (Creature&)m_hand[res];
+			Creature& creature = (Creature&)hand[res];
 
-			if (!is_creature_playable(creature))
+			if (!is_card_playable(creature))
 				std::cout << red << "You don't have enough lands." << End(2);
 
 			else
@@ -414,9 +410,9 @@ void Player::main_phase()
 
 		else
 		{
-			std::cout << cyan << "[INFO] " << reset << "You played " << get_color(m_hand[res].get_color()) <<
-				italic << m_hand[res].get_name() << reset << "." << End(2);
-			play_card(m_hand[res]);
+			std::cout << cyan << "[INFO] " << reset << "You played " << get_color(hand[res].get_color()) <<
+				italic << hand[res].get_name() << reset << "." << End(2);
+			play_card(hand[res]);
 		}
 	}
 
@@ -434,12 +430,12 @@ void Player::combat_phase()
 		std::vector<std::string_view> attacking_creatures_color;
 		std::vector<size_t> indexes;
 
-		for (size_t i = 0; i < m_creatures.size(); i++)
+		for (size_t i = 0; i < creatures.size(); i++)
 		{
-			if (m_creatures[i].can_attack())
+			if (creatures[i].can_attack())
 			{
-				attacking_creatures_choice.push_back(m_creatures[i].get_name() + (m_creatures[i].is_engaged() ? " (E)" : ""));
-				attacking_creatures_color.push_back(get_color(m_creatures[i].get_color()));
+				attacking_creatures_choice.push_back(creatures[i].get_name() + (creatures[i].is_engaged() ? " (E)" : ""));
+				attacking_creatures_color.push_back(get_color(creatures[i].get_color()));
 				indexes.push_back(i);
 			}
 		}
@@ -460,15 +456,15 @@ void Player::combat_phase()
 			continue;
 		}
 
-		if (m_creatures[indexes.at(res)].is_attacking())
+		if (creatures[indexes.at(res)].is_attacking())
 		{
-			m_creatures[indexes.at(res)].will_not_attack();
+			creatures[indexes.at(res)].will_not_attack();
 			std::cout << cyan << "[INFO] " << reset << "You cancelled the attack of this creature." << End(2);
 		}
 
 		else
 		{
-			m_creatures[indexes.at(res)].will_attack();
+			creatures[indexes.at(res)].will_attack();
 			std::cout << cyan << "[INFO] " << reset << "This creature will attack." << End(2);
 		}
 	}
@@ -480,17 +476,17 @@ void Player::combat_phase()
 		std::vector<std::string> creature_to_block_choice;
 		std::vector<std::string_view> creature_to_block_color;
 
-		for (int i = 0; i < get_opponent().m_creatures.size(); i++)
+		for (int i = 0; i < get_opponent().creatures.size(); i++)
 		{
-			blocking_creatures_choice.push_back(get_opponent().m_creatures[i].get_name());
-			blocking_creatures_color.push_back(get_color(get_opponent().m_creatures[i].get_color()));
+			blocking_creatures_choice.push_back(get_opponent().creatures[i].get_name());
+			blocking_creatures_color.push_back(get_color(get_opponent().creatures[i].get_color()));
 		}
 
-		for (int i = 0; i < m_creatures.size(); i++)
-			if (m_creatures[i].is_attacking() && m_creatures[i].is_blockable())
+		for (int i = 0; i < creatures.size(); i++)
+			if (creatures[i].is_attacking() && creatures[i].is_blockable())
 			{
-				creature_to_block_choice.push_back(m_creatures[i].get_name());
-				creature_to_block_color.push_back(get_color(m_creatures[i].get_color()));
+				creature_to_block_choice.push_back(creatures[i].get_name());
+				creature_to_block_color.push_back(get_color(creatures[i].get_color()));
 			}
 
 		if (creature_to_block_choice.size() > 0)
@@ -505,7 +501,7 @@ void Player::combat_phase()
 				if (res == blocking_creatures_choice.size())
 					break;
 
-				if (get_opponent().m_creatures[res].is_blocking())
+				if (get_opponent().creatures[res].is_blocking())
 					std::cout << red << "You already selected this creature." << End(1);
 					// TODO: Change target block
 
@@ -513,7 +509,7 @@ void Player::combat_phase()
 				{
 					std::cout << "Select the creature you want to block:" << End(1);
 					int res_2 = choice(creature_to_block_choice, creature_to_block_color);
-					get_opponent().m_creatures[res].will_block(m_creatures[res_2]);
+					get_opponent().creatures[res].will_block(creatures[res_2]);
 				}
 			}
 		}
@@ -521,7 +517,7 @@ void Player::combat_phase()
 
 	// TODO: Change order of targets
 
-	for (auto& creature : m_creatures)
+	for (auto& creature : creatures)
 		if (creature.is_attacking())
 			creature.apply_attack();
 
@@ -536,23 +532,23 @@ void Player::secondary_phase()
 
 void Player::end_turn()
 {
-	if (m_hand.size() > 7)
+	if (hand.size() > 7)
 	{
 		std::vector<std::string> discard_choice;
 		std::vector<std::string_view> discard_color;
 
-		for (int i = 0; i < m_hand.size(); i++)
+		for (int i = 0; i < hand.size(); i++)
 		{
-			discard_choice.push_back(m_hand[i].get_name() + " (" + to_str(m_hand[i].get_type()) + ")");
-			discard_color.push_back(get_color(m_hand[i].get_color()));
+			discard_choice.push_back(hand[i].get_name() + " (" + to_str(hand[i].get_type()) + ")");
+			discard_color.push_back(get_color(hand[i].get_color()));
 		}
 
-		while (m_hand.size() > 7)
+		while (hand.size() > 7)
 		{
 			std::cout << red << "You have more than 7 cards in your hand, select a card to discard:" << End(1);
 			int res = choice(discard_choice, discard_color);
-			m_graveyard.add(m_hand[res]);
-			m_hand.remove(res);
+			graveyard.add(hand[res]);
+			hand.remove(res);
 		}
 	}
 }
@@ -560,12 +556,6 @@ void Player::end_turn()
 void Player::play()
 {
 	// TODO
-}
-
-void Player::reduce_creatures_health(int amount)
-{
-	for (auto& creature : m_creatures)
-		creature.reduce_toughness(amount);
 }
 
 Player& Player::get_opponent() const
@@ -576,14 +566,9 @@ Player& Player::get_opponent() const
 	return Game::players[0];
 }
 
-void Player::add_creature(const Creature& creature)
-{
-	m_creatures.add(creature);
-}
-
 void Player::reset_creatures()
 {
-	for (auto& creature : m_creatures)
+	for (auto& creature : creatures)
 		creature.reset();
 }
 
@@ -591,7 +576,7 @@ void Player::check_creatures_death()
 {
 	std::vector<Creature*> dead_creatures;
 
-	for (auto& creature : m_creatures)
+	for (auto& creature : creatures)
 		if (!creature.is_alive())
 		{
 			dead_creatures.push_back(&creature);
@@ -601,8 +586,8 @@ void Player::check_creatures_death()
 	for (auto& dead_creature : dead_creatures)
 	{
 		dead_creature->reset();
-		m_graveyard.add(*dead_creature);
-		m_creatures.remove(*dead_creature);
+		graveyard.add(*dead_creature);
+		creatures.remove(*dead_creature);
 	}
 }
 

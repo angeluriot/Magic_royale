@@ -7,7 +7,7 @@
 #include "utils/utils.hpp"
 
 Creature::Creature(int full_power, int full_toughness, const std::vector<Creature::Capacity>& capacities): Card(),
-	m_power(full_power), m_toughness(full_toughness), m_can_attack(false), m_attacking(false), m_blocking(false), m_shield(false), m_alive(true)
+	m_power(full_power), m_toughness(full_toughness), m_can_attack(false), m_attacking(false), m_blocking(false), m_shield(false), m_alive(true), m_clone(false)
 {
 	for (auto& capacity : capacities)
 	{
@@ -75,21 +75,6 @@ std::string Creature::get_description() const
 	}
 
 	return (description == "" ? "" : "\n" + description);
-}
-
-std::vector<Creature::Capacity> Creature::get_capacities() const
-{
-	return {};
-}
-
-int Creature::get_full_power() const
-{
-	return 0;
-}
-
-int Creature::get_full_toughness() const
-{
-	return 0;
 }
 
 int Creature::get_power() const
@@ -179,10 +164,10 @@ void Creature::change_order()
 	}
 }
 
-void Creature::will_block(Creature& card)
+void Creature::will_block(Creature& creature)
 {
 	m_blocking = true;
-	card.m_targets.push_back(this);
+	creature.m_targets.push_back(this);
 }
 
 void Creature::will_not_block()
@@ -220,21 +205,26 @@ void Creature::attack()
 	m_owner->get_opponent().reduce_health(get_power());
 }
 
-void Creature::attack(Creature& card)
+void Creature::attack(Creature& creature)
 {
-	card.reduce_toughness(get_power());
+	creature.reduce_toughness(get_power());
 }
 
-void Creature::block(Creature& card)
+void Creature::block(Creature& creature)
 {
-	card.reduce_toughness(get_power());
+	creature.reduce_toughness(get_power());
 }
 
 void Creature::reset()
 {
 	Card::reset();
-	m_power = get_full_power();
-	m_toughness = get_full_toughness();
+
+	if (!m_clone)
+	{
+		m_power = get_full_power();
+		m_toughness = get_full_toughness();
+	}
+
 	m_can_attack = true;
 	m_attacking = false;
 	m_blocking = false;

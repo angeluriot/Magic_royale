@@ -15,7 +15,8 @@ public:
 	enum class Type
 	{
 		Creature,
-		Land
+		Land,
+		Spell
 	};
 
 	enum class Color

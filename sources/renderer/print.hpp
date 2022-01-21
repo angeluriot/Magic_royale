@@ -28,7 +28,7 @@ constexpr std::string_view no_reverse = "\033[27m";
 constexpr std::string_view no_italic = "\033[23m";
 constexpr std::string_view no_bold = "\033[22m";
 
-class End
+struct End
 {
 private:
 

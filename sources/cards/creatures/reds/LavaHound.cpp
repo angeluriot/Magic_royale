@@ -57,7 +57,7 @@ int LavaHound::get_full_toughness() const
 
 void LavaHound::die()
 {
-	m_owner->add_creature(LavaPups());
+	m_owner->creatures.add(LavaPups());
 }
 
 Card* LavaHound::clone() const

@@ -8,7 +8,6 @@
 Player player_1;
 Player player_2;
 std::array<Player, 2> Game::players = { player_1, player_2 };
-int Game::turn = 0;
 const int Game::deck_size = 30;
 
 void Game::start()
@@ -48,13 +47,13 @@ void Game::create_decks()
 void Game::play()
 {
 	while (true)
-	{
 		for (auto& player : players)
 		{
 			if (player.is_alive())
 			{
 				if (player.get_opponent().is_alive())
 					player.begin_turn();
+
 				else
 				{
 					std::cout << magenta << bold << player.get_opponent().get_name() << reset << " has lost!" << End(1);
@@ -72,5 +71,4 @@ void Game::play()
 				return;
 			}
 		}
-	}
 }
