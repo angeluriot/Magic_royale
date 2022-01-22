@@ -124,6 +124,30 @@ bool Player::is_card_playable(const Card& card)
 {
 	Card::Cost cost_map = card.get_cost();
 	Resources resources_map = get_resources();
+
+	for (auto& [color, cost] : cost_map)
+		if (!(color == Card::Color::Colorless) && cost > 0)
+		{
+			if (cost > resources_map[color])
+				return false;
+
+			else
+			{
+				resources_map[color] -= cost;
+				resources_map[Card::Color::Colorless] -= cost;
+			}
+		}
+
+	if (cost_map[Card::Color::Colorless] > resources_map[Card::Color::Colorless])
+		return false;
+
+	return true;
+}
+
+bool Player::engage_lands(const Card& card)
+{
+	Card::Cost cost_map = card.get_cost();
+	Resources resources_map = get_resources();
 	Resources to_engage =
 	{
 		{ Card::Color::Colorless, 	0 },
@@ -138,7 +162,10 @@ bool Player::is_card_playable(const Card& card)
 		if (!(color == Card::Color::Colorless) && cost > 0)
 		{
 			if (cost > resources_map[color])
+			{
+				std::cout << red << "You don't have enough lands." << End(2);
 				return false;
+			}
 
 			else
 			{
@@ -149,13 +176,18 @@ bool Player::is_card_playable(const Card& card)
 		}
 
 	if (cost_map[Card::Color::Colorless] > resources_map[Card::Color::Colorless])
+	{
+		std::cout << red << "You don't have enough lands." << End(2);
 		return false;
+	}
 
 	else
 	{
 		resources_map[Card::Color::Colorless] -= cost_map[Card::Color::Colorless];
 		to_engage[Card::Color::Colorless] += cost_map[Card::Color::Colorless];
 	}
+
+	std::vector<size_t> already_engaged_indexes;
 
 	while (to_engage[Card::Color::White] > 0 || to_engage[Card::Color::Blue] > 0 || to_engage[Card::Color::Black] > 0 ||
 		to_engage[Card::Color::Red] > 0 || to_engage[Card::Color::Green] > 0 || to_engage[Card::Color::Colorless] > 0)
@@ -251,19 +283,29 @@ bool Player::is_card_playable(const Card& card)
 				indexes.push_back(i);
 			}
 
-		// TODO : Back button
-		int res = choice(choices, colors/*, { "- Back -" }*/);
+		int res = choice(choices, colors, { "- Back -" });
 
-		if (to_engage[lands[indexes.at(res)].get_color()] > 0)
+		if (res == indexes.size())
+		{
+			for (auto& index : already_engaged_indexes)
+				lands[index].disengage();
+
+			std::cout << red << "You cancelled your action." << End(2);
+			return false;
+		}
+
+		else if (to_engage[lands[indexes.at(res)].get_color()] > 0)
 		{
 			lands[indexes.at(res)].engage();
 			to_engage[lands[indexes.at(res)].get_color()] -= 1;
+			already_engaged_indexes.push_back(indexes.at(res));
 		}
 
 		else if (to_engage[Card::Color::Colorless] > 0)
 		{
 			lands[indexes.at(res)].engage();
 			to_engage[Card::Color::Colorless] -= 1;
+			already_engaged_indexes.push_back(indexes.at(res));
 		}
 
 		else
@@ -377,7 +419,18 @@ void Player::main_phase()
 
 		for (int i = 0; i < hand.size(); i++)
 		{
-			hand_names.push_back(hand[i].get_name() + " (" + to_str(hand[i].get_type()) + ")");
+			if (hand[i].get_type() == Card::Type::Creature)
+			{
+				if (is_card_playable(hand[i]))
+					hand_names.push_back(to_str(underline) + hand[i].get_name() + to_str(no_underline) + " (" + to_str(hand[i].get_type()) + ")");
+
+				else
+					hand_names.push_back(hand[i].get_name() + " (" + to_str(hand[i].get_type()) + ")");
+			}
+
+			else
+				hand_names.push_back(hand[i].get_name() + " (" + to_str(hand[i].get_type()) + ")");
+
 			hand_colors.push_back(get_color(hand[i].get_color()));
 		}
 
@@ -396,10 +449,7 @@ void Player::main_phase()
 		{
 			Creature& creature = (Creature&)hand[res];
 
-			if (!is_card_playable(creature))
-				std::cout << red << "You don't have enough lands." << End(2);
-
-			else
+			if (engage_lands(creature))
 			{
 				std::cout << cyan << "[INFO] " << reset << "You played " << get_color(creature.get_color()) <<
 					italic << creature.get_name() << reset << "." << End(2);
@@ -434,7 +484,12 @@ void Player::combat_phase()
 		{
 			if (creatures[i].can_attack())
 			{
-				attacking_creatures_choice.push_back(creatures[i].get_name() + (creatures[i].is_engaged() ? " (E)" : ""));
+				if (creatures[i].is_attacking())
+					attacking_creatures_choice.push_back(to_str(underline) + creatures[i].get_name() + to_str(no_underline) + (creatures[i].is_engaged() ? " (E)" : ""));
+
+				else
+					attacking_creatures_choice.push_back(creatures[i].get_name() + (creatures[i].is_engaged() ? " (E)" : ""));
+
 				attacking_creatures_color.push_back(get_color(creatures[i].get_color()));
 				indexes.push_back(i);
 			}
@@ -508,8 +563,9 @@ void Player::combat_phase()
 				else
 				{
 					std::cout << "Select the creature you want to block:" << End(1);
-					int res_2 = choice(creature_to_block_choice, creature_to_block_color);
-					get_opponent().creatures[res].will_block(creatures[res_2]);
+					int res_2 = choice(creature_to_block_choice, creature_to_block_color, { "- Back -" });
+					if (res_2 < creature_to_block_choice.size())
+						get_opponent().creatures[res].will_block(creatures[res_2]);
 				}
 			}
 		}

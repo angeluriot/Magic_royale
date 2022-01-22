@@ -11,15 +11,15 @@ public:
 
 	enum class Capacity
 	{
-		Flying,			// Fly
+		Flying,			// Can't be blocked by creatures that don't have Reach
 		Reach,			// Can reach flying creatures
-		FirstStrike,	// Attack first
-		Haste,			// Play on first turn
+		FirstStrike,	// Attacks first when blocking
+		Haste,			// Can attack on first turn
 		Unblockable,	// Can't be blocked
-		ZoneDamage,		// Damages go to all blockers
-		MultiHit,		// Attack blockers and the player
-		Freeze,			// Low the blocker's dammages
-		Kamikaze,		// Die on attack
+		ZoneDamage,		// Damages all blockers
+		MultiHit,		// Attacks blockers and the player
+		Freeze,			// Lowers the blocker's damage
+		Kamikaze,		// Dies on attack
 		Shield			// The shield takes the first hit
 	};
 
