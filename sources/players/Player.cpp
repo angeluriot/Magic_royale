@@ -358,31 +358,30 @@ void Player::begin_turn()
 	reset_creatures();
 	get_opponent().reset_creatures();
 	draw_card();
+	disengage_cards();
 
-	if (m_alive)
+	for (auto& creature : creatures)
+		creature.special_ability();
+
+	std::cout << End(1) << yellow << bold << "--=( Main Phase )=--" << End(2);
+	main_phase();
+
+	if (can_attack())
 	{
-		disengage_cards();
+		std::cout << End(1) << yellow << bold << "--=( Combat Phase )=--" << End(2);
+		combat_phase();
+	}
 
-		std::cout << End(1) << yellow << bold << "--=( Main Phase )=--" << End(2);
-		main_phase();
-
+	if (get_opponent().is_alive())
+	{
 		if (can_attack())
 		{
-			std::cout << End(1) << yellow << bold << "--=( Combat Phase )=--" << End(2);
-			combat_phase();
+			std::cout << End(1) << yellow << bold << "--=( Secondary Phase )=--" << End(2);
+			secondary_phase();
 		}
 
-		if (get_opponent().is_alive())
-		{
-			if (can_attack())
-			{
-				std::cout << End(1) << yellow << bold << "--=( Secondary Phase )=--" << End(2);
-				secondary_phase();
-			}
-
-			std::cout << End(1) << yellow << bold << "--=( End of turn )=--" << End(2);
-			end_turn();
-		}
+		std::cout << End(1) << yellow << bold << "--=( End of turn )=--" << End(2);
+		end_turn();
 	}
 }
 

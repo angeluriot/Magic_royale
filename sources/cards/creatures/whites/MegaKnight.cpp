@@ -31,7 +31,7 @@ std::vector<Creature::Capacity> MegaKnight::get_capacities() const
 
 std::string MegaKnight::get_description() const
 {
-	return Creature::get_description() + "";
+	return Creature::get_description() + "Inflicts 2 damage to all enemy creatures on spawn.";
 }
 
 Card::Cost MegaKnight::get_cost() const
@@ -58,7 +58,7 @@ void MegaKnight::spawn()
 	Creature::spawn();
 
 	for (auto& creature : m_owner->get_opponent().creatures)
-		creature.reduce_toughness(1);
+		creature.modify_toughness(-2);
 }
 
 Card* MegaKnight::clone() const

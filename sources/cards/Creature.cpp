@@ -87,9 +87,15 @@ int Creature::get_toughness() const
 	return m_toughness;
 }
 
-void Creature::reduce_toughness(int amount)
+void Creature::modify_power(int amount)
 {
-	m_toughness -= amount;
+	if (m_power >= 0 || amount > 0)
+		m_power += amount;
+}
+
+void Creature::modify_toughness(int amount)
+{
+	m_toughness += amount;
 
 	if (m_toughness <= 0)
 		m_alive = false;
@@ -213,12 +219,12 @@ void Creature::attack()
 
 void Creature::attack(Creature& creature)
 {
-	creature.reduce_toughness(get_power());
+	creature.modify_toughness(- get_power());
 }
 
 void Creature::block(Creature& creature)
 {
-	creature.reduce_toughness(get_power());
+	creature.modify_toughness(- get_power());
 }
 
 void Creature::reset()

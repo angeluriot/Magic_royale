@@ -1,4 +1,5 @@
 #include "cards/creatures/blues/IceWizard.hpp"
+#include "players/Player.hpp"
 
 IceWizard::IceWizard(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
 
@@ -31,7 +32,7 @@ std::vector<Creature::Capacity> IceWizard::get_capacities() const
 
 std::string IceWizard::get_description() const
 {
-	return Creature::get_description() + "";
+	return Creature::get_description() + "Inflicts the effects of Freeze capacity to all enemy creatures on spawn.";
 }
 
 Card::Cost IceWizard::get_cost() const
@@ -51,6 +52,14 @@ int IceWizard::get_full_power() const
 int IceWizard::get_full_toughness() const
 {
 	return 3;
+}
+
+void IceWizard::spawn()
+{
+	Creature::spawn();
+
+	for (auto& creature : m_owner->get_opponent().creatures)
+		creature.modify_power(-1);
 }
 
 Card* IceWizard::clone() const

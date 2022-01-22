@@ -53,7 +53,8 @@ public:
 	virtual int get_full_toughness() const = 0;
 	virtual int get_power() const;
 	virtual int get_toughness() const;
-	virtual void reduce_toughness(int amount);
+	virtual void modify_power(int amout);
+	virtual void modify_toughness(int amount);
 	virtual void remove_target(const Creature& target);
 	virtual void spawn();
 	virtual void special_ability();
