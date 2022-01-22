@@ -97,19 +97,23 @@ void Creature::reduce_toughness(int amount)
 
 void Creature::remove_target(const Creature& target)
 {
-	for (auto it = m_targets.begin(); it != m_targets.end(); ++it)
+	for (auto it = m_targets.begin(); it != m_targets.end();)
+	{
 		if (*it == &target)
-			m_targets.erase(it);
+			it = m_targets.erase(it);
+		else
+			++it;
+	}
 }
 
 void Creature::spawn() {}
 
 void Creature::special_ability() {}
 
-bool Creature::is_blockable() const
+bool Creature::has(Capacity capacity) const
 {
 	auto capacities = get_capacities();
-	return !(std::find(capacities.begin(), capacities.end(), Capacity::Unblockable) != capacities.end());
+	return std::find(capacities.begin(), capacities.end(), capacity) != capacities.end();
 }
 
 bool Creature::can_attack() const
@@ -185,7 +189,9 @@ void Creature::apply_attack()
 	{
 		for (Creature* target : m_targets)
 		{
-			attack(*target);
+			if (!(target->has(Capacity::Flying) && !has(Capacity::Reach)))
+				attack(*target);
+
 			target->block(*this);
 
 			if (!m_alive)

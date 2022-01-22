@@ -47,7 +47,7 @@ Card::Cost LavaHound::get_cost() const
 
 int LavaHound::get_full_power() const
 {
-	return 10;
+	return 2;
 }
 
 int LavaHound::get_full_toughness() const
@@ -58,6 +58,7 @@ int LavaHound::get_full_toughness() const
 void LavaHound::die()
 {
 	m_owner->creatures.add(LavaPups());
+	m_owner->creatures.back().set_owner(*m_owner);
 }
 
 Card* LavaHound::clone() const

@@ -57,7 +57,7 @@ public:
 	virtual void remove_target(const Creature& target);
 	virtual void spawn();
 	virtual void special_ability();
-	virtual bool is_blockable() const;
+	virtual bool has(Capacity capacity) const;
 	virtual bool can_attack() const;
 	virtual void allow_attack();
 	virtual bool is_attacking() const;

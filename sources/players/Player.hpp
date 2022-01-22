@@ -35,7 +35,6 @@ public:
 	void revive();
 	bool is_alive();
 	bool can_attack();
-	bool can_block();
 	std::string get_name() const;
 	void set_name(const std::string& name);
 	int get_health() const;
@@ -53,6 +52,7 @@ public:
 	void disengage_cards();
 	void main_phase();
 	void combat_phase();
+	void block();
 	void secondary_phase();
 	void end_turn();
 	void play();

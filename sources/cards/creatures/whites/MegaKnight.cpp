@@ -24,7 +24,8 @@ std::vector<Creature::Capacity> MegaKnight::get_capacities() const
 {
 	return
 	{
-		Capacity::ZoneDamage
+		Capacity::ZoneDamage,
+		Capacity::FirstStrike
 	};
 }
 

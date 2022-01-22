@@ -56,6 +56,7 @@ int Golem::get_full_toughness() const
 void Golem::die()
 {
 	m_owner->creatures.add(Golemites());
+	m_owner->creatures.back().set_owner(*m_owner);
 }
 
 Card* Golem::clone() const

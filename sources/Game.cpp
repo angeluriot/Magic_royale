@@ -4,6 +4,9 @@
 #include "utils/utils.hpp"
 #include "utils/files.hpp"
 #include <filesystem>
+#include "cards/creatures/blues/IceWizard.hpp"
+#include "cards/creatures/whites/MegaKnight.hpp"
+#include "cards/creatures/reds/LavaHound.hpp"
 
 Player player_1;
 Player player_2;
@@ -46,6 +49,20 @@ void Game::create_decks()
 
 void Game::play()
 {
+	players[0].creatures.add(MegaKnight());
+	players[0].creatures.add(LavaHound());
+	players[0].creatures.add(IceWizard());
+
+	for (auto& creature : players[0].creatures)
+		creature.set_owner(players[0]);
+
+	players[1].creatures.add(MegaKnight());
+	players[1].creatures.add(LavaHound());
+	players[1].creatures.add(IceWizard());
+
+	for (auto& creature : players[1].creatures)
+		creature.set_owner(players[1]);
+
 	while (true)
 		for (auto& player : players)
 		{
