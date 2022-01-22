@@ -33,13 +33,13 @@ Card::Cost Skeletons::get_cost() const
 {
 	return
 	{
-		{ Color::Black, 1 }
+		{ Color::Colorless, 1 }
 	};
 }
 
 int Skeletons::get_full_power() const
 {
-	return 1;
+	return 2;
 }
 
 int Skeletons::get_full_toughness() const
