@@ -10,6 +10,12 @@ Player player_2;
 std::array<Player, 2> Game::players = { player_1, player_2 };
 const int Game::deck_size = 30;
 
+void Game::reset_game()
+{
+	players[0].reset_player();
+	players[1].reset_player();
+}
+
 void Game::start()
 {
 	for (int i = 0; i < 2; i++)

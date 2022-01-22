@@ -32,6 +32,7 @@ public:
 
 	Player();
 
+	void reset_player();
 	void revive();
 	bool is_alive();
 	bool can_attack();

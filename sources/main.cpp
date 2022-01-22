@@ -26,6 +26,7 @@ int main()
 
 		if (res == 0)
 		{
+			Game::reset_game();
 			Game::start();
 			Game::create_decks();
 			Game::play();

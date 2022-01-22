@@ -5,6 +5,18 @@
 
 Player::Player(): m_name(""), m_health(20), m_alive(true) {}
 
+void Player::reset_player()
+{
+	deck.clear();
+	library.clear();
+	hand.clear();
+	lands.clear();
+	creatures.clear();
+	graveyard.clear();
+	m_health = 20;
+	m_alive = true;
+}
+
 void Player::revive()
 {
 	m_alive = true;
