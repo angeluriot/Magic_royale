@@ -4,14 +4,17 @@
 #include "utils/utils.hpp"
 #include "utils/files.hpp"
 #include <filesystem>
-#include "cards/creatures/blues/IceWizard.hpp"
-#include "cards/creatures/whites/MegaKnight.hpp"
-#include "cards/creatures/reds/LavaHound.hpp"
 
 Player player_1;
 Player player_2;
 std::array<Player, 2> Game::players = { player_1, player_2 };
 const int Game::deck_size = 30;
+
+void Game::reset_game()
+{
+	players[0].reset_player();
+	players[1].reset_player();
+}
 
 void Game::start()
 {
@@ -49,20 +52,6 @@ void Game::create_decks()
 
 void Game::play()
 {
-	players[0].creatures.add(MegaKnight());
-	players[0].creatures.add(LavaHound());
-	players[0].creatures.add(IceWizard());
-
-	for (auto& creature : players[0].creatures)
-		creature.set_owner(players[0]);
-
-	players[1].creatures.add(MegaKnight());
-	players[1].creatures.add(LavaHound());
-	players[1].creatures.add(IceWizard());
-
-	for (auto& creature : players[1].creatures)
-		creature.set_owner(players[1]);
-
 	while (true)
 		for (auto& player : players)
 		{
@@ -75,7 +64,6 @@ void Game::play()
 				{
 					std::cout << magenta << bold << player.get_opponent().get_name() << reset << " has lost!" << End(1);
 					std::cout << magenta << bold << player.get_name() << reset << " wins this game!" << End(2);
-					player.get_opponent().revive();
 					return;
 				}
 			}
@@ -84,7 +72,6 @@ void Game::play()
 			{
 				std::cout << magenta << bold << player.get_name() << reset << " has lost!" << End(1);
 				std::cout << magenta << bold << player.get_opponent().get_name() << reset << " wins this game!" << End(2);
-				player.revive();
 				return;
 			}
 		}

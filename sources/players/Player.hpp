@@ -32,7 +32,7 @@ public:
 
 	Player();
 
-	void revive();
+	void reset_player();
 	bool is_alive();
 	bool can_attack();
 	std::string get_name() const;
@@ -45,6 +45,7 @@ public:
 	void create_deck(const PtrList<Card>& deck);
 	void play_card(const Card& card);
 	bool is_card_playable(const Card& card);
+	bool engage_lands(const Card& card);
 	void show_board();
 	void show_creatures();
 	void begin_turn();

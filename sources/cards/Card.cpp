@@ -7,6 +7,7 @@
 
 #include "cards/creatures/reds/LavaHound.hpp"
 #include "cards/creatures/blacks/Pekka.hpp"
+#include "cards/creatures/blacks/Skeletons.hpp"
 #include "cards/creatures/blues/iceWizard.hpp"
 #include "cards/creatures/greens/ElectroGiant.hpp"
 #include "cards/creatures/greens/Golem.hpp"
@@ -24,6 +25,7 @@ PtrList<Card> get_all_card()
 
 	cards.add(LavaHound());
 	cards.add(Pekka());
+	cards.add(Skeletons());
 	cards.add(IceWizard());
 	cards.add(ElectroGiant());
 	cards.add(Golem());

@@ -11,6 +11,7 @@ public:
 	static std::array<Player, 2> players;
 	static const int deck_size;
 
+	static void reset_game();
 	static void start();
 	static void create_decks();
 	static void play();
