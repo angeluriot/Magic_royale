@@ -312,15 +312,38 @@ void Creature::reset()
 	Card::reset();
 
 	if (!m_clone)
-	{
-		m_power = get_full_power();
 		m_toughness = get_full_toughness();
-	}
 
+	m_power = get_full_power();
 	m_can_attack = true;
 	m_attacking = false;
 	m_blocking = false;
 	m_targets.clear();
+}
+
+void Creature::full_reset()
+{
+	Card::reset();
+	m_power = get_full_power();
+	m_toughness = get_full_toughness();
+	m_can_attack = false;
+	m_attacking = false;
+	m_blocking = false;
+	m_shield = false;
+	m_alive = true;
+	m_targets.clear();
+
+	if (has(Capacity::Shield))
+		m_shield = true;
+
+	if (has(Capacity::Haste))
+		m_can_attack = true;
+}
+
+void Creature::set_clone()
+{
+	m_toughness = 1;
+	m_clone = true;
 }
 
 void Creature::print() const

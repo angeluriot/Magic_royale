@@ -3,7 +3,7 @@ CC = g++
 CFLAGS = -Wall -Wextra -std=c++17
 
 SRCS_DIR = sources
-SRCS_SUB_DIRS = "cards" "players" "utils" "renderer" "cards/lands" "cards/creatures" "cards/creatures/blacks" "cards/creatures/blues" "cards/creatures/greens" "cards/creatures/reds" "cards/creatures/whites" "cards/creatures/generateds"
+SRCS_SUB_DIRS = "cards" "players" "utils" "renderer" "cards/lands" "cards/creatures" "cards/spells" "cards/creatures/blacks" "cards/creatures/blues" "cards/creatures/greens" "cards/creatures/reds" "cards/creatures/whites" "cards/creatures/generateds"
 INCS = -Isources
 OBJS_DIR = objects
 

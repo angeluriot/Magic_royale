@@ -20,6 +20,7 @@ private:
 	std::string m_name;
 	int m_health;
 	bool m_alive;
+	bool m_freezed;
 
 public:
 
@@ -35,6 +36,7 @@ public:
 	void reset_player();
 	bool is_alive();
 	bool can_attack();
+	void freeze();
 	std::string get_name() const;
 	void set_name(const std::string& name);
 	int get_health() const;

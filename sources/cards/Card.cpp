@@ -33,6 +33,14 @@
 #include "cards/lands/Swamp.hpp"
 
 #include "cards/spells/Lightning.hpp"
+#include "cards/spells/Rocket.hpp"
+#include "cards/spells/Graveyard.hpp"
+#include "cards/spells/Freeze.hpp"
+#include "cards/spells/Poison.hpp"
+#include "cards/spells/Fireball.hpp"
+#include "cards/spells/Arrows.hpp"
+#include "cards/spells/Tornado.hpp"
+#include "cards/spells/Clone.hpp"
 
 PtrList<Card> get_all_card()
 {
@@ -66,6 +74,14 @@ PtrList<Card> get_all_card()
 	cards.add(Swamp());
 
 	cards.add(Lightning());
+	cards.add(Rocket());
+	cards.add(Graveyard());
+	cards.add(Freeze());
+	cards.add(Poison());
+	cards.add(Fireball());
+	cards.add(Arrows());
+	cards.add(Tornado());
+	cards.add(Clone());
 
 	return cards;
 }

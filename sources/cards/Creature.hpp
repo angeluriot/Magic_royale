@@ -73,6 +73,8 @@ public:
 	virtual int attack(Creature& creature, int power_left);
 	virtual void block(Creature& creature);
 	virtual void reset() override;
+	virtual void full_reset();
+	virtual void set_clone();
 	virtual void print() const override;
 	virtual void die();
 };

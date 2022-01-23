@@ -4,7 +4,7 @@
 #include "utils/utils.hpp"
 #include "cards/Spell.hpp"
 
-Player::Player(): m_name(""), m_health(20), m_alive(true) {}
+Player::Player(): m_name(""), m_health(20), m_alive(true), m_freezed(false) {}
 
 void Player::reset_player()
 {
@@ -16,6 +16,7 @@ void Player::reset_player()
 	graveyard.clear();
 	m_health = 20;
 	m_alive = true;
+	m_freezed = false;
 }
 
 bool Player::is_alive()
@@ -30,6 +31,11 @@ bool Player::can_attack()
 			return true;
 
 	return false;
+}
+
+void Player::freeze()
+{
+	m_freezed = true;
 }
 
 std::string Player::get_name() const
@@ -110,6 +116,8 @@ void Player::create_deck(const PtrList<Card>& deck)
 
 void Player::play_card(const Card& card)
 {
+	std::cout << cyan << "[INFO] " << reset << "You played " << get_color(card.get_color()) << italic << card.get_name() << reset << "." << End(2);
+
 	if (card.get_type() == Card::Type::Creature)
 	{
 		creatures.add(card);
@@ -119,6 +127,7 @@ void Player::play_card(const Card& card)
 	else if (card.get_type() == Card::Type::Spell)
 	{
 		((Spell&)card).apply_effect();
+		graveyard.add(card);
 	}
 
 	else
@@ -364,6 +373,8 @@ void Player::begin_turn()
 	get_opponent().reset_creatures();
 	draw_card();
 	disengage_cards();
+	m_freezed = false;
+	get_opponent().m_freezed = false;
 
 	for (auto& creature : creatures)
 		creature.special_ability();
@@ -454,21 +465,11 @@ void Player::main_phase()
 		if (hand[res].get_type() == Card::Type::Creature || hand[res].get_type() == Card::Type::Spell)
 		{
 			if (engage_lands(hand[res]))
-			{
-				std::cout << cyan << "[INFO] " << reset << "You played " << get_color(hand[res].get_color()) <<
-					italic << hand[res].get_name() << reset << "." << End(2);
-
 				play_card(hand[res]);
-			}
 		}
 
 		else
-		{
-			std::cout << cyan << "[INFO] " << reset << "You played " << get_color(hand[res].get_color()) <<
-				italic << hand[res].get_name() << reset << "." << End(2);
-
 			play_card(hand[res]);
-		}
 	}
 
 	check_creatures_death();
@@ -543,7 +544,7 @@ void Player::combat_phase()
 
 void Player::block()
 {
-	if (creatures.size() > 0)
+	if (creatures.size() > 0 && !m_freezed)
 	{
 		std::vector<std::string> blocking_choices;
 		std::vector<std::string_view> blocking_colors;
@@ -631,8 +632,8 @@ void Player::block()
 
 					if (res_2 < final_to_block_choices.size())
 					{
-						std::cout << cyan << "[INFO] " << reset << final_blocking_colors[res] << final_blocking_choices[res] << reset <<
-							" will block " << final_to_block_colors[res_2] << final_to_block_choices[res_2] << reset << "." << End(2);
+						std::cout << cyan << "[INFO] " << reset << italic << final_blocking_colors[res] << final_blocking_choices[res] << reset <<
+							" will block " << italic << final_to_block_colors[res_2] << final_to_block_choices[res_2] << reset << "." << End(2);
 
 						creatures[final_blocking_indexes[res]].will_block(get_opponent().creatures[final_to_block_indexes[res_2]]);
 					}
