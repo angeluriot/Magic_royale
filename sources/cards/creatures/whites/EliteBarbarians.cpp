@@ -34,7 +34,7 @@ Card::Cost EliteBarbarians::get_cost() const
 	return
 	{
 		{ Color::Colorless, 4 },
-        { Color::White, 2 }
+		{ Color::White, 2 }
 	};
 }
 

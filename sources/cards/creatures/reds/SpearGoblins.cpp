@@ -22,9 +22,9 @@ std::string SpearGoblins::get_name() const
 std::vector<Creature::Capacity> SpearGoblins::get_capacities() const
 {
 	return
-    {
-        Capacity::Reach
-    };
+	{
+		Capacity::Reach
+	};
 }
 
 std::string SpearGoblins::get_description() const
@@ -37,7 +37,7 @@ Card::Cost SpearGoblins::get_cost() const
 	return
 	{
 		{ Color::Colorless, 1 },
-        { Color::Red, 1 }
+		{ Color::Red, 1 }
 	};
 }
 

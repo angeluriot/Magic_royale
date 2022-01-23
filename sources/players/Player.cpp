@@ -361,7 +361,7 @@ void Player::show_creatures()
 {
 	for (auto& creature : creatures)
 		if (creature.is_alive())
-			std::cout << get_color(creature.get_color()) << creature.get_name() << " (" << creature.get_power() << ", " << creature.get_toughness() << ")  " << End();
+			std::cout << get_color(creature.get_color()) << creature.get_name() << " (" << creature.get_power() << "/" << creature.get_toughness() << ")  " << End();
 
 	std::cout << End(1);
 }
@@ -377,6 +377,9 @@ void Player::begin_turn()
 	get_opponent().m_freezed = false;
 
 	for (auto& creature : creatures)
+		creature.special_ability();
+
+	for (auto& creature : get_opponent().creatures)
 		creature.special_ability();
 
 	std::cout << End(1) << yellow << bold << "--=( Main Phase )=--" << End(2);
@@ -464,7 +467,10 @@ void Player::main_phase()
 
 		if (hand[res].get_type() == Card::Type::Creature || hand[res].get_type() == Card::Type::Spell)
 		{
-			if (engage_lands(hand[res]))
+			hand[res].print();
+			int res_2 = choice({ "- Play card -", "- Back -" }, { green, red });
+
+			if (res_2 == 0 && engage_lands(hand[res]))
 				play_card(hand[res]);
 		}
 
@@ -545,101 +551,101 @@ void Player::combat_phase()
 void Player::block()
 {
 	if (creatures.size() > 0 && !m_freezed)
-	{
-		std::vector<std::string> blocking_choices;
-		std::vector<std::string_view> blocking_colors;
-		std::vector<size_t> blocking_indexes;
-
-		std::vector<std::string> reach_blocking_choices;
-		std::vector<std::string_view> reach_blocking_colors;
-		std::vector<size_t> reach_blocking_indexes;
-
-		std::vector<std::string> no_flying_to_block_choices;
-		std::vector<std::string_view> no_flying_to_block_colors;
-		std::vector<size_t> no_flying_to_block_indexes;
-
-		std::vector<std::string> to_block_choices;
-		std::vector<std::string_view> to_block_colors;
-		std::vector<size_t> to_block_indexes;
-
-		for (int i = 0; i < creatures.size(); i++)
+		while (true)
 		{
-			if (creatures[i].is_blocking())
-				blocking_choices.push_back(to_str(underline) + creatures[i].get_name() + to_str(no_underline));
-			else
-				blocking_choices.push_back(creatures[i].get_name());
+			std::vector<std::string> blocking_choices;
+			std::vector<std::string_view> blocking_colors;
+			std::vector<size_t> blocking_indexes;
 
-			blocking_colors.push_back(get_color(creatures[i].get_color()));
-			blocking_indexes.push_back(i);
+			std::vector<std::string> reach_blocking_choices;
+			std::vector<std::string_view> reach_blocking_colors;
+			std::vector<size_t> reach_blocking_indexes;
 
-			if (creatures[i].has(Creature::Capacity::Reach))
+			std::vector<std::string> no_flying_to_block_choices;
+			std::vector<std::string_view> no_flying_to_block_colors;
+			std::vector<size_t> no_flying_to_block_indexes;
+
+			std::vector<std::string> to_block_choices;
+			std::vector<std::string_view> to_block_colors;
+			std::vector<size_t> to_block_indexes;
+
+			for (int i = 0; i < creatures.size(); i++)
 			{
 				if (creatures[i].is_blocking())
-					reach_blocking_choices.push_back(to_str(underline) + creatures[i].get_name() + to_str(no_underline));
+					blocking_choices.push_back(to_str(underline) + creatures[i].get_name() + to_str(no_underline));
 				else
-					reach_blocking_choices.push_back(creatures[i].get_name());
+					blocking_choices.push_back(creatures[i].get_name());
 
-				reach_blocking_colors.push_back(get_color(creatures[i].get_color()));
-				reach_blocking_indexes.push_back(i);
-			}
-		}
+				blocking_colors.push_back(get_color(creatures[i].get_color()));
+				blocking_indexes.push_back(i);
 
-		for (int i = 0; i < get_opponent().creatures.size(); i++)
-			if (get_opponent().creatures[i].is_attacking() && !get_opponent().creatures[i].has(Creature::Capacity::Unblockable))
-			{
-				to_block_choices.push_back(get_opponent().creatures[i].get_name());
-				to_block_colors.push_back(get_color(get_opponent().creatures[i].get_color()));
-				to_block_indexes.push_back(i);
-
-				if (!get_opponent().creatures[i].has(Creature::Capacity::Flying))
+				if (creatures[i].has(Creature::Capacity::Reach))
 				{
-					no_flying_to_block_choices.push_back(get_opponent().creatures[i].get_name());
-					no_flying_to_block_colors.push_back(get_color(get_opponent().creatures[i].get_color()));
-					no_flying_to_block_indexes.push_back(i);
+					if (creatures[i].is_blocking())
+						reach_blocking_choices.push_back(to_str(underline) + creatures[i].get_name() + to_str(no_underline));
+					else
+						reach_blocking_choices.push_back(creatures[i].get_name());
+
+					reach_blocking_colors.push_back(get_color(creatures[i].get_color()));
+					reach_blocking_indexes.push_back(i);
 				}
 			}
 
-		if (to_block_choices.size() > 0 && !(reach_blocking_choices.size() == 0 && no_flying_to_block_choices.size() == 0))
-			while (true)
-			{
-				std::cout << magenta << bold << get_name() << reset << ", select creatures to block "
-					<< magenta << bold << get_opponent().get_name() << reset << "'s attack:" << End(1);
-
-				auto& final_blocking_choices = no_flying_to_block_choices.size() == 0 ? reach_blocking_choices : blocking_choices;
-				auto& final_blocking_colors = no_flying_to_block_choices.size() == 0 ? reach_blocking_colors : blocking_colors;
-				auto& final_blocking_indexes = no_flying_to_block_choices.size() == 0 ? reach_blocking_indexes : blocking_indexes;
-
-				int res = choice(final_blocking_choices, final_blocking_colors, { "- Next -" });
-
-				if (res == final_blocking_choices.size())
-					break;
-
-				if (creatures[final_blocking_indexes[res]].is_blocking())
+			for (int i = 0; i < get_opponent().creatures.size(); i++)
+				if (get_opponent().creatures[i].is_attacking() && !get_opponent().creatures[i].has(Creature::Capacity::Unblockable))
 				{
-					std::cout << cyan << "[INFO] " << reset << "You cancelled the blocking of this creature." << End(2);
-					creatures[final_blocking_indexes[res]].will_not_block();
-				}
+					to_block_choices.push_back(get_opponent().creatures[i].get_name());
+					to_block_colors.push_back(get_color(get_opponent().creatures[i].get_color()));
+					to_block_indexes.push_back(i);
 
-				else
-				{
-					std::cout << "Select the creature you want to block:" << End(1);
-
-					auto& final_to_block_choices = creatures[final_blocking_indexes[res]].has(Creature::Capacity::Reach) ? to_block_choices : no_flying_to_block_choices;
-					auto& final_to_block_colors = creatures[final_blocking_indexes[res]].has(Creature::Capacity::Reach) ? to_block_colors : no_flying_to_block_colors;
-					auto& final_to_block_indexes = creatures[final_blocking_indexes[res]].has(Creature::Capacity::Reach) ? to_block_indexes : no_flying_to_block_indexes;
-
-					int res_2 = choice(final_to_block_choices, final_to_block_colors, { "- Back -" });
-
-					if (res_2 < final_to_block_choices.size())
+					if (!get_opponent().creatures[i].has(Creature::Capacity::Flying))
 					{
-						std::cout << cyan << "[INFO] " << reset << italic << final_blocking_colors[res] << final_blocking_choices[res] << reset <<
-							" will block " << italic << final_to_block_colors[res_2] << final_to_block_choices[res_2] << reset << "." << End(2);
-
-						creatures[final_blocking_indexes[res]].will_block(get_opponent().creatures[final_to_block_indexes[res_2]]);
+						no_flying_to_block_choices.push_back(get_opponent().creatures[i].get_name());
+						no_flying_to_block_colors.push_back(get_color(get_opponent().creatures[i].get_color()));
+						no_flying_to_block_indexes.push_back(i);
 					}
 				}
+
+			if (to_block_choices.size() <= 0 || (reach_blocking_choices.size() == 0 && no_flying_to_block_choices.size() == 0))
+				break;
+
+			std::cout << magenta << bold << get_name() << reset << ", select creatures to block "
+				<< magenta << bold << get_opponent().get_name() << reset << "'s attack:" << End(1);
+
+			auto& final_blocking_choices = no_flying_to_block_choices.size() == 0 ? reach_blocking_choices : blocking_choices;
+			auto& final_blocking_colors = no_flying_to_block_choices.size() == 0 ? reach_blocking_colors : blocking_colors;
+			auto& final_blocking_indexes = no_flying_to_block_choices.size() == 0 ? reach_blocking_indexes : blocking_indexes;
+
+			int res = choice(final_blocking_choices, final_blocking_colors, { "- Next -" });
+
+			if (res == final_blocking_choices.size())
+				break;
+
+			if (creatures[final_blocking_indexes[res]].is_blocking())
+			{
+				std::cout << cyan << "[INFO] " << reset << "You cancelled the blocking of this creature." << End(2);
+				creatures[final_blocking_indexes[res]].will_not_block();
 			}
-	}
+
+			else
+			{
+				std::cout << "Select the creature you want to block:" << End(1);
+
+				auto& final_to_block_choices = creatures[final_blocking_indexes[res]].has(Creature::Capacity::Reach) ? to_block_choices : no_flying_to_block_choices;
+				auto& final_to_block_colors = creatures[final_blocking_indexes[res]].has(Creature::Capacity::Reach) ? to_block_colors : no_flying_to_block_colors;
+				auto& final_to_block_indexes = creatures[final_blocking_indexes[res]].has(Creature::Capacity::Reach) ? to_block_indexes : no_flying_to_block_indexes;
+
+				int res_2 = choice(final_to_block_choices, final_to_block_colors, { "- Back -" });
+
+				if (res_2 < final_to_block_choices.size())
+				{
+					std::cout << cyan << "[INFO] " << reset << italic << final_blocking_colors[res] << final_blocking_choices[res] << reset <<
+						" will block " << italic << final_to_block_colors[res_2] << final_to_block_choices[res_2] << reset << "." << End(2);
+
+					creatures[final_blocking_indexes[res]].will_block(get_opponent().creatures[final_to_block_indexes[res_2]]);
+				}
+			}
+		}
 }
 
 void Player::secondary_phase()

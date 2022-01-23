@@ -22,9 +22,9 @@ std::string Sparky::get_name() const
 std::vector<Creature::Capacity> Sparky::get_capacities() const
 {
 	return
-    {
-        Capacity::ZoneDamage
-    };
+	{
+		Capacity::ZoneDamage
+	};
 }
 
 std::string Sparky::get_description() const
@@ -37,7 +37,7 @@ Card::Cost Sparky::get_cost() const
 	return
 	{
 		{ Color::Colorless, 5 },
-        { Color::Blue, 1 }
+		{ Color::Blue, 1 }
 	};
 }
 

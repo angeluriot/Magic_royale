@@ -34,7 +34,7 @@ Card::Cost RoyalRecruits::get_cost() const
 	return
 	{
 		{ Color::Colorless, 4 },
-        { Color::White, 3 }
+		{ Color::White, 3 }
 	};
 }
 

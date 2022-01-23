@@ -1,6 +1,7 @@
 #include "cards/creatures/greens/Golem.hpp"
 #include "players/Player.hpp"
 #include "cards/creatures/generateds/Golemites.hpp"
+#include "renderer/print.hpp"
 
 Golem::Golem(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
 
@@ -31,7 +32,7 @@ std::vector<Creature::Capacity> Golem::get_capacities() const
 
 std::string Golem::get_description() const
 {
-	return Creature::get_description() + "Spawns 1 Golemites card on death.";
+	return Creature::get_description() + "Spawns 1 Golemites on death.";
 }
 
 Card::Cost Golem::get_cost() const
@@ -55,6 +56,11 @@ int Golem::get_full_toughness() const
 
 void Golem::die()
 {
+	Creature::die();
+
+	std::cout << cyan << "[INFO] " << ::reset << "A " << italic << ::get_color(Golemites().get_color()) <<
+		Golemites().get_name() << ::reset << " spawned." << End(2);
+
 	m_owner->creatures.add(Golemites());
 	m_owner->creatures.back().set_owner(*m_owner);
 }

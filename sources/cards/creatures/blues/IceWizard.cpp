@@ -1,5 +1,6 @@
 #include "cards/creatures/blues/IceWizard.hpp"
 #include "players/Player.hpp"
+#include "renderer/print.hpp"
 
 IceWizard::IceWizard(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
 
@@ -57,6 +58,9 @@ int IceWizard::get_full_toughness() const
 void IceWizard::spawn()
 {
 	Creature::spawn();
+
+	std::cout << cyan << "[INFO] " << ::reset << italic << ::get_color(get_color()) << get_name() << ::reset <<
+		" inflicted the effects of Freeze capacity to all enemy creatures." << End(2);
 
 	for (auto& creature : m_owner->get_opponent().creatures)
 		creature.modify_power(-1);

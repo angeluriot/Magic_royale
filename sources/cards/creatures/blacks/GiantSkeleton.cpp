@@ -1,5 +1,6 @@
 #include "cards/creatures/blacks/GiantSkeleton.hpp"
 #include "players/Player.hpp"
+#include "renderer/print.hpp"
 
 GiantSkeleton::GiantSkeleton(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
 
@@ -35,7 +36,7 @@ Card::Cost GiantSkeleton::get_cost() const
 	return
 	{
 		{ Color::Colorless, 4 },
-        { Color::Black, 2 }
+		{ Color::Black, 2 }
 	};
 }
 
@@ -51,6 +52,11 @@ int GiantSkeleton::get_full_toughness() const
 
 void GiantSkeleton::die()
 {
+	Creature::die();
+
+	std::cout << cyan << "[INFO] " << ::reset << italic << ::get_color(get_color()) << get_name() << ::reset <<
+		" inflicted 3 damage to all enemy creatures." << End(2);
+
 	for (auto& creature : m_owner->get_opponent().creatures)
 		creature.modify_toughness(-3);
 }

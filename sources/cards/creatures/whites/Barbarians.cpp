@@ -34,7 +34,7 @@ Card::Cost Barbarians::get_cost() const
 	return
 	{
 		{ Color::Colorless, 3 },
-        { Color::White, 2 }
+		{ Color::White, 2 }
 	};
 }
 

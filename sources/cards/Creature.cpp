@@ -359,4 +359,7 @@ void Creature::print() const
 	std::cout << bold << "Description: " << ::reset << ::get_color(get_color()) << description << End(1);
 }
 
-void Creature::die() {}
+void Creature::die()
+{
+	std::cout << cyan << "[INFO] " << ::reset << italic << ::get_color(get_color()) << get_name() << ::reset << " died." << End(2);
+}
