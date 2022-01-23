@@ -87,12 +87,23 @@ int Creature::get_toughness() const
 	return m_toughness;
 }
 
-void Creature::reduce_toughness(int amount)
+void Creature::modify_toughness(int amount)
 {
-	m_toughness -= amount;
+	m_toughness += amount;
 
 	if (m_toughness <= 0)
+	{
 		m_alive = false;
+		m_toughness = 0;
+	}
+}
+
+void Creature::modify_power(int amount)
+{
+	m_power += amount;
+
+	if (m_power < 0)
+		m_power = 0;
 }
 
 void Creature::remove_target(const Creature& target)
@@ -183,42 +194,117 @@ void Creature::will_not_block()
 void Creature::apply_attack()
 {
 	if (m_targets.empty())
-		attack();
+		attack(get_power());
 
 	else
 	{
+		int power_left = get_power();
+		bool has_attacked = false;
+
 		for (Creature* target : m_targets)
 		{
-			if (!(target->has(Capacity::Flying) && !has(Capacity::Reach)))
-				attack(*target);
+			if (has(Capacity::FirstStrike) && !target->has(Capacity::FirstStrike))
+			{
+				power_left = attack(*target, power_left);
+				target->modify_power(has(Capacity::Freeze) ? -1 : 0);
+				has_attacked = true;
 
-			target->block(*this);
+				if (target->is_alive())
+				{
+					target->block(*this);
+					modify_power(target->has(Capacity::Freeze) ? -1 : 0);
+				}
+			}
 
-			if (!m_alive)
+			else if (target->has(Capacity::FirstStrike) && !has(Capacity::FirstStrike))
+			{
+				target->block(*this);
+				modify_power(target->has(Capacity::Freeze) ? -1 : 0);
+
+				if (m_alive)
+				{
+					power_left = attack(*target, power_left);
+					target->modify_power(has(Capacity::Freeze) ? -1 : 0);
+					has_attacked = true;
+				}
+			}
+
+			else
+			{
+				modify_power(target->has(Capacity::Freeze) ? -1 : 0);
+				target->modify_power(has(Capacity::Freeze) ? -1 : 0);
+				power_left = attack(*target, power_left);
+				has_attacked = true;
+				target->block(*this);
+			}
+
+			if (!m_alive || power_left == 0)
 				break;
 		}
+
+		if (has(Capacity::MultiHit))
+		{
+			attack(get_power());
+			has_attacked = true;
+		}
+
+		else if (m_alive && power_left > 0)
+		{
+			attack(power_left);
+			has_attacked = true;
+		}
+
+		if (has(Capacity::Kamikaze) && has_attacked)
+		{
+			m_toughness = 0;
+			m_alive = false;
+		}
+	}
+}
+
+void Creature::attack(int power_left)
+{
+	m_owner->get_opponent().reduce_health(power_left);
+}
+
+int Creature::attack(Creature& creature, int power_left)
+{
+	if (power_left > 0)
+	{
+		if (creature.has(Capacity::Flying) && !has(Capacity::Reach))
+			return power_left;
+
+		if (creature.m_shield)
+		{
+			creature.m_shield = false;
+			return power_left;
+		}
+
+		int damages = has(Capacity::ZoneDamage) ? get_power() : power_left;
+		int result = std::max(damages - creature.get_toughness(), 0);
+		creature.modify_toughness(-damages);
+		return result;
 	}
 
-	for (auto& target : m_targets)
-		target->m_blocking = false;
-
-	m_targets.clear();
-	m_attacking = false;
-}
-
-void Creature::attack()
-{
-	m_owner->get_opponent().reduce_health(get_power());
-}
-
-void Creature::attack(Creature& creature)
-{
-	creature.reduce_toughness(get_power());
+	return 0;
 }
 
 void Creature::block(Creature& creature)
 {
-	creature.reduce_toughness(get_power());
+	if (!has(Capacity::Unblockable))
+	{
+		if (creature.m_shield)
+			creature.m_shield = false;
+
+		else
+			creature.modify_toughness(-get_power());
+
+		if (has(Capacity::Kamikaze))
+		{
+			m_toughness = 0;
+			m_alive = false;
+		}
+	}
 }
 
 void Creature::reset()

@@ -58,7 +58,7 @@ void MegaKnight::spawn()
 	Creature::spawn();
 
 	for (auto& creature : m_owner->get_opponent().creatures)
-		creature.reduce_toughness(1);
+		creature.modify_toughness(-1);
 }
 
 Card* MegaKnight::clone() const
