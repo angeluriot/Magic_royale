@@ -453,13 +453,17 @@ void Player::main_phase()
 
 		if (hand[res].get_type() == Card::Type::Creature || hand[res].get_type() == Card::Type::Spell)
 		{
-			if (engage_lands(hand[res]))
-			{
-				std::cout << cyan << "[INFO] " << reset << "You played " << get_color(hand[res].get_color()) <<
-					italic << hand[res].get_name() << reset << "." << End(2);
+			hand[res].print();
+			int res_2 = choice({ "- Play card -", "- Back -" }, { green, red });
 
-				play_card(hand[res]);
-			}
+			if (res_2 == 0)
+				if (engage_lands(hand[res]))
+				{
+					std::cout << cyan << "[INFO] " << reset << "You played " << get_color(hand[res].get_color()) <<
+						italic << hand[res].get_name() << reset << "." << End(2);
+
+					play_card(hand[res]);
+				}
 		}
 
 		else

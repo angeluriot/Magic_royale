@@ -33,7 +33,7 @@ std::vector<Creature::Capacity> LavaHound::get_capacities() const
 
 std::string LavaHound::get_description() const
 {
-	return Creature::get_description() + "Spawns 1 Lava Pups card on death.";
+	return Creature::get_description() + "Spawns 1 Lava Pups on death.";
 }
 
 Card::Cost LavaHound::get_cost() const

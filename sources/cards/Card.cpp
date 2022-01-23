@@ -5,26 +5,80 @@
 #include "utils/utils.hpp"
 #include "Game.hpp"
 
+#include "cards/creatures/blacks/Balloon.hpp"
+#include "cards/creatures/blacks/Bats.hpp"
+#include "cards/creatures/blacks/Bomber.hpp"
+#include "cards/creatures/blacks/DarkPrince.hpp"
+#include "cards/creatures/blacks/Guards.hpp"
 #include "cards/creatures/blacks/GiantSkeleton.hpp"
+#include "cards/creatures/blacks/MegaKnight.hpp"
+#include "cards/creatures/blacks/MiniPekka.hpp"
 #include "cards/creatures/blacks/Pekka.hpp"
+#include "cards/creatures/blacks/RoyalGhost.hpp"
+#include "cards/creatures/blacks/SkeletonArmy.hpp"
+#include "cards/creatures/blacks/SkeletonDragons.hpp"
 #include "cards/creatures/blacks/Skeletons.hpp"
+#include "cards/creatures/blacks/WallBreakers.hpp"
 
-#include "cards/creatures/blues/iceWizard.hpp"
+#include "cards/creatures/blues/ElectroDragon.hpp"
+#include "cards/creatures/blues/ElectroSpirit.hpp"
+#include "cards/creatures/blues/ElectroWizard.hpp"
+#include "cards/creatures/blues/IceSpirit.hpp"
+#include "cards/creatures/blues/IceWizard.hpp"
+#include "cards/creatures/blues/MegaMinion.hpp"
+#include "cards/creatures/blues/MinionHorde.hpp"
+#include "cards/creatures/blues/Minions.hpp"
+#include "cards/creatures/blues/NightWitch.hpp"
 #include "cards/creatures/blues/Sparky.hpp"
+#include "cards/creatures/blues/Witch.hpp"
+#include "cards/creatures/blues/Wizard.hpp"
+#include "cards/creatures/blues/Zappies.hpp"
 
+#include "cards/creatures/greens/DartGoblin.hpp"
 #include "cards/creatures/greens/ElectroGiant.hpp"
+#include "cards/creatures/greens/ElixirGolem.hpp"
+#include "cards/creatures/greens/Giant.hpp"
 #include "cards/creatures/greens/Golem.hpp"
+#include "cards/creatures/greens/HogRider.hpp"
+#include "cards/creatures/greens/RamRider.hpp"
 #include "cards/creatures/greens/RoyalGiant.hpp"
+#include "cards/creatures/greens/RoyalHogs.hpp"
 
+#include "cards/creatures/reds/BabyDragon.hpp"
+#include "cards/creatures/reds/Bowler.hpp"
+#include "cards/creatures/reds/Firecracker.hpp"
+#include "cards/creatures/reds/FireSpirit.hpp"
+#include "cards/creatures/reds/GoblinBarrel.hpp"
+#include "cards/creatures/reds/GoblinGang.hpp"
 #include "cards/creatures/reds/GoblinGiant.hpp"
+#include "cards/creatures/reds/Goblins.hpp"
 #include "cards/creatures/reds/LavaHound.hpp"
 #include "cards/creatures/reds/SpearGoblins.hpp"
 
+#include "cards/creatures/whites/Archers.hpp"
+#include "cards/creatures/whites/Bandit.hpp"
+#include "cards/creatures/whites/BarbarianBarrel.hpp"
 #include "cards/creatures/whites/Barbarians.hpp"
+#include "cards/creatures/whites/BattleHealer.hpp"
+#include "cards/creatures/whites/BattleRam.hpp"
+#include "cards/creatures/whites/BattleRam.hpp"
+#include "cards/creatures/whites/CannonCart.hpp"
 #include "cards/creatures/whites/EliteBarbarians.hpp"
-#include "cards/creatures/whites/MegaKnight.hpp"
+#include "cards/creatures/whites/Executioner.hpp"
+#include "cards/creatures/whites/Fisherman.hpp"
+#include "cards/creatures/whites/FlyingMachine.hpp"
+#include "cards/creatures/whites/Hunter.hpp"
+#include "cards/creatures/whites/Knight.hpp"
+#include "cards/creatures/whites/Lumberjack.hpp"
+#include "cards/creatures/whites/MagicArcher.hpp"
+#include "cards/creatures/whites/Miner.hpp"
+#include "cards/creatures/whites/Musketeer.hpp"
+#include "cards/creatures/whites/Prince.hpp"
+#include "cards/creatures/whites/Princess.hpp"
+#include "cards/creatures/whites/Rascals.hpp"
 #include "cards/creatures/whites/RoyalRecruits.hpp"
 #include "cards/creatures/whites/ThreeMusketeers.hpp"
+#include "cards/creatures/whites/Valkyrie.hpp"
 
 #include "cards/lands/Forest.hpp"
 #include "cards/lands/Island.hpp"
@@ -38,26 +92,79 @@ PtrList<Card> get_all_card()
 {
 	PtrList<Card> cards;
 
+	cards.add(Balloon());
+	cards.add(Bats());
+	cards.add(Bomber());
+	cards.add(DarkPrince());
 	cards.add(GiantSkeleton());
+	cards.add(Guards());
+	cards.add(MegaKnight());
+	cards.add(MiniPekka());
 	cards.add(Pekka());
+	cards.add(RoyalGhost());
+	cards.add(SkeletonArmy());
+	cards.add(SkeletonDragons());
 	cards.add(Skeletons());
+	cards.add(WallBreakers());
 
+	cards.add(ElectroDragon());
+	cards.add(ElectroSpirit());
+	cards.add(ElectroWizard());
+	cards.add(IceSpirit());
 	cards.add(IceWizard());
+	cards.add(MegaMinion());
+	cards.add(MinionHorde());
+	cards.add(Minions());
+	cards.add(NightWitch());
 	cards.add(Sparky());
+	cards.add(Witch());
+	cards.add(Wizard());
+	cards.add(Zappies());
 
+	cards.add(DartGoblin());
 	cards.add(ElectroGiant());
+	cards.add(ElixirGolem());
+	cards.add(Giant());
 	cards.add(Golem());
+	cards.add(HogRider());
+	cards.add(RamRider());
 	cards.add(RoyalGiant());
+	cards.add(RoyalHogs());
 
+	cards.add(BabyDragon());
+	cards.add(Bowler());
+	cards.add(Firecracker());
+	cards.add(FireSpirit());
+	cards.add(GoblinBarrel());
+	cards.add(GoblinGang());
 	cards.add(GoblinGiant());
+	cards.add(Goblins());
 	cards.add(LavaHound());
 	cards.add(SpearGoblins());
 
+	cards.add(Archers());
+	cards.add(Bandit());
+	cards.add(BarbarianBarrel());
 	cards.add(Barbarians());
+	cards.add(BattleHealer());
+	cards.add(BattleRam());
+	cards.add(CannonCart());
 	cards.add(EliteBarbarians());
-	cards.add(MegaKnight());
+	cards.add(Executioner());
+	cards.add(Fisherman());
+	cards.add(FlyingMachine());
+	cards.add(Hunter());
+	cards.add(Knight());
+	cards.add(Lumberjack());
+	cards.add(MagicArcher());
+	cards.add(Miner());
+	cards.add(Musketeer());
+	cards.add(Prince());
+	cards.add(Princess());
+	cards.add(Rascals());
 	cards.add(RoyalRecruits());
 	cards.add(ThreeMusketeers());
+	cards.add(Valkyrie());
 
 	cards.add(Forest());
 	cards.add(Island());

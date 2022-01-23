@@ -1,4 +1,4 @@
-#include "cards/creatures/whites/MegaKnight.hpp"
+#include "cards/creatures/blacks/MegaKnight.hpp"
 #include "players/Player.hpp"
 
 MegaKnight::MegaKnight(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
@@ -12,7 +12,7 @@ std::string MegaKnight::get_full_type() const
 
 Card::Color MegaKnight::get_color() const
 {
-	return Color::White;
+	return Color::Black;
 }
 
 std::string MegaKnight::get_name() const
@@ -39,7 +39,7 @@ Card::Cost MegaKnight::get_cost() const
 	return
 	{
 		{ Color::Colorless, 5 },
-		{ Color::White, 2 }
+		{ Color::Black, 2 }
 	};
 }
 

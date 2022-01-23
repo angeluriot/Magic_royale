@@ -31,7 +31,7 @@ std::vector<Creature::Capacity> Golem::get_capacities() const
 
 std::string Golem::get_description() const
 {
-	return Creature::get_description() + "Spawns 1 Golemites card on death.";
+	return Creature::get_description() + "Spawns 1 Golemites on death.";
 }
 
 Card::Cost Golem::get_cost() const
