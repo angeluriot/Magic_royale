@@ -1,17 +1,17 @@
-#ifndef SENTIENTBLOBS_HPP
-#define SENTIENTBLOBS_HPP
+#ifndef INFERNODRAGON_HPP
+#define INFERNODRAGON_HPP
 
 #include "cards/Creature.hpp"
 
-class SentientBlobs : public Creature
+class InfernoDragon : public Creature
 {
 public:
 
-	SentientBlobs();
-	SentientBlobs(const SentientBlobs& other) = default;
-	~SentientBlobs();
+	InfernoDragon();
+	InfernoDragon(const InfernoDragon& other) = default;
+	~InfernoDragon();
 
-	SentientBlobs& operator=(const SentientBlobs& other) = default;
+	InfernoDragon& operator=(const InfernoDragon& other) = default;
 
 	std::string get_full_type() const override;
 	Color get_color() const override;
@@ -21,7 +21,6 @@ public:
 	Cost get_cost() const override;
 	int get_full_power() const override;
 	int get_full_toughness() const override;
-	void die() override;
 	Card* clone() const override;
 };
 

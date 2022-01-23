@@ -45,6 +45,7 @@
 #include "cards/creatures/greens/RoyalHogs.hpp"
 
 #include "cards/creatures/reds/BabyDragon.hpp"
+#include "cards/creatures/reds/InfernoDragon.hpp"
 #include "cards/creatures/reds/Bowler.hpp"
 #include "cards/creatures/reds/Firecracker.hpp"
 #include "cards/creatures/reds/FireSpirit.hpp"
@@ -95,6 +96,7 @@
 #include "cards/spells/Arrows.hpp"
 #include "cards/spells/Tornado.hpp"
 #include "cards/spells/Clone.hpp"
+#include "cards/spells/Mirror.hpp"
 
 PtrList<Card> get_all_card()
 {
@@ -140,6 +142,7 @@ PtrList<Card> get_all_card()
 	cards.add(RoyalHogs());
 
 	cards.add(BabyDragon());
+	cards.add(InfernoDragon());
 	cards.add(Bowler());
 	cards.add(Firecracker());
 	cards.add(FireSpirit());
@@ -189,6 +192,7 @@ PtrList<Card> get_all_card()
 	cards.add(Arrows());
 	cards.add(Tornado());
 	cards.add(Clone());
+	cards.add(Mirror());
 
 	return cards;
 }

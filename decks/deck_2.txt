@@ -1,30 +1,30 @@
-Forest
-Island
-Island
-Island
-Island
-Island
-Island
-Island
-Island
-Island
-Mountain
-Plain
 Swamp
-Lava Hound
-Pekka
-Ice Wizard
-Ice Wizard
-Ice Wizard
-Ice Wizard
-Ice Wizard
-Ice Wizard
-Ice Wizard
-Ice Wizard
-Ice Wizard
-Ice Wizard
-Ice Wizard
-Electro Giant
-Golem
-Royal Giant
-Mega Knight
+Swamp
+Swamp
+Swamp
+Swamp
+Swamp
+Swamp
+Swamp
+Swamp
+Swamp
+Swamp
+Swamp
+Swamp
+Swamp
+Swamp
+Skeletons
+Skeletons
+Skeletons
+Skeletons
+Skeletons
+Skeletons
+Skeletons
+Skeletons
+Skeletons
+Skeletons
+Skeletons
+Skeletons
+Skeletons
+Skeletons
+Skeletons

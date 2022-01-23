@@ -21,6 +21,7 @@ private:
 	int m_health;
 	bool m_alive;
 	bool m_freezed;
+	bool m_rage;
 
 public:
 
@@ -37,6 +38,7 @@ public:
 	bool is_alive();
 	bool can_attack();
 	void freeze();
+	void rage();
 	std::string get_name() const;
 	void set_name(const std::string& name);
 	int get_health() const;

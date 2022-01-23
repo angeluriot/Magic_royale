@@ -238,7 +238,7 @@ void Creature::apply_attack()
 				target->block(*this);
 			}
 
-			if (!m_alive || power_left == 0)
+			if (!m_alive)
 				break;
 		}
 
@@ -311,7 +311,9 @@ void Creature::reset()
 {
 	Card::reset();
 
-	if (!m_clone)
+	if (m_clone)
+		m_toughness = 1;
+	else
 		m_toughness = get_full_toughness();
 
 	m_power = get_full_power();
@@ -331,6 +333,7 @@ void Creature::full_reset()
 	m_blocking = false;
 	m_shield = false;
 	m_alive = true;
+	m_clone = false;
 	m_targets.clear();
 
 	if (has(Capacity::Shield))

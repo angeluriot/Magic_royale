@@ -1,4 +1,6 @@
 #include "cards/creatures/whites/Lumberjack.hpp"
+#include "players/Player.hpp"
+#include "renderer/print.hpp"
 
 Lumberjack::Lumberjack(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
 
@@ -51,6 +53,9 @@ int Lumberjack::get_full_toughness() const
 void Lumberjack::die()
 {
 	Creature::die();
+
+	std::cout << cyan << "[INFO] " << ::reset << bold << magenta << m_owner->get_name() << ::reset << " will get rage in the next turn." << End(2);
+	m_owner->rage();
 }
 
 Card* Lumberjack::clone() const
