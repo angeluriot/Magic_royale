@@ -2,6 +2,7 @@
 #include "Game.hpp"
 #include "renderer/print.hpp"
 #include "utils/utils.hpp"
+#include "cards/Spell.hpp"
 
 Player::Player(): m_name(""), m_health(20), m_alive(true) {}
 
@@ -115,6 +116,11 @@ void Player::play_card(const Card& card)
 		creatures.back().spawn();
 	}
 
+	else if (card.get_type() == Card::Type::Spell)
+	{
+		((Spell&)card).apply_effect();
+	}
+
 	else
 		lands.add(card);
 
@@ -151,12 +157,12 @@ bool Player::engage_lands(const Card& card)
 	Resources resources_map = get_resources();
 	Resources to_engage =
 	{
-		{ Card::Color::Colorless, 	0 },
-		{ Card::Color::White, 		0 },
-		{ Card::Color::Blue, 		0 },
-		{ Card::Color::Black, 		0 },
-		{ Card::Color::Red, 		0 },
-		{ Card::Color::Green, 		0 }
+		{ Card::Color::Colorless,	0 },
+		{ Card::Color::White,		0 },
+		{ Card::Color::Blue,		0 },
+		{ Card::Color::Black,		0 },
+		{ Card::Color::Red,			0 },
+		{ Card::Color::Green,		0 }
 	};
 
 	for (auto& [color, cost] : cost_map)
@@ -419,7 +425,7 @@ void Player::main_phase()
 
 		for (int i = 0; i < hand.size(); i++)
 		{
-			if (hand[i].get_type() == Card::Type::Creature)
+			if (hand[i].get_type() == Card::Type::Creature || hand[i].get_type() == Card::Type::Spell)
 			{
 				if (is_card_playable(hand[i]))
 					hand_names.push_back(to_str(underline) + hand[i].get_name() + to_str(no_underline) + " (" + to_str(hand[i].get_type()) + ")");
@@ -445,16 +451,14 @@ void Player::main_phase()
 			continue;
 		}
 
-		if (hand[res].get_type() == Card::Type::Creature)
+		if (hand[res].get_type() == Card::Type::Creature || hand[res].get_type() == Card::Type::Spell)
 		{
-			Creature& creature = (Creature&)hand[res];
-
-			if (engage_lands(creature))
+			if (engage_lands(hand[res]))
 			{
-				std::cout << cyan << "[INFO] " << reset << "You played " << get_color(creature.get_color()) <<
-					italic << creature.get_name() << reset << "." << End(2);
+				std::cout << cyan << "[INFO] " << reset << "You played " << get_color(hand[res].get_color()) <<
+					italic << hand[res].get_name() << reset << "." << End(2);
 
-				play_card(creature);
+				play_card(hand[res]);
 			}
 		}
 
@@ -462,6 +466,7 @@ void Player::main_phase()
 		{
 			std::cout << cyan << "[INFO] " << reset << "You played " << get_color(hand[res].get_color()) <<
 				italic << hand[res].get_name() << reset << "." << End(2);
+
 			play_card(hand[res]);
 		}
 	}

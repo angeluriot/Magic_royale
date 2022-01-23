@@ -21,6 +21,8 @@ inline std::string to_str(Card::Type type)
 		return "C";
 	case Card::Type::Land:
 		return "L";
+	case Card::Type::Spell:
+		return "S";
 	default:
 		return "";
 	}

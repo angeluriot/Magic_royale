@@ -5,37 +5,67 @@
 #include "utils/utils.hpp"
 #include "Game.hpp"
 
-#include "cards/creatures/reds/LavaHound.hpp"
+#include "cards/creatures/blacks/GiantSkeleton.hpp"
 #include "cards/creatures/blacks/Pekka.hpp"
 #include "cards/creatures/blacks/Skeletons.hpp"
+
 #include "cards/creatures/blues/iceWizard.hpp"
+#include "cards/creatures/blues/Sparky.hpp"
+
 #include "cards/creatures/greens/ElectroGiant.hpp"
 #include "cards/creatures/greens/Golem.hpp"
 #include "cards/creatures/greens/RoyalGiant.hpp"
+
+#include "cards/creatures/reds/GoblinGiant.hpp"
+#include "cards/creatures/reds/LavaHound.hpp"
+#include "cards/creatures/reds/SpearGoblins.hpp"
+
+#include "cards/creatures/whites/Barbarians.hpp"
+#include "cards/creatures/whites/EliteBarbarians.hpp"
 #include "cards/creatures/whites/MegaKnight.hpp"
+#include "cards/creatures/whites/RoyalRecruits.hpp"
+#include "cards/creatures/whites/ThreeMusketeers.hpp"
+
 #include "cards/lands/Forest.hpp"
 #include "cards/lands/Island.hpp"
 #include "cards/lands/Mountain.hpp"
 #include "cards/lands/Plain.hpp"
 #include "cards/lands/Swamp.hpp"
 
+#include "cards/spells/Lightning.hpp"
+
 PtrList<Card> get_all_card()
 {
 	PtrList<Card> cards;
 
-	cards.add(LavaHound());
+	cards.add(GiantSkeleton());
 	cards.add(Pekka());
 	cards.add(Skeletons());
+
 	cards.add(IceWizard());
+	cards.add(Sparky());
+
 	cards.add(ElectroGiant());
 	cards.add(Golem());
 	cards.add(RoyalGiant());
+
+	cards.add(GoblinGiant());
+	cards.add(LavaHound());
+	cards.add(SpearGoblins());
+
+	cards.add(Barbarians());
+	cards.add(EliteBarbarians());
 	cards.add(MegaKnight());
+	cards.add(RoyalRecruits());
+	cards.add(ThreeMusketeers());
+
 	cards.add(Forest());
 	cards.add(Island());
 	cards.add(Mountain());
 	cards.add(Plain());
 	cards.add(Swamp());
+
+	cards.add(Lightning());
 
 	return cards;
 }

@@ -1,4 +1,3 @@
-Forest
 Island
 Island
 Island
@@ -8,11 +7,11 @@ Island
 Island
 Island
 Island
-Mountain
-Plain
-Swamp
-Lava Hound
-Pekka
+Lightning
+Lightning
+Lightning
+Lightning
+Lightning
 Ice Wizard
 Ice Wizard
 Ice Wizard
@@ -24,7 +23,8 @@ Ice Wizard
 Ice Wizard
 Ice Wizard
 Ice Wizard
-Electro Giant
-Golem
-Royal Giant
-Mega Knight
+Lightning
+Lightning
+Lightning
+Lightning
+Lightning
