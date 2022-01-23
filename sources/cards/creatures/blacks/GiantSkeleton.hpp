@@ -1,17 +1,17 @@
-#ifndef ICEWIZARD_HPP
-#define ICEWIZARD_HPP
+#ifndef GIANTSKELETON_HPP
+#define GIANTSKELETON_HPP
 
 #include "cards/Creature.hpp"
 
-class IceWizard : public Creature
+class GiantSkeleton : public Creature
 {
 public:
 
-	IceWizard();
-	IceWizard(const IceWizard& other) = default;
-	~IceWizard();
+	GiantSkeleton();
+	GiantSkeleton(const GiantSkeleton& other) = default;
+	~GiantSkeleton();
 
-	IceWizard& operator=(const IceWizard& other) = default;
+	GiantSkeleton& operator=(const GiantSkeleton& other) = default;
 
 	std::string get_full_type() const override;
 	Color get_color() const override;
@@ -21,7 +21,7 @@ public:
 	Cost get_cost() const override;
 	int get_full_power() const override;
 	int get_full_toughness() const override;
-	void spawn() override;
+    void die() override;
 	Card* clone() const override;
 };
 

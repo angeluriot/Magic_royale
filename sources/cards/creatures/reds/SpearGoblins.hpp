@@ -1,17 +1,17 @@
-#ifndef ICEWIZARD_HPP
-#define ICEWIZARD_HPP
+#ifndef SPEARGOBLINS_HPP
+#define SPEARGOBLINS_HPP
 
 #include "cards/Creature.hpp"
 
-class IceWizard : public Creature
+class SpearGoblins : public Creature
 {
 public:
 
-	IceWizard();
-	IceWizard(const IceWizard& other) = default;
-	~IceWizard();
+	SpearGoblins();
+	SpearGoblins(const SpearGoblins& other) = default;
+	~SpearGoblins();
 
-	IceWizard& operator=(const IceWizard& other) = default;
+	SpearGoblins& operator=(const SpearGoblins& other) = default;
 
 	std::string get_full_type() const override;
 	Color get_color() const override;
@@ -21,7 +21,6 @@ public:
 	Cost get_cost() const override;
 	int get_full_power() const override;
 	int get_full_toughness() const override;
-	void spawn() override;
 	Card* clone() const override;
 };
 

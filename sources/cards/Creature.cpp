@@ -87,6 +87,14 @@ int Creature::get_toughness() const
 	return m_toughness;
 }
 
+void Creature::modify_power(int amount)
+{
+	m_power += amount;
+
+	if (m_power < 0)
+		m_power = 0;
+}
+
 void Creature::modify_toughness(int amount)
 {
 	m_toughness += amount;
@@ -96,14 +104,6 @@ void Creature::modify_toughness(int amount)
 		m_alive = false;
 		m_toughness = 0;
 	}
-}
-
-void Creature::modify_power(int amount)
-{
-	m_power += amount;
-
-	if (m_power < 0)
-		m_power = 0;
 }
 
 void Creature::remove_target(const Creature& target)
