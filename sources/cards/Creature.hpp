@@ -55,6 +55,8 @@ public:
 	virtual int get_toughness() const;
 	virtual void modify_power(int amount);
 	virtual void modify_toughness(int amount);
+	virtual bool has_shield() const;
+	virtual void break_shield();
 	virtual void remove_target(const Creature& target);
 	virtual void spawn();
 	virtual void special_ability();
@@ -72,6 +74,7 @@ public:
 	virtual void attack(int power_left);
 	virtual int attack(Creature& creature, int power_left);
 	virtual void block(Creature& creature);
+	virtual void on_kill();
 	virtual void reset() override;
 	virtual void full_reset();
 	virtual void set_clone();

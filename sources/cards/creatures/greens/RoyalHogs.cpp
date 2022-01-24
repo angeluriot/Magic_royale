@@ -23,6 +23,7 @@ std::vector<Creature::Capacity> RoyalHogs::get_capacities() const
 {
 	return
 	{
+		Capacity::Haste,
 		Capacity::Unblockable
 	};
 }

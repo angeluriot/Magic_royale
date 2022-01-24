@@ -106,6 +106,16 @@ void Creature::modify_toughness(int amount)
 	}
 }
 
+bool Creature::has_shield() const
+{
+	return m_shield;
+}
+
+void Creature::break_shield()
+{
+	m_shield = false;
+}
+
 void Creature::remove_target(const Creature& target)
 {
 	for (auto it = m_targets.begin(); it != m_targets.end();)
@@ -274,14 +284,18 @@ int Creature::attack(Creature& creature, int power_left)
 		if (creature.has(Capacity::Flying) && !has(Capacity::Reach))
 			return power_left;
 
-		if (creature.m_shield)
+		if (creature.has_shield())
 		{
-			creature.m_shield = false;
+			creature.break_shield();
 			return power_left;
 		}
 
 		int damages = has(Capacity::ZoneDamage) ? get_power() : power_left;
 		int result = std::max(damages - creature.get_toughness(), 0);
+
+		if (damages >= creature.get_toughness())
+			on_kill();
+
 		creature.modify_toughness(-damages);
 		return result;
 	}
@@ -306,6 +320,8 @@ void Creature::block(Creature& creature)
 		}
 	}
 }
+
+void Creature::on_kill() {}
 
 void Creature::reset()
 {

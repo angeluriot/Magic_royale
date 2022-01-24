@@ -21,6 +21,7 @@ private:
 	int m_health;
 	bool m_alive;
 	bool m_freezed;
+	bool m_freeze_capacity;
 	bool m_rage;
 
 public:
@@ -38,6 +39,7 @@ public:
 	bool is_alive();
 	bool can_attack();
 	void freeze();
+	void freeze_capacity();
 	void rage();
 	std::string get_name() const;
 	void set_name(const std::string& name);
@@ -52,6 +54,7 @@ public:
 	bool engage_lands(const Card& card);
 	void show_board();
 	void show_creatures();
+	void clear_before_turn();
 	void begin_turn();
 	void draw_card();
 	void disengage_cards();

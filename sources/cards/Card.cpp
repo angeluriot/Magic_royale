@@ -29,6 +29,7 @@
 #include "cards/creatures/blues/MinionHorde.hpp"
 #include "cards/creatures/blues/Minions.hpp"
 #include "cards/creatures/blues/NightWitch.hpp"
+#include "cards/creatures/blues/MotherWitch.hpp"
 #include "cards/creatures/blues/Sparky.hpp"
 #include "cards/creatures/blues/Witch.hpp"
 #include "cards/creatures/blues/Wizard.hpp"
@@ -37,6 +38,7 @@
 #include "cards/creatures/greens/DartGoblin.hpp"
 #include "cards/creatures/greens/ElectroGiant.hpp"
 #include "cards/creatures/greens/ElixirGolem.hpp"
+#include "cards/creatures/greens/IceGolem.hpp"
 #include "cards/creatures/greens/Giant.hpp"
 #include "cards/creatures/greens/Golem.hpp"
 #include "cards/creatures/greens/HogRider.hpp"
@@ -126,6 +128,7 @@ PtrList<Card> get_all_card()
 	cards.add(MinionHorde());
 	cards.add(Minions());
 	cards.add(NightWitch());
+	cards.add(MotherWitch());
 	cards.add(Sparky());
 	cards.add(Witch());
 	cards.add(Wizard());
@@ -134,6 +137,7 @@ PtrList<Card> get_all_card()
 	cards.add(DartGoblin());
 	cards.add(ElectroGiant());
 	cards.add(ElixirGolem());
+	cards.add(IceGolem());
 	cards.add(Giant());
 	cards.add(Golem());
 	cards.add(HogRider());

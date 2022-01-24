@@ -4,7 +4,7 @@
 #include "utils/utils.hpp"
 #include "cards/Spell.hpp"
 
-Player::Player(): m_name(""), m_health(20), m_alive(true), m_freezed(false), m_rage(false) {}
+Player::Player(): m_name(""), m_health(20), m_alive(true), m_freezed(false), m_freeze_capacity(false), m_rage(false) {}
 
 void Player::reset_player()
 {
@@ -17,6 +17,7 @@ void Player::reset_player()
 	m_health = 20;
 	m_alive = true;
 	m_freezed = false;
+	m_freeze_capacity = false;
 	m_rage = false;
 }
 
@@ -37,6 +38,11 @@ bool Player::can_attack()
 void Player::freeze()
 {
 	m_freezed = true;
+}
+
+void Player::freeze_capacity()
+{
+	m_freeze_capacity = true;
 }
 
 void Player::rage()
@@ -372,9 +378,8 @@ void Player::show_creatures()
 	std::cout << End(1);
 }
 
-void Player::begin_turn()
+void Player::clear_before_turn()
 {
-	std::cout << End(1) << magenta << bold << "--=( " + get_name() + "'s turn )=--" << End(2);
 	reset_creatures();
 	get_opponent().reset_creatures();
 	draw_card();
@@ -403,6 +408,28 @@ void Player::begin_turn()
 		for (auto& creature : get_opponent().creatures)
 			creature.modify_power(1);
 	}
+
+	if (m_freeze_capacity)
+	{
+		m_freeze_capacity = false;
+
+		for (auto& creature : creatures)
+			creature.modify_power(-1);
+	}
+
+	if (get_opponent().m_freeze_capacity)
+	{
+		get_opponent().m_freeze_capacity = false;
+
+		for (auto& creature : get_opponent().creatures)
+			creature.modify_power(-1);
+	}
+}
+
+void Player::begin_turn()
+{
+	std::cout << End(1) << magenta << bold << "--=( " + get_name() + "'s turn )=--" << End(2);
+	clear_before_turn();
 
 	std::cout << End(1) << yellow << bold << "--=( Main Phase )=--" << End(2);
 	main_phase();
