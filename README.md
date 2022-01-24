@@ -73,6 +73,14 @@ Text
 | <img src="https://i.imgur.com/iiSBL4k.png" height="100"><br/>Goblin Gang | Goblin | 2 ![Red](https://i.imgur.com/KUtPu2A.png) | 3 / 2 | `Reach` | Adds 1 power to all Goblin type allies while alive. |
 | <img src="https://i.imgur.com/6xSK9Bh.png" height="100"><br/>Minions | Minion | 2 ![Blue](https://i.imgur.com/mIKhvAF.png) | 3 / 2 | `Flying`, `Reach` | |
 | <img src="https://i.imgur.com/HrjyHZH.png" height="100"><br/>Archers | Human | 2 ![White](https://i.imgur.com/23AueSy.png) | 3 / 2 | `Reach` | |
+| <img src="https://i.imgur.com/Le34AAm.png" height="100"><br/>Knight | Knight | 2 ![White](https://i.imgur.com/23AueSy.png) | 2 / 3 | | |
+| <img src="https://i.imgur.com/6QbWZiD.png" height="100"><br/>Skeleton Dragons | Dragon | 2 ![Black](https://i.imgur.com/FOgaANE.png) ![Black](https://i.imgur.com/FOgaANE.png) | 3 / 3 | `Flying`, `Reach`, `Zone Damage` | |
+| <img src="https://i.imgur.com/Kl0Om3v.png" height="100"><br/>Rascals | Human | 3 ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) | 3 / 4 | `Reach` | |
+| <img src="https://i.imgur.com/Beqplf6.png" height="100"><br/>Minion Horde | Minion | 3 ![Blue](https://i.imgur.com/mIKhvAF.png) ![Blue](https://i.imgur.com/mIKhvAF.png) | 5 / 2 | `Flying`, `Reach` | |
+| <img src="https://i.imgur.com/IjBmurT.png" height="100"><br/>Barbarians | Human | 3 ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) | 4 / 3 | | |
+| <img src="https://i.imgur.com/lIHngL2.png" height="100"><br/>Elite Barbarians | Human | 4 ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) | 4 / 4 | | |
+| <img src="https://i.imgur.com/Vu0jRDv.png" height="100"><br/>Royal Giant | Giant | 4 ![Green](https://i.imgur.com/wAQXqTG.png) ![Green](https://i.imgur.com/wAQXqTG.png) | 3 / 5 | `Reach`, `Unblockable` | |
+| <img src="https://i.imgur.com/aCytEtE.png" height="100"><br/>Royal Recruits | Human | 4 ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) | 5 / 4 | `Multihit` | |
 
 ### Spells
 
