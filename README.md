@@ -61,25 +61,25 @@ Text
 
 | Card | Type | Price | Power / Toughness | Capacities | Unique ability |
 | :-: | :-: | :-: | :-: | :- | :- |
-| <img src="https://i.imgur.com/ygCvjHx.png" height="100"><p>Electro Spirit</p> | Spirit | 1 | 2 / 1 | `Freeze`, `Kamikaze` | Applies the effects of the Freeze capacity to all opponent creatures on death. |
-| <img src="https://i.imgur.com/GT0uFlD.png" height="100"><p>Fire Spirit</p> | Spirit | 1 | 2 / 1 | `Zone Damage`, `Kamikaze` | |
-| <img src="https://i.imgur.com/Lt4i4aR.png" height="100"><p>Ice Spirit</p> | Spirit | 1 | 1 / 2 | `Freeze`, `Kamikaze` | |
-| <img src="https://i.imgur.com/SvxOw6f.png" height="100"><p>Skeletons</p> | Skeleton | 1 | 2 / 1 | | |
-| <img src="https://i.imgur.com/Iapwgco.png" height="100"><p>Bats</p> | Bat | 1 ![](https://i.imgur.com/FOgaANE.png) | 3 / 1 | `Flying`, `Reach` | |
-| <img src="https://i.imgur.com/fvjL2Xj.png" height="100"><p>Spear Goblins</p> | Goblin | 1 ![](https://i.imgur.com/KUtPu2A.png) | 2 / 2 | `Reach` | |
-| <img src="https://i.imgur.com/lcXzhPC.png" height="100"><p>Bomber</p> | Skeleton | 1 ![](https://i.imgur.com/FOgaANE.png) | 3 / 1 | `Zone Damage` | |
-| <img src="" height="100"><p>Name</p> | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"> | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"> | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"> | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"> | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"> | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"> | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"> | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"> | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"> | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"> | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"> | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="https://i.imgur.com/ygCvjHx.png" height="100"><br/>Electro Spirit | Spirit | 1 | 2 / 1 | `Freeze`, `Kamikaze` | Applies the effects of the Freeze capacity to all opponent creatures on death. |
+| <img src="https://i.imgur.com/GT0uFlD.png" height="100"><br/>Fire Spirit | Spirit | 1 | 2 / 1 | `Zone Damage`, `Kamikaze` | |
+| <img src="https://i.imgur.com/Lt4i4aR.png" height="100"><br/>Ice Spirit | Spirit | 1 | 1 / 2 | `Freeze`, `Kamikaze` | |
+| <img src="https://i.imgur.com/SvxOw6f.png" height="100"><br/>Skeletons | Skeleton | 1 | 2 / 1 | | |
+| <img src="https://i.imgur.com/Iapwgco.png" height="100"><br/>Bats | Bat | 1 ![](https://i.imgur.com/FOgaANE.png) | 3 / 1 | `Flying`, `Reach` | |
+| <img src="https://i.imgur.com/fvjL2Xj.png" height="100"><br/>Spear Goblins | Goblin | 1 ![](https://i.imgur.com/KUtPu2A.png) | 2 / 2 | `Reach` | |
+| <img src="https://i.imgur.com/lcXzhPC.png" height="100"><br/>Bomber | Skeleton | 1 ![](https://i.imgur.com/FOgaANE.png) | 3 / 1 | `Zone Damage` | |
+| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
 
 ### Spells
 
