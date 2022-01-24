@@ -61,25 +61,18 @@ Text
 
 | Card | Type | Price | Power / Toughness | Capacities | Unique ability |
 | :-: | :-: | :-: | :-: | :- | :- |
-| <img src="https://i.imgur.com/ygCvjHx.png" height="100"><br/>Electro Spirit | Spirit | 1 | 2 / 1 | `Freeze`, `Kamikaze` | Applies the effects of the Freeze capacity to all opponent creatures on death. |
+| <img src="https://i.imgur.com/ygCvjHx.png" height="100"><br/>Electro Spirit | Spirit | 1 | 2 / 1 | `Freeze`, `Kamikaze` | |
 | <img src="https://i.imgur.com/GT0uFlD.png" height="100"><br/>Fire Spirit | Spirit | 1 | 2 / 1 | `Zone Damage`, `Kamikaze` | |
 | <img src="https://i.imgur.com/Lt4i4aR.png" height="100"><br/>Ice Spirit | Spirit | 1 | 1 / 2 | `Freeze`, `Kamikaze` | |
 | <img src="https://i.imgur.com/SvxOw6f.png" height="100"><br/>Skeletons | Skeleton | 1 | 2 / 1 | | |
-| <img src="https://i.imgur.com/Iapwgco.png" height="100"><br/>Bats | Bat | 1 ![](https://i.imgur.com/FOgaANE.png) | 3 / 1 | `Flying`, `Reach` | |
-| <img src="https://i.imgur.com/fvjL2Xj.png" height="100"><br/>Spear Goblins | Goblin | 1 ![](https://i.imgur.com/KUtPu2A.png) | 2 / 2 | `Reach` | |
-| <img src="https://i.imgur.com/lcXzhPC.png" height="100"><br/>Bomber | Skeleton | 1 ![](https://i.imgur.com/FOgaANE.png) | 3 / 1 | `Zone Damage` | |
-| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>Name | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="https://i.imgur.com/Iapwgco.png" height="100"><br/>Bats | Bat | 1 ![Black](https://i.imgur.com/FOgaANE.png) | 3 / 1 | `Flying`, `Reach` | |
+| <img src="https://i.imgur.com/fvjL2Xj.png" height="100"><br/>Spear Goblins | Goblin | 1 ![Red](https://i.imgur.com/KUtPu2A.png) | 2 / 2 | `Reach` | |
+| <img src="https://i.imgur.com/lcXzhPC.png" height="100"><br/>Bomber | Skeleton | 1 ![Black](https://i.imgur.com/FOgaANE.png) | 3 / 1 | `Zone Damage` | |
+| <img src="https://i.imgur.com/ac1WLkK.png" height="100"><br/>Goblins | Goblin | 1 ![Red](https://i.imgur.com/KUtPu2A.png) | 2 / 2 | | |
+| <img src="https://i.imgur.com/zlTZSbo.png" height="100"><br/>Firecracker | Human | 2 ![Red](https://i.imgur.com/KUtPu2A.png) | 3 / 2 | `Reach`, `Multi Hit`, `Zone Damage` | |
+| <img src="https://i.imgur.com/iiSBL4k.png" height="100"><br/>Goblin Gang | Goblin | 2 ![Red](https://i.imgur.com/KUtPu2A.png) | 3 / 2 | `Reach` | Adds 1 power to all Goblin type allies while alive. |
+| <img src="https://i.imgur.com/6xSK9Bh.png" height="100"><br/>Minions | Minion | 2 ![Blue](https://i.imgur.com/mIKhvAF.png) | 3 / 2 | `Flying`, `Reach` | |
+| <img src="https://i.imgur.com/HrjyHZH.png" height="100"><br/>Archers | Human | 2 ![White](https://i.imgur.com/23AueSy.png) | 3 / 2 | `Reach` | |
 
 ### Spells
 
