@@ -562,6 +562,36 @@ void Player::combat_phase()
 
 	// TODO: Change order of targets
 
+	std::vector<std::string> attacking_order_choice;
+	std::vector<std::string_view> attacking_order_color;
+
+	std::vector<Creature*> new_targets;
+	int res;
+
+	for (auto& creature : creatures)
+		if (creature.is_attacking())
+		{
+			if (creature.m_targets.size() > 1)
+			{
+				for (auto& target : creature.m_targets)
+				{
+					attacking_order_choice.push_back(target->get_name());
+					attacking_order_color.push_back(get_color(target->get_color()));
+				}
+
+				while (new_targets.size() < creature.m_targets.size())
+				{
+					std::cout << End(1) << magenta << bold << get_name() << reset << ", choose the #" << new_targets.size() + 1 << " creature you want to attack." << End(1);
+					res = choice(attacking_order_choice, attacking_order_color);
+					new_targets.push_back(creature.m_targets.at(res));
+					attacking_order_choice.erase(attacking_order_choice.begin() + res);
+					attacking_order_color.erase(attacking_order_color.begin() + res);
+				}
+
+				creature.m_targets = new_targets;
+			}
+		}
+
 	for (auto& creature : creatures)
 		if (creature.is_attacking())
 			creature.apply_attack();

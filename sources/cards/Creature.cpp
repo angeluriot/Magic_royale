@@ -364,5 +364,5 @@ void Creature::print() const
 
 void Creature::die()
 {
-	std::cout << cyan << "[INFO] " << ::reset << italic << ::get_color(get_color()) << get_name() << ::reset << " died." << End(2);
+	std::cout << cyan << "[INFO] " << magenta << bold << m_owner->get_name() << ::reset << "'s " << ::reset << italic << ::get_color(get_color()) << get_name() << ::reset << " died." << End(2);
 }

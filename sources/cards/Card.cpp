@@ -97,6 +97,12 @@
 #include "cards/spells/Tornado.hpp"
 #include "cards/spells/Clone.hpp"
 #include "cards/spells/Mirror.hpp"
+#include "cards/spells/Earthquake.hpp"
+#include "cards/spells/Zap.hpp"
+#include "cards/spells/GiantSnowball.hpp"
+#include "cards/spells/Rage.hpp"
+#include "cards/spells/TheLog.hpp"
+#include "cards/spells/HealSpirit.hpp"
 
 PtrList<Card> get_all_card()
 {
@@ -193,6 +199,12 @@ PtrList<Card> get_all_card()
 	cards.add(Tornado());
 	cards.add(Clone());
 	cards.add(Mirror());
+	cards.add(Earthquake());
+	cards.add(Zap());
+	cards.add(GiantSnowball());
+	cards.add(Rage());
+	cards.add(TheLog());
+	cards.add(HealSpirit());
 
 	return cards;
 }

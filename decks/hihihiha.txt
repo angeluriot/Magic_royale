@@ -21,10 +21,10 @@ Witch
 Balloon
 Rascals
 Minion Horde
-Barbarians
-Sparky
-Goblin Giant
-Giant Skeleton
-Elite Barbarians
-Royal Recruits
+Earthquake
+Giant Snowball
+Heal Spirit
+Rage
+The Log
+Zap
 Three Musketeers
