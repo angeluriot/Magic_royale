@@ -60,8 +60,8 @@ Text
 Text
 
 | Card | Type | Price | Power / Toughness | Capacities | Unique ability |
-| - | - | - | - | - | - |
-| <img src="https://i.imgur.com/ygCvjHx.png" height="100"><p align="center">Electro Spirit</p> | Spirit | 1 | 2 / 1 | `Freeze`, `Kamikaze` | Applies the effects of the Freeze capacity to all opponent creatures on death. |
+| :-: | :-: | :-: | :-: | :- | :- |
+| <img src="https://i.imgur.com/ygCvjHx.png" height="100"><p>Electro Spirit</p> | Spirit | 1 | 2 / 1 | `Freeze`, `Kamikaze` | Applies the effects of the Freeze capacity to all opponent creatures on death. |
 | <img src="https://i.imgur.com/GT0uFlD.png" height="100"><p>Fire Spirit</p> | Spirit | 1 | 2 / 1 | `Zone Damage`, `Kamikaze` | |
 | <img src="https://i.imgur.com/Lt4i4aR.png" height="100"><p>Ice Spirit</p> | Spirit | 1 | 1 / 2 | `Freeze`, `Kamikaze` | |
 | <img src="https://i.imgur.com/SvxOw6f.png" height="100"><p>Skeletons</p> | Skeleton | 1 | 2 / 1 | | |
