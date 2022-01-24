@@ -32,7 +32,7 @@ std::vector<Creature::Capacity> SentientBlobs::get_capacities() const
 
 std::string SentientBlobs::get_description() const
 {
-	return Creature::get_description() + " Give 2 Forest cards to the opponent on death.";
+	return Creature::get_description() + "Gives 2 Forest cards to the opponent on death.";
 }
 
 Card::Cost SentientBlobs::get_cost() const

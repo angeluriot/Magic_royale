@@ -32,7 +32,7 @@ std::vector<Creature::Capacity> ElixirGolemites::get_capacities() const
 
 std::string ElixirGolemites::get_description() const
 {
-	return Creature::get_description() + "Spawns 1 Sentient Blobs on death.";
+	return Creature::get_description() + "Spawns 1 Sentient Blobs on death. Sentient Blobs gives 2 Forest cards to the opponent on death.";
 }
 
 Card::Cost ElixirGolemites::get_cost() const

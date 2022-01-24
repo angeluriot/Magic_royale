@@ -78,6 +78,10 @@ Text
 | <img src="https://i.imgur.com/lIHngL2.png" height="100"><br/>**Elite Barbarians** | Human | 4 ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) | 4 / 4 | | |
 | <img src="https://i.imgur.com/Vu0jRDv.png" height="100"><br/>**Royal Giant** | Giant | 4 ![Green](https://i.imgur.com/wAQXqTG.png) ![Green](https://i.imgur.com/wAQXqTG.png) | 3 / 5 | `Reach`, `Unblockable` | |
 | <img src="https://i.imgur.com/aCytEtE.png" height="100"><br/>**Royal Recruits** | Human | 4 ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) | 5 / 4 | `Multihit` | |
+| <img src="https://i.imgur.com/IRyHPmn.png" height="100"><br/>**Ice Golem** | Golem | 1 ![Green](https://i.imgur.com/wAQXqTG.png) | 1 / 3 | `Unblockable`, `Freeze` | Applies the effects of the Freeze capacity to all opponent creatures on death. |
+| <img src="https://i.imgur.com/zCwYjyZ.png" height="100"><br/>**Elixir Golem** | Golem | 2 ![Green](https://i.imgur.com/wAQXqTG.png) | 1 / 4 | `Unblockable` | Spawns 1 Elixir Golemites on death. Elixir Golemites spawns 1 Sentient Blobs on death. Sentient Blobs gives 2 Forest cards to the opponent on death. |
+| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
 | <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
 | <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
 | <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
