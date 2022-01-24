@@ -228,7 +228,13 @@ PtrList<Card> Card::get_cards_from_string(const std::vector<std::string>& cards_
 		{
 			if (card_string == all_cards[i].get_name())
 			{
+				if (all_cards[i].get_type() != Type::Land)
+					for (auto& card : cards)
+						if (card.get_name() == all_cards[i].get_name())
+							print_error("A deck can't have multiple copies of the same card (except for lands), please replace the extra copies of " + all_cards[i].get_name() + " by other unique cards.");
+
 				cards.add(all_cards[i]);
+
 				break;
 			}
 
