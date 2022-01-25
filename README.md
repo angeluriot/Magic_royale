@@ -35,17 +35,17 @@ This repository contains the source code of a simplified console clone of **[Mag
 
 # Features
 
-Text
+- Create your own decks of cards *(whith a **.txt** file with the cards you want in the* `decks` *folder)*
 
 <br/>
 
 # Cards
 
-Text
+The game has a total of 93 cards in the game, 5 **[lands](#lands)**, 72 **[creatures](#creatures)** and 16 **[spells](#spells)**.
 
 ### Lands
 
-Text
+Land cards give you the resources to play other cards.
 
 | Swamp | Island | Forest | Mountain | Plain |
 | :-: | :-: | :-: | :-: | :-: |
@@ -54,7 +54,7 @@ Text
 
 ### Creatures
 
-Text
+Creatures cards can be played to attack or defend, they stay in the game until they die.
 
 | Card | Type | Price | Power / Toughness | Capacities | Unique ability |
 | :-: | :-: | :-: | :-: | :- | :- |
@@ -133,19 +133,28 @@ Text
 
 ### Spells
 
-Text
+Spell cards can be played to apply effects on the game.
 
 <br/>
 
 # Install
 
-Text
+### Makefile
+
+```shell
+$ make
+$ make run
+```
+
+### CMake
+
+See the [installation part](https://github.com/angeluriot/Skeleton#install) of my **[Skeleton projet template](https://github.com/angeluriot/Skeleton)**.
 
 <br/>
 
 # Releases
 
-Text
+If you just want to test the program without editing the source code, go see the **[Releases](https://github.com/angeluriot/Magic_royale/releases)**.
 
 <br/>
 
