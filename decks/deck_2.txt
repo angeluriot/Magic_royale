@@ -2,29 +2,29 @@ Swamp
 Swamp
 Swamp
 Swamp
-Swamp
-Swamp
-Swamp
-Swamp
-Swamp
-Swamp
-Swamp
-Swamp
-Swamp
-Swamp
-Swamp
-Skeletons
-Skeletons
-Skeletons
-Skeletons
-Skeletons
-Skeletons
-Skeletons
-Skeletons
-Skeletons
-Skeletons
-Skeletons
-Skeletons
-Skeletons
-Skeletons
-Skeletons
+Mountain
+Mountain
+Mountain
+Mountain
+Forest
+Forest
+Forest
+Forest
+Lava Hound
+Ice Golem
+Hog Rider
+Inferno Dragon
+Golem
+Elixir Golem
+Goblin Barrel
+Bowler
+Giant Skeleton
+Balloon
+Wall Breakers
+Bomber
+Fireball
+Poison
+Tornado
+The Log
+Graveyard
+Earthquake
