@@ -35,7 +35,17 @@ This repository contains the source code of a simplified console clone of **[Mag
 
 # Features
 
-- Create your own decks of cards *(with a **.txt** file in the* `decks` *folder)*
+- Create your own decks of cards *(with a **.txt** file in the* `decks` *folder)*.
+
+- Start a game with two players and choose their names.
+
+- Play the cards you want to use.
+
+- Attack with your creatures.
+
+- Block opponent's creatures.
+
+- Change the order of attacks.
 
 <br/>
 
