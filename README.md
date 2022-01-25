@@ -58,11 +58,20 @@ Creatures cards can be played to attack or defend, they stay in the game until t
 
 They can have standard capacities, see the list below:
 
-- 
+- `Flying`: Only creatures whith `Reach` can attack it.
+- `Reach`: Can attack `Flying` creatures.
+- `First Strike`: Attack first.
+- `Haste`: Can attack on first turn.
+- `Unblockable`: Cannot be blocked and cannot attack while blocking.
+- `Zone Damage`: Damages go to all blockers.
+- `Multi Hit`: Attack both blockers and the player.
+- `Freeze`: Low the blocker's dammages.
+- `Kamikaze`: Die on attack.
+- `Shield`: The shield takes the first hit.
 
-They can also have unique abilities, they are described in the card's description:
+They can also have unique abilities, their effect is described in the ***Unique ability*** column:
 
-| Card | Type | Price | Power / Toughness | <div style="text-align: center">Capacities</div> | <div style="text-align: center">Unique ability</div> |
+| Card | Type | Price | Power / Toughness | <div align="center">Capacities</div> | <div align="center">Unique ability</div> |
 | :-: | :-: | :-: | :-: | :- | :- |
 | <img src="https://i.imgur.com/ygCvjHx.png" height="100"><br/>**Electro Spirit** | Spirit | 1 | 2 / 1 | `Freeze`, `Kamikaze` | |
 | <img src="https://i.imgur.com/GT0uFlD.png" height="100"><br/>**Fire Spirit** | Spirit | 1 | 2 / 1 | `Zone_Damage`, `Kamikaze` | |
@@ -141,7 +150,7 @@ They can also have unique abilities, they are described in the card's descriptio
 
 Spell cards can be played to apply effects on the game:
 
-| Card | Price | <div style="text-align: center">Effect</div> |
+| Card | Price | <div align="center">Effect</div> |
 | :-: | :-: | :- |
 | <img src="https://i.imgur.com/JLcTIHI.png" height="100"><br/>**Giant Snowball** | 1 ![Blue](https://i.imgur.com/mIKhvAF.png) | Reduces power by 1 for all enemy creatures. |
 | <img src="https://i.imgur.com/1XaYXqT.png" height="100"><br/>**Zap** | 1 ![Blue](https://i.imgur.com/mIKhvAF.png) | Inflicts 1 damage to all enemy creatures. |

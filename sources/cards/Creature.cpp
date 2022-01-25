@@ -56,7 +56,7 @@ std::string Creature::get_description() const
 			description += "- " + to_str(underline) + "Haste:" + to_str(no_underline) + " Can attack on first turn.\n";
 
 		if (capacity == Capacity::Unblockable)
-			description += "- " + to_str(underline) + "Unblockable:" + to_str(no_underline) + " Can't be blocked.\n";
+			description += "- " + to_str(underline) + "Unblockable:" + to_str(no_underline) + " Cannot be blocked and cannot attack while blocking.\n";
 
 		if (capacity == Capacity::ZoneDamage)
 			description += "- " + to_str(underline) + "Zone Damage:" + to_str(no_underline) + " Damages go to all blockers.\n";
