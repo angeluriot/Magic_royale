@@ -13,11 +13,11 @@ Forest
 Lava Hound
 Ice Golem
 Hog Rider
-Inferno Dragon
-Golem
+Goblin Gang
+Spear Goblins
 Elixir Golem
 Goblin Barrel
-Bowler
+Ram Rider
 Giant Skeleton
 Balloon
 Wall Breakers

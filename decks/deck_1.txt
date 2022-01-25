@@ -16,7 +16,7 @@ Battle Healer
 Battle Ram
 Barbarian Barrel
 Cannon Cart
-Witch
+Night Witch
 Mother Witch
 Miner
 Princess
