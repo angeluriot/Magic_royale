@@ -1,30 +1,30 @@
-Forest
-Forest
-Forest
-Forest
-Forest
-Forest
-Forest
-Forest
-Forest
-Forest
-Forest
-Forest
-Forest
-Forest
-Forest
-Ice Golem
-Ice Golem
-Ice Golem
-Ice Golem
-Ice Golem
-Ice Golem
-Ice Golem
-Ice Golem
-Ice Golem
-Ice Golem
-Ice Golem
-Ice Golem
-Ice Golem
-Ice Golem
-Ice Golem
+Plain
+Plain
+Plain
+Plain
+Plain
+Plain
+Plain
+Plain
+Island
+Island
+Island
+Island
+Archers
+Princess
+Arrows
+Miner
+Mirror
+Royal Recruits
+Battle Healer
+Flying Machine
+Battle Ram
+Rage
+Valkyrie
+Lumberjack
+Ice Wizard
+Mother Witch
+Electro Wizard
+Clone
+Freeze
+Zap
