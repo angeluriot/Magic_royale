@@ -17,7 +17,7 @@ std::string Fireball::get_name() const
 
 std::string Fireball::get_description() const
 {
-	return "Inflicts 3 damage to all enemy creatures.";
+	return "Inflicts 3 damages to all enemy creatures.";
 }
 
 Card::Cost Fireball::get_cost() const

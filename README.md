@@ -110,22 +110,26 @@ Text
 | <img src="https://i.imgur.com/JYyqA2C.png" height="100"><br/>**Witch** | Wizard | 4 ![Blue](https://i.imgur.com/mIKhvAF.png) | 3 / 4 | `Reach`, `Zone Damage` | Spawns 1 Skeleton every turn. |
 | <img src="https://i.imgur.com/AiuozVy.png" height="100"><br/>**Balloon** | Skeleton | 3 ![Black](https://i.imgur.com/FOgaANE.png) ![Black](https://i.imgur.com/FOgaANE.png) | 5 / 2 | `Flying`, `Unblockable`, `Zone Damage` | Inflicts 1 damage to all enemy creatures on death. |
 | <img src="https://i.imgur.com/NTWy762.png" height="100"><br/>**Goblin Giant** | Goblin | 4 ![Red](https://i.imgur.com/KUtPu2A.png) ![Red](https://i.imgur.com/KUtPu2A.png) | 3 / 5 | `Reach`, `Unblockable` | Spawns 1 Spear Goblins on death |
-| <img src="https://i.imgur.com/d3axxNd.png" height="100"><br/>**Giant Skeleton** | Skeleton | 4 ![Black](https://i.imgur.com/FOgaANE.png) ![Black](https://i.imgur.com/FOgaANE.png) | 2 / 6 | Capacity | Inflicts 3 damage to all enemy creatures on death. |
+| <img src="https://i.imgur.com/d3axxNd.png" height="100"><br/>**Giant Skeleton** | Skeleton | 4 ![Black](https://i.imgur.com/FOgaANE.png) ![Black](https://i.imgur.com/FOgaANE.png) | 2 / 6 | | Inflicts 3 damages to all enemy creatures on death. |
 | <img src="https://i.imgur.com/39mEPiV.png" height="100"><br/>**Pekka** | Demon | 5 ![Black](https://i.imgur.com/FOgaANE.png) ![Black](https://i.imgur.com/FOgaANE.png) | 4 / 5 | | |
 | <img src="https://i.imgur.com/p2uIjqR.png" height="100"><br/>**Electro Giant** | Giant | 5 ![Green](https://i.imgur.com/wAQXqTG.png) ![Green](https://i.imgur.com/wAQXqTG.png) ![Green](https://i.imgur.com/wAQXqTG.png) | 3 / 7 | `Reach`, `Unblockable`, `Freeze` | |
 | <img src="https://i.imgur.com/GiMOBzC.png" height="100"><br/>**Golem** | Golem | 6 ![Green](https://i.imgur.com/wAQXqTG.png) ![Green](https://i.imgur.com/wAQXqTG.png) | 2 / 8 | `Unblockable` | Inflicts 1 damage to all enemy creatures and spawns 1 Golemites on death. Golemites also inflicts 1 damage to all enemy creatures on death. |
-| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
-| <img src="" height="100"><br/>**Name** | Type | Price | Power / Toughness | Capacity | Unique ability |
+| <img src="https://i.imgur.com/fu0vypQ.png" height="100"><br/>**Fisherman** | Human | 2 ![White](https://i.imgur.com/23AueSy.png) | 2 / 3 | `First Strike` | |
+| <img src="https://i.imgur.com/gAC6ScV.png" height="100"><br/>**Royal Ghost** | Specter | 2 ![Black](https://i.imgur.com/FOgaANE.png) | 3 / 2 | `First Strike` | |
+| <img src="https://i.imgur.com/RVdRLge.png" height="100"><br/>**Bandit** | Human | 2 ![White](https://i.imgur.com/23AueSy.png) | 3 / 2 | `First Strike`, `Haste` | |
+| <img src="https://i.imgur.com/hinKLqx.png" height="100"><br/>**Miner** | Human | 2 ![White](https://i.imgur.com/23AueSy.png) | 2 / 3 | `Haste`, `Unblockable` | |
+| <img src="https://i.imgur.com/reOtyLp.png" height="100"><br/>**Princess** | Human | 2 ![White](https://i.imgur.com/23AueSy.png) | 3 / 2 | `Reach`, `Zone Damage` | |
+| <img src="https://i.imgur.com/MfnINC5.png" height="100"><br/>**Ice Wizard** | Wizard | 2 ![Blue](https://i.imgur.com/mIKhvAF.png) | 2 / 3 | `Reach`, `Zone Damage`, `Freeze` | Inflicts the effects of Freeze capacity to all enemy creatures on spawn. |
+| <img src="https://i.imgur.com/V2iEXmS.png" height="100"><br/>**Mother Witch** | Wizard | 3 ![Blue](https://i.imgur.com/mIKhvAF.png) | 2 / 4 | `Reach` | Turns creatures she kills into hogs. |
+| <img src="https://i.imgur.com/FmdMCVe.png" height="100"><br/>**Magic Archer** | Elf | 3 ![White](https://i.imgur.com/23AueSy.png) | 3 / 3 | `Reach`, `Multi Hit` | |
+| <img src="https://i.imgur.com/rCzWjTF.png" height="100"><br/>**Night Witch** | Wizard | 3 ![Blue](https://i.imgur.com/mIKhvAF.png) | 3 / 3 | | Spawns 1 Bat every turn. |
+| <img src="https://i.imgur.com/p2cZOFO.png" height="100"><br/>**Electro Wizard** | Wizard | 2 ![Blue](https://i.imgur.com/mIKhvAF.png) ![Blue](https://i.imgur.com/mIKhvAF.png) | 3 / 3 | `Reach`, `Multi Hit`, `Freeze` | Inflicts 1 damage to all enemy creatures on spawn. |
+| <img src="https://i.imgur.com/uXVGetW.png" height="100"><br/>**Inferno Dragon** | Dragon | 2 ![Red](https://i.imgur.com/KUtPu2A.png) ![Red](https://i.imgur.com/KUtPu2A.png) | 4 / 2 | `Flying`, `Reach` | |
+| <img src="https://i.imgur.com/eYF3T7T.png" height="100"><br/>**Lumberjack** | Human | 3 ![White](https://i.imgur.com/23AueSy.png) | 4 / 2 | | Casts a Rage spell 1 turn after his death. |
+| <img src="https://i.imgur.com/pZMg2IW.png" height="100"><br/>**Ram Rider** | Human | 3 ![Green](https://i.imgur.com/wAQXqTG.png) ![Green](https://i.imgur.com/wAQXqTG.png) | 3 / 4 | `Multi Hit`, `Freeze`, `Haste` | |
+| <img src="https://i.imgur.com/jJ0MLEB.png" height="100"><br/>**Sparky** | Machine | 5 ![Blue](https://i.imgur.com/mIKhvAF.png) | 5 / 3 | `Zone Damage` | |
+| <img src="https://i.imgur.com/HllRYOd.png" height="100"><br/>**Mega Knight** | Knight | 5 ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) | 3 / 6 | `First Strike`, `Zone Damage` | Inflicts 2 damages to all enemy creatures on spawn. |
+| <img src="https://i.imgur.com/8nvT4xs.png" height="100"><br/>**Lava Hound** | Demon | 5 ![Red](https://i.imgur.com/KUtPu2A.png) ![Red](https://i.imgur.com/KUtPu2A.png) | 2 / 7 | `Flying`, `Reach`, `Unblockable` | Spawns 1 Lava Pups on death. |
 
 ### Spells
 

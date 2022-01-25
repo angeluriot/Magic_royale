@@ -17,7 +17,7 @@ std::string Arrows::get_name() const
 
 std::string Arrows::get_description() const
 {
-	return "Inflicts 2 damage to all enemy creatures.";
+	return "Inflicts 2 damages to all enemy creatures.";
 }
 
 Card::Cost Arrows::get_cost() const

@@ -28,7 +28,7 @@ std::vector<Creature::Capacity> GiantSkeleton::get_capacities() const
 
 std::string GiantSkeleton::get_description() const
 {
-	return Creature::get_description() + "Inflicts 3 damage to all enemy creatures on death.";
+	return Creature::get_description() + "Inflicts 3 damages to all enemy creatures on death.";
 }
 
 Card::Cost GiantSkeleton::get_cost() const
@@ -55,7 +55,7 @@ void GiantSkeleton::die()
 	Creature::die();
 
 	std::cout << cyan << "[INFO] " << ::reset << italic << ::get_color(get_color()) << get_name() << ::reset <<
-		" inflicted 3 damage to all enemy creatures." << End(2);
+		" inflicted 3 damages to all enemy creatures." << End(2);
 
 	for (auto& creature : m_owner->get_opponent().creatures)
 		creature.modify_toughness(-3);

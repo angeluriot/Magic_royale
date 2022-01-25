@@ -17,7 +17,7 @@ std::string Poison::get_name() const
 
 std::string Poison::get_description() const
 {
-	return "Inflicts 2 damage and reduces power by 1 to all enemy creatures.";
+	return "Inflicts 2 damages and reduces power by 1 to all enemy creatures.";
 }
 
 Card::Cost Poison::get_cost() const
