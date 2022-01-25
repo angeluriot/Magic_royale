@@ -135,6 +135,16 @@ Creatures cards can be played to attack or defend, they stay in the game until t
 
 Spell cards can be played to apply effects on the game.
 
+| Card | Price | Effect |
+| :-: | :-: | :- |
+| <img src="https://i.imgur.com/JLcTIHI.png" height="100"><br/>**Giant Snowball** | 1 ![Blue](https://i.imgur.com/mIKhvAF.png) | Effect |
+| <img src="" height="100"><br/>**name** | Price | Effect |
+| <img src="" height="100"><br/>**name** | Price | Effect |
+| <img src="" height="100"><br/>**name** | Price | Effect |
+| <img src="" height="100"><br/>**name** | Price | Effect |
+| <img src="" height="100"><br/>**name** | Price | Effect |
+| <img src="" height="100"><br/>**name** | Price | Effect |
+
 <br/>
 
 # Install
