@@ -670,13 +670,13 @@ void Player::block()
 			for (int i = 0; i < get_opponent().creatures.size(); i++)
 				if (get_opponent().creatures[i].is_attacking() && !get_opponent().creatures[i].has(Creature::Capacity::Unblockable))
 				{
-					to_block_choices.push_back(get_opponent().creatures[i].get_name() + " (" + to_str(creatures[i].get_power()) + "/" + to_str(creatures[i].get_toughness()) + ")");
+					to_block_choices.push_back(get_opponent().creatures[i].get_name() + " (" + to_str(get_opponent().creatures[i].get_power()) + "/" + to_str(get_opponent().creatures[i].get_toughness()) + ")");
 					to_block_colors.push_back(get_color(get_opponent().creatures[i].get_color()));
 					to_block_indexes.push_back(i);
 
 					if (!get_opponent().creatures[i].has(Creature::Capacity::Flying))
 					{
-						no_flying_to_block_choices.push_back(get_opponent().creatures[i].get_name() + " (" + to_str(creatures[i].get_power()) + "/" + to_str(creatures[i].get_toughness()) + ")");
+						no_flying_to_block_choices.push_back(get_opponent().creatures[i].get_name() + " (" + to_str(get_opponent().creatures[i].get_power()) + "/" + to_str(get_opponent().creatures[i].get_toughness()) + ")");
 						no_flying_to_block_colors.push_back(get_color(get_opponent().creatures[i].get_color()));
 						no_flying_to_block_indexes.push_back(i);
 					}
