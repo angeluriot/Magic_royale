@@ -14,10 +14,10 @@ Lava Hound
 Ice Golem
 Hog Rider
 Goblin Gang
-Golem
+Spear Goblins
 Elixir Golem
 Goblin Barrel
-Bowler
+Ram Rider
 Giant Skeleton
 Balloon
 Wall Breakers
