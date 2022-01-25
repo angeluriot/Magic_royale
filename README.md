@@ -182,7 +182,7 @@ $ make run
 
 ### CMake
 
-See the [installation part](https://github.com/angeluriot/Skeleton#install) of my **[Skeleton projet template](https://github.com/angeluriot/Skeleton)**.
+See the [installation part](https://github.com/angeluriot/Skeleton#install) of my **[Skeleton project template](https://github.com/angeluriot/Skeleton)**.
 
 <br/>
 
