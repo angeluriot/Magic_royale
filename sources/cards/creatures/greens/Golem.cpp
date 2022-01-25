@@ -32,7 +32,7 @@ std::vector<Creature::Capacity> Golem::get_capacities() const
 
 std::string Golem::get_description() const
 {
-	return Creature::get_description() + "Spawns 1 Golemites on death.";
+	return Creature::get_description() + "Inflicts 1 damage to all enemy creatures and spawns 1 Golemites on death. Golemites also inflicts 1 damage to all enemy creatures on death.";
 }
 
 Card::Cost Golem::get_cost() const
@@ -57,6 +57,12 @@ int Golem::get_full_toughness() const
 void Golem::die()
 {
 	Creature::die();
+
+	std::cout << cyan << "[INFO] " << ::reset << italic << ::get_color(get_color()) << get_name() << ::reset <<
+		" inflicted 1 damage to all enemy creatures." << End(2);
+
+	for (auto& creature : m_owner->get_opponent().creatures)
+		creature.modify_toughness(-1);
 
 	std::cout << cyan << "[INFO] " << ::reset << "A " << italic << ::get_color(Golemites().get_color()) <<
 		Golemites().get_name() << ::reset << " spawned." << End(2);

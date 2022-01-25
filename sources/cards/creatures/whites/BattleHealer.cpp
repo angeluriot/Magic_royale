@@ -25,7 +25,8 @@ std::vector<Creature::Capacity> BattleHealer::get_capacities() const
 {
 	return
 	{
-		Capacity::Flying
+		Capacity::Flying,
+		Capacity::Reach
 	};
 }
 

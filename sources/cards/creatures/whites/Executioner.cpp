@@ -23,7 +23,8 @@ std::vector<Creature::Capacity> Executioner::get_capacities() const
 {
 	return
 	{
-		Capacity::MultiHit
+		Capacity::MultiHit,
+		Capacity::Reach
 	};
 }
 

@@ -1,4 +1,6 @@
 #include "cards/creatures/generateds/Golemites.hpp"
+#include "players/Player.hpp"
+#include "renderer/print.hpp"
 
 Golemites::Golemites(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
 
@@ -29,7 +31,7 @@ std::vector<Creature::Capacity> Golemites::get_capacities() const
 
 std::string Golemites::get_description() const
 {
-	return Creature::get_description() + "";
+	return Creature::get_description() + "Inflicts 1 damage to all enemy creatures on death.";
 }
 
 Card::Cost Golemites::get_cost() const
@@ -45,6 +47,17 @@ int Golemites::get_full_power() const
 int Golemites::get_full_toughness() const
 {
 	return 3;
+}
+
+void Golemites::die()
+{
+	Creature::die();
+
+	std::cout << cyan << "[INFO] " << ::reset << italic << ::get_color(get_color()) << get_name() << ::reset <<
+		" inflicted 1 damage to all enemy creatures." << End(2);
+
+	for (auto& creature : m_owner->get_opponent().creatures)
+		creature.modify_toughness(-1);
 }
 
 Card* Golemites::clone() const
