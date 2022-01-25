@@ -17,7 +17,7 @@ std::string Earthquake::get_name() const
 
 std::string Earthquake::get_description() const
 {
-	return "Inflicts 3 damage to enemy creatures that do not have the Flying capacity.";
+	return "Inflicts 3 damages to enemy creatures that do not have the Flying capacity.";
 }
 
 Card::Cost Earthquake::get_cost() const

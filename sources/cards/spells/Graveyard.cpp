@@ -19,7 +19,7 @@ std::string Graveyard::get_name() const
 
 std::string Graveyard::get_description() const
 {
-	return "Resurrects the last two cards in the graveyard.";
+	return "Resurrects the last two cards of the graveyard.";
 }
 
 Card::Cost Graveyard::get_cost() const

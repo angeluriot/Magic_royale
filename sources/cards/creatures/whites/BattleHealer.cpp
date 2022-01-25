@@ -32,7 +32,7 @@ std::vector<Creature::Capacity> BattleHealer::get_capacities() const
 
 std::string BattleHealer::get_description() const
 {
-	return Creature::get_description() + "Adds 1 toughness to all ally creatures while alive.";
+	return Creature::get_description() + "Adds 1 toughness to all allied creatures while alive.";
 }
 
 Card::Cost BattleHealer::get_cost() const
@@ -59,7 +59,7 @@ void BattleHealer::spawn()
 	Creature::spawn();
 
 	std::cout << cyan << "[INFO] " << ::reset << italic << ::get_color(get_color()) << get_name() << ::reset <<
-		" added 1 toughness to all ally creatures." << End(2);
+		" added 1 toughness to all allied creatures." << End(2);
 
 	for (auto& creature : m_owner->creatures)
 		creature.modify_toughness(1);
@@ -70,7 +70,7 @@ void BattleHealer::special_ability()
 	Creature::special_ability();
 
 	std::cout << cyan << "[INFO] " << ::reset << italic << ::get_color(get_color()) << get_name() << ::reset <<
-		" added 1 toughness to all ally creatures." << End(2);
+		" added 1 toughness to all allied creatures." << End(2);
 
 	for (auto& creature : m_owner->creatures)
 		creature.modify_toughness(1);

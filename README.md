@@ -45,7 +45,7 @@ The game has a total of 93 cards, 5 **[lands](#lands)**, 72 **[creatures](#creat
 
 ### Lands
 
-Land cards give you the resources to play other cards.
+Land cards give you the resources to play other cards:
 
 | Swamp | Island | Forest | Mountain | Plain |
 | :-: | :-: | :-: | :-: | :-: |
@@ -56,7 +56,13 @@ Land cards give you the resources to play other cards.
 
 Creatures cards can be played to attack or defend, they stay in the game until they die.
 
-| Card | Type | Price | Power / Toughness | Capacities | Unique ability |
+They can have standard capacities, see the list below:
+
+- 
+
+They can also have unique abilities, they are described in the card's description:
+
+| Card | Type | Price | Power / Toughness | <div style="text-align: center">Capacities</div> | <div style="text-align: center">Unique ability</div> |
 | :-: | :-: | :-: | :-: | :- | :- |
 | <img src="https://i.imgur.com/ygCvjHx.png" height="100"><br/>**Electro Spirit** | Spirit | 1 | 2 / 1 | `Freeze`, `Kamikaze` | |
 | <img src="https://i.imgur.com/GT0uFlD.png" height="100"><br/>**Fire Spirit** | Spirit | 1 | 2 / 1 | `Zone_Damage`, `Kamikaze` | |
@@ -82,7 +88,7 @@ Creatures cards can be played to attack or defend, they stay in the game until t
 | <img src="https://i.imgur.com/zCwYjyZ.png" height="100"><br/>**Elixir Golem** | Golem | 2 ![Green](https://i.imgur.com/wAQXqTG.png) | 1 / 4 | `Unblockable` | Spawns 1 Elixir Golemites on death. Elixir Golemites spawns 1 Sentient Blobs on death. Sentient Blobs gives 2 Forest cards to the opponent on death. |
 | <img src="https://i.imgur.com/VcjPaX9.png" height="100"><br/>**Dart Goblin** | Goblin | 2 ![Green](https://i.imgur.com/wAQXqTG.png) | 3 / 2 | `Reach` | |
 | <img src="https://i.imgur.com/N54TT37.png" height="100"><br/>**Mega Minion** | Minion | 2 ![Blue](https://i.imgur.com/mIKhvAF.png) | 2 / 3 | `Flying`, `Reach` | |
-| <img src="https://i.imgur.com/MTG0aib.png" height="100"><br/>**Battle Healer** | Angel | 2 ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) | 1 / 3 | `Flying`, `Reach` | Adds 1 toughness to all ally creatures while alive. |
+| <img src="https://i.imgur.com/MTG0aib.png" height="100"><br/>**Battle Healer** | Angel | 2 ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) | 1 / 3 | `Flying`, `Reach` | Adds 1 toughness to all allied creatures while alive. |
 | <img src="https://i.imgur.com/4O5vBzt.png" height="100"><br/>**Flying Machine** | Machine | 3 ![White](https://i.imgur.com/23AueSy.png) | 2 / 4 | `Flying`, `Reach` | |
 | <img src="https://i.imgur.com/LTHr2Vs.png" height="100"><br/>**Zappies** | Machine | 3 ![Blue](https://i.imgur.com/mIKhvAF.png) | 3 / 3 | `Reach`, `Freeze` | |
 | <img src="https://i.imgur.com/0ArQF4i.png" height="100"><br/>**Battle Ram** | Human | 3 ![White](https://i.imgur.com/23AueSy.png) | 3 / 1 | `Haste`, `Unblockable`, `Kamikaze` | Spawns 1 Barbarian on death. |
@@ -133,17 +139,26 @@ Creatures cards can be played to attack or defend, they stay in the game until t
 
 ### Spells
 
-Spell cards can be played to apply effects on the game.
+Spell cards can be played to apply effects on the game:
 
-| Card | Price | Effect |
+| Card | Price | <div style="text-align: center">Effect</div> |
 | :-: | :-: | :- |
-| <img src="https://i.imgur.com/JLcTIHI.png" height="100"><br/>**Giant Snowball** | 1 ![Blue](https://i.imgur.com/mIKhvAF.png) | Effect |
-| <img src="" height="100"><br/>**name** | Price | Effect |
-| <img src="" height="100"><br/>**name** | Price | Effect |
-| <img src="" height="100"><br/>**name** | Price | Effect |
-| <img src="" height="100"><br/>**name** | Price | Effect |
-| <img src="" height="100"><br/>**name** | Price | Effect |
-| <img src="" height="100"><br/>**name** | Price | Effect |
+| <img src="https://i.imgur.com/JLcTIHI.png" height="100"><br/>**Giant Snowball** | 1 ![Blue](https://i.imgur.com/mIKhvAF.png) | Reduces power by 1 for all enemy creatures. |
+| <img src="https://i.imgur.com/1XaYXqT.png" height="100"><br/>**Zap** | 1 ![Blue](https://i.imgur.com/mIKhvAF.png) | Inflicts 1 damage to all enemy creatures. |
+| <img src="https://i.imgur.com/QdxT6C1.png" height="100"><br/>**Arrows** | 2 ![White](https://i.imgur.com/23AueSy.png) | Inflicts 2 damages to all enemy creatures. |
+| <img src="https://i.imgur.com/SVnpUbM.png" height="100"><br/>**Heal Spirit** | 1 | Increases toughness by 1 for all allied creatures. |
+| <img src="https://i.imgur.com/2EucZoB.png" height="100"><br/>**Earthquake** | 2 ![Green](https://i.imgur.com/wAQXqTG.png) | Inflicts 3 damages to enemy creatures that do not have the `Flying` capacity. |
+| <img src="https://i.imgur.com/ceGqlpp.png" height="100"><br/>**Fireball** | 2 ![Red](https://i.imgur.com/KUtPu2A.png) ![Red](https://i.imgur.com/KUtPu2A.png) | Inflicts 3 damages to all enemy creatures. |
+| <img src="https://i.imgur.com/leYKSVj.png" height="100"><br/>**Rocket** | 4 ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) | Inflicts 6 damages to the target of your choice. |
+| <img src="https://i.imgur.com/IL5njAc.png" height="100"><br/>**Mirror** | 1 ![White](https://i.imgur.com/23AueSy.png) | Adds a copy of the last summoned creature in your hand. |
+| <img src="https://i.imgur.com/OQlWbdY.png" height="100"><br/>**Rage** | 1 ![White](https://i.imgur.com/23AueSy.png) | Increases power by 1 for all allied creatures. |
+| <img src="https://i.imgur.com/w8DdJUA.png" height="100"><br/>**Clone** | 3 ![Blue](https://i.imgur.com/mIKhvAF.png) | Duplicates all your creatures but with 1 toughness. |
+| <img src="https://i.imgur.com/HBP2HKt.png" height="100"><br/>**Tornado** | 2 ![Green](https://i.imgur.com/wAQXqTG.png) | Inflicts 1 damage and reduces power by 1 to all enemy creatures. |
+| <img src="https://i.imgur.com/fpFMiVW.png" height="100"><br/>**Poison** | 2 ![Red](https://i.imgur.com/KUtPu2A.png) ![Red](https://i.imgur.com/KUtPu2A.png) | Inflicts 2 damages and reduces power by 1 to all enemy creatures. |
+| <img src="https://i.imgur.com/Kqzm5YD.png" height="100"><br/>**Freeze** | 2 ![Blue](https://i.imgur.com/mIKhvAF.png) ![Blue](https://i.imgur.com/mIKhvAF.png) | The opponent cannot block on this turn. |
+| <img src="https://i.imgur.com/oB1X6Fv.png" height="100"><br/>**Lightning** | 4 ![Blue](https://i.imgur.com/mIKhvAF.png) ![Blue](https://i.imgur.com/mIKhvAF.png) | Inflicts 4 damages to all enemy creatures. |
+| <img src="https://i.imgur.com/ri5hNrz.png" height="100"><br/>**The Log** | 1 ![Green](https://i.imgur.com/wAQXqTG.png) | Inflicts 2 damages to enemy creatures that do not have the `Flying` capacity. |
+| <img src="https://i.imgur.com/mLaiDeQ.png" height="100"><br/>**Graveyard** | 3 ![Black](https://i.imgur.com/FOgaANE.png) ![Black](https://i.imgur.com/FOgaANE.png) | Resurrects the last two cards of the graveyard. |
 
 <br/>
 

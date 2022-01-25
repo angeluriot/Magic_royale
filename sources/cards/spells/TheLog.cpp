@@ -17,7 +17,7 @@ std::string TheLog::get_name() const
 
 std::string TheLog::get_description() const
 {
-	return "Inflicts 2 damage to enemy creatures that do not have the Flying capacity.";
+	return "Inflicts 2 damages to enemy creatures that do not have the Flying capacity.";
 }
 
 Card::Cost TheLog::get_cost() const

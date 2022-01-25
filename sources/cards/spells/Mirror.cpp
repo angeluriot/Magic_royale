@@ -18,7 +18,7 @@ std::string Mirror::get_name() const
 
 std::string Mirror::get_description() const
 {
-	return "Add a copy of the last summoned creature in your hand.";
+	return "Adds a copy of the last summoned creature in your hand.";
 }
 
 Card::Cost Mirror::get_cost() const

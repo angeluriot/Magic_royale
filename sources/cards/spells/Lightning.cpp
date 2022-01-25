@@ -17,7 +17,7 @@ std::string Lightning::get_name() const
 
 std::string Lightning::get_description() const
 {
-	return "Inflicts 4 damage to all enemy creatures.";
+	return "Inflicts 4 damages to all enemy creatures.";
 }
 
 Card::Cost Lightning::get_cost() const

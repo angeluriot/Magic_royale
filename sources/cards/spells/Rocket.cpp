@@ -18,7 +18,7 @@ std::string Rocket::get_name() const
 
 std::string Rocket::get_description() const
 {
-	return "Inflicts 6 damage to the target of your choice.";
+	return "Inflicts 6 damages to the target of your choice.";
 }
 
 Card::Cost Rocket::get_cost() const
