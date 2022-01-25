@@ -45,7 +45,7 @@ std::vector<std::string> get_cards_from_deck(const std::string& deck_file)
 	}
 
 	else
-		print_error("Unable to open \"" + to_str(italic) + deck_file + to_str(no_italic) + "\".");
+		throw_error("Unable to open \"" + to_str(italic) + deck_file + to_str(no_italic) + "\".");
 
 	return cards;
 }

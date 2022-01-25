@@ -125,7 +125,7 @@ They can also have unique abilities, their effect is described in the ***Unique 
 | <img src="https://i.imgur.com/EphIYxU.png" height="100"><br/>**Skeleton Army** | Skeleton | 2 ![Black](https://i.imgur.com/FOgaANE.png) | 4 / 1 | `Multi_Hit` | |
 | <img src="https://i.imgur.com/9P3uC44.png" height="100"><br/>**Goblin Barrel** | Goblin | 2 ![Red](https://i.imgur.com/KUtPu2A.png) | 3 / 2 | `Haste`, `Unblockable` | |
 | <img src="https://i.imgur.com/bfFlRGY.png" height="100"><br/>**Hunter** | Humain | 2 ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) | 3 / 3 | `Reach`, `Multi_Hit`, `Zone_Damage` | |
-| <img src="https://i.imgur.com/8WD6DLs.png" height="100"><br/>**Dark Prince** | Knight | 2 ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) | 2 / 4 | `Haste`, `Zone_Damage`, `Shield` | |
+| <img src="https://i.imgur.com/8WD6DLs.png" height="100"><br/>**Dark Prince** | Knight | 2 ![Black](https://i.imgur.com/FOgaANE.png) ![Black](https://i.imgur.com/FOgaANE.png) | 2 / 4 | `Haste`, `Zone_Damage`, `Shield` | |
 | <img src="https://i.imgur.com/zX1y63x.png" height="100"><br/>**Baby Dragon** | Dragon | 3 ![Red](https://i.imgur.com/KUtPu2A.png) | 3 / 3 | `Flying`, `Reach`, `Zone_Damage` | |
 | <img src="https://i.imgur.com/56G9WCU.png" height="100"><br/>**Electro Dragon** | Dragon | 3 ![Blue](https://i.imgur.com/mIKhvAF.png) ![Blue](https://i.imgur.com/mIKhvAF.png) | 4 / 3 | `Flying`, `Reach`, `Freeze` | |
 | <img src="https://i.imgur.com/rxwhdoY.png" height="100"><br/>**Cannon Cart** | Machine | 4 ![White](https://i.imgur.com/23AueSy.png) | 3 / 4 | | Spawns 1 Cannon on death. |
@@ -153,7 +153,7 @@ They can also have unique abilities, their effect is described in the ***Unique 
 | <img src="https://i.imgur.com/eYF3T7T.png" height="100"><br/>**Lumberjack** | Human | 3 ![White](https://i.imgur.com/23AueSy.png) | 4 / 2 | | Casts a Rage spell 1 turn after his death. |
 | <img src="https://i.imgur.com/pZMg2IW.png" height="100"><br/>**Ram Rider** | Human | 3 ![Green](https://i.imgur.com/wAQXqTG.png) ![Green](https://i.imgur.com/wAQXqTG.png) | 3 / 4 | `Multi_Hit`, `Freeze`, `Haste` | |
 | <img src="https://i.imgur.com/jJ0MLEB.png" height="100"><br/>**Sparky** | Machine | 5 ![Blue](https://i.imgur.com/mIKhvAF.png) | 5 / 3 | `Zone_Damage` | |
-| <img src="https://i.imgur.com/HllRYOd.png" height="100"><br/>**Mega Knight** | Knight | 5 ![White](https://i.imgur.com/23AueSy.png) ![White](https://i.imgur.com/23AueSy.png) | 3 / 6 | `First_Strike`, `Zone_Damage` | Inflicts 2 damages to all enemy creatures on spawn. |
+| <img src="https://i.imgur.com/HllRYOd.png" height="100"><br/>**Mega Knight** | Knight | 5 ![Black](https://i.imgur.com/FOgaANE.png) ![Black](https://i.imgur.com/FOgaANE.png) | 3 / 6 | `First_Strike`, `Zone_Damage` | Inflicts 2 damages to all enemy creatures on spawn. |
 | <img src="https://i.imgur.com/8nvT4xs.png" height="100"><br/>**Lava Hound** | Demon | 5 ![Red](https://i.imgur.com/KUtPu2A.png) ![Red](https://i.imgur.com/KUtPu2A.png) | 2 / 7 | `Flying`, `Reach`, `Unblockable` | Spawns 1 Lava Pups on death. |
 
 ### Spells

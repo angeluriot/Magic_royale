@@ -322,18 +322,18 @@ bool Player::engage_lands(const Card& card)
 			return false;
 		}
 
-		else if (to_engage[lands[indexes.at(res)].get_color()] > 0)
+		else if (to_engage[lands[indexes[res]].get_color()] > 0)
 		{
-			lands[indexes.at(res)].engage();
-			to_engage[lands[indexes.at(res)].get_color()] -= 1;
-			already_engaged_indexes.push_back(indexes.at(res));
+			lands[indexes[res]].engage();
+			to_engage[lands[indexes[res]].get_color()] -= 1;
+			already_engaged_indexes.push_back(indexes[res]);
 		}
 
 		else if (to_engage[Card::Color::Colorless] > 0)
 		{
-			lands[indexes.at(res)].engage();
+			lands[indexes[res]].engage();
 			to_engage[Card::Color::Colorless] -= 1;
-			already_engaged_indexes.push_back(indexes.at(res));
+			already_engaged_indexes.push_back(indexes[res]);
 		}
 
 		else
@@ -560,64 +560,61 @@ void Player::combat_phase()
 
 		int res = choice(attacking_creatures_choice, attacking_creatures_color, { "- Next -", "- Quit -" });
 
-		indexes.push_back(attacking_creatures_choice.size());
-		indexes.push_back(attacking_creatures_choice.size() + 1);
-
-		if (indexes.at(res) == attacking_creatures_choice.size())
+		if (res == attacking_creatures_choice.size())
 			break;
 
-		if (indexes.at(res) == attacking_creatures_choice.size() + 1)
+		else if (res == attacking_creatures_choice.size() + 1)
 		{
 			quit_game();
 			continue;
 		}
 
-		if (creatures[indexes.at(res)].is_attacking())
+		else if (creatures[indexes[res]].is_attacking())
 		{
-			creatures[indexes.at(res)].will_not_attack();
+			creatures[indexes[res]].will_not_attack();
 			std::cout << cyan << "[INFO] " << reset << "You cancelled the attack of this creature." << End(2);
 		}
 
 		else
 		{
-			creatures[indexes.at(res)].will_attack();
+			creatures[indexes[res]].will_attack();
 			std::cout << cyan << "[INFO] " << reset << "This creature will attack." << End(2);
 		}
 	}
 
 	get_opponent().block();
 
-	// TODO: Change order of targets
-
-	std::vector<std::string> attacking_order_choice;
-	std::vector<std::string_view> attacking_order_color;
-
-	std::vector<Creature*> new_targets;
-	int res;
-
 	for (auto& creature : creatures)
-		if (creature.is_attacking())
+	{
+		std::vector<std::string> attacking_order_choice;
+		std::vector<std::string_view> attacking_order_color;
+		std::vector<size_t> indexes;
+		std::vector<Creature*> new_targets;
+
+		if (creature.is_attacking() && creature.targets.size() > 1)
 		{
-			if (creature.m_targets.size() > 1)
+			for (int i = 0; i < creature.targets.size(); i++)
 			{
-				for (auto& target : creature.m_targets)
-				{
-					attacking_order_choice.push_back(target->get_name() + " (" + to_str(creature.get_power()) + "/" + to_str(creature.get_toughness()) + ")");
-					attacking_order_color.push_back(get_color(target->get_color()));
-				}
-
-				while (new_targets.size() < creature.m_targets.size())
-				{
-					std::cout << End(1) << magenta << bold << get_name() << reset << ", choose the #" << new_targets.size() + 1 << " creature you want to attack." << End(1);
-					res = choice(attacking_order_choice, attacking_order_color);
-					new_targets.push_back(creature.m_targets.at(res));
-					attacking_order_choice.erase(attacking_order_choice.begin() + res);
-					attacking_order_color.erase(attacking_order_color.begin() + res);
-				}
-
-				creature.m_targets = new_targets;
+				attacking_order_choice.push_back(creature.targets[i]->get_name() + " (" + to_str(creature.get_power()) + "/" + to_str(creature.get_toughness()) + ")");
+				attacking_order_color.push_back(get_color(creature.targets[i]->get_color()));
+				indexes.push_back(i);
 			}
+
+			while (new_targets.size() < creature.targets.size())
+			{
+				std::cout << magenta << bold << get_name() << reset << ", choose the #" << new_targets.size() + 1 << " creature you want to attack." << End(1);
+
+				int res = choice(attacking_order_choice, attacking_order_color);
+				new_targets.push_back(creature.targets[indexes[res]]);
+
+				attacking_order_choice.erase(attacking_order_choice.begin() + res);
+				attacking_order_color.erase(attacking_order_color.begin() + res);
+				indexes.erase(indexes.begin() + res);
+			}
+
+			creature.targets = new_targets;
 		}
+	}
 
 	for (auto& creature : creatures)
 		if (creature.is_attacking())

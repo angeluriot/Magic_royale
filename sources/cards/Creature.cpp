@@ -118,10 +118,10 @@ void Creature::break_shield()
 
 void Creature::remove_target(const Creature& target)
 {
-	for (auto it = m_targets.begin(); it != m_targets.end();)
+	for (auto it = targets.begin(); it != targets.end();)
 	{
 		if (*it == &target)
-			it = m_targets.erase(it);
+			it = targets.erase(it);
 		else
 			++it;
 	}
@@ -173,18 +173,18 @@ void Creature::change_order()
 	std::vector<Creature*> new_targets;
 	std::cout << "Entrez le nouvel ordre d'attaque de cette creature :" << std::endl;;
 
-	for (size_t i = 0; i < m_targets.size(); i++)
+	for (size_t i = 0; i < targets.size(); i++)
 	{
 		std::cin >> new_order;
 		new_order--;
-		new_targets.push_back(m_targets.at(new_order));
+		new_targets.push_back(targets[new_order]);
 	}
 
-	m_targets.clear();
+	targets.clear();
 
 	for (Creature* target : new_targets)
 	{
-		m_targets.push_back(target);
+		targets.push_back(target);
 		std::cout << target->get_name() << std::endl;
 	}
 }
@@ -192,7 +192,7 @@ void Creature::change_order()
 void Creature::will_block(Creature& creature)
 {
 	m_blocking = true;
-	creature.m_targets.push_back(this);
+	creature.targets.push_back(this);
 }
 
 void Creature::will_not_block()
@@ -203,15 +203,19 @@ void Creature::will_not_block()
 
 void Creature::apply_attack()
 {
-	if (m_targets.empty())
+	bool has_attacked = false;
+
+	if (targets.empty())
+	{
 		attack(get_power());
+		has_attacked = true;
+	}
 
 	else
 	{
 		int power_left = get_power();
-		bool has_attacked = false;
 
-		for (Creature* target : m_targets)
+		for (Creature* target : targets)
 		{
 			if (has(Capacity::FirstStrike) && !target->has(Capacity::FirstStrike))
 			{
@@ -263,12 +267,12 @@ void Creature::apply_attack()
 			attack(power_left);
 			has_attacked = true;
 		}
+	}
 
-		if (has(Capacity::Kamikaze) && has_attacked)
-		{
-			m_toughness = 0;
-			m_alive = false;
-		}
+	if (has(Capacity::Kamikaze) && has_attacked)
+	{
+		m_toughness = 0;
+		m_alive = false;
 	}
 }
 
@@ -311,7 +315,12 @@ void Creature::block(Creature& creature)
 			creature.m_shield = false;
 
 		else
+		{
+			if (get_power() >= creature.get_toughness())
+				on_kill();
+
 			creature.modify_toughness(-get_power());
+		}
 
 		if (has(Capacity::Kamikaze))
 		{
@@ -336,7 +345,7 @@ void Creature::reset()
 	m_can_attack = true;
 	m_attacking = false;
 	m_blocking = false;
-	m_targets.clear();
+	targets.clear();
 }
 
 void Creature::full_reset()
@@ -350,7 +359,7 @@ void Creature::full_reset()
 	m_shield = false;
 	m_alive = true;
 	m_clone = false;
-	m_targets.clear();
+	targets.clear();
 
 	if (has(Capacity::Shield))
 		m_shield = true;

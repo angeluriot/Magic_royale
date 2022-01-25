@@ -15,7 +15,7 @@ public:
 		Reach,			// Can reach flying creatures
 		FirstStrike,	// Attacks first when blocking
 		Haste,			// Can attack on first turn
-		Unblockable,	// Can't be blocked
+		Unblockable,	// Cannot be blocked and cannot attack while blocking
 		ZoneDamage,		// Damages all blockers
 		MultiHit,		// Attacks blockers and the player
 		Freeze,			// Lowers the blocker's damage
@@ -36,7 +36,7 @@ protected:
 
 public:
 
-	std::vector<Creature*> m_targets;
+	std::vector<Creature*> targets;
 
 	Creature(int full_power, int full_toughness, const std::vector<Creature::Capacity>& capacities);
 	Creature(const Creature& other) = default;

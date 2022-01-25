@@ -1,5 +1,7 @@
 #include "renderer/print.hpp"
 #include "renderer/inputs.hpp"
+#include "exception"
+#include "utils/utils.hpp"
 
 std::string input(const std::string& prompt, bool same_line)
 {
@@ -127,8 +129,7 @@ void clear_console()
 	#endif
 }
 
-void print_error(const std::string& error)
+void throw_error(const std::string& error)
 {
-	std::cout << red << bold << "Error: " << no_bold << error << End(1);
-	exit(EXIT_FAILURE);
+	throw std::runtime_error(to_str(red) + to_str(bold) + "[ERROR] " + to_str(no_bold) + error);
 }

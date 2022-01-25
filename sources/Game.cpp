@@ -34,19 +34,37 @@ void Game::start()
 void Game::create_decks()
 {
 	if (!std::filesystem::exists("decks"))
-		print_error("No decks directory.");
+		throw_error("No decks directory.");
 
 	auto files = get_decks_name();
+	std::vector<std::string> additional = { "- Refresh -", "- Quit -" };
 
 	if (files.size() == 0)
-		print_error("No decks found.");
+		throw_error("No decks found.");
 
 	for (auto& player : players)
 	{
 		std::cout << magenta << bold << player.get_name() << reset << ", which deck do you want to use?" << End(1);
-		int res = choice(files);
-		auto cards = Card::get_cards_from_string(get_cards_from_deck(files[res]));
-		player.create_deck(cards);
+		int res = choice(files, additional);
+
+		if (res == files.size())
+		{
+			create_decks();
+			return;
+		}
+
+		else if (res == files.size() + 1)
+		{
+			quit_game();
+			create_decks();
+			return;
+		}
+
+		else
+		{
+			auto cards = Card::get_cards_from_string(get_cards_from_deck(files[res]));
+			player.create_deck(cards);
+		}
 	}
 }
 

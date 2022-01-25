@@ -28,7 +28,21 @@ int main()
 		{
 			Game::reset_game();
 			Game::start();
-			Game::create_decks();
+
+			while (true)
+			{
+				try
+				{
+					Game::create_decks();
+					break;
+				}
+
+				catch (const std::runtime_error& e)
+				{
+					std::cerr << e.what() << End(2);
+				}
+			}
+
 			Game::play();
 		}
 
