@@ -546,10 +546,10 @@ void Player::combat_phase()
 			if (creatures[i].can_attack())
 			{
 				if (creatures[i].is_attacking())
-					attacking_creatures_choice.push_back(to_str(underline) + creatures[i].get_name() + to_str(no_underline) + (creatures[i].is_engaged() ? " (E)" : ""));
+					attacking_creatures_choice.push_back(to_str(underline) + creatures[i].get_name() + to_str(no_underline) + " (" + to_str(creatures[i].get_power()) + "/" + to_str(creatures[i].get_toughness()) + ")" + (creatures[i].is_engaged() ? " (E)" : ""));
 
 				else
-					attacking_creatures_choice.push_back(creatures[i].get_name() + (creatures[i].is_engaged() ? " (E)" : ""));
+					attacking_creatures_choice.push_back(creatures[i].get_name() + " (" + to_str(creatures[i].get_power()) + "/" + to_str(creatures[i].get_toughness()) + ")" + (creatures[i].is_engaged() ? " (E)" : ""));
 
 				attacking_creatures_color.push_back(get_color(creatures[i].get_color()));
 				indexes.push_back(i);
@@ -589,6 +589,36 @@ void Player::combat_phase()
 
 	// TODO: Change order of targets
 
+	std::vector<std::string> attacking_order_choice;
+	std::vector<std::string_view> attacking_order_color;
+
+	std::vector<Creature*> new_targets;
+	int res;
+
+	for (auto& creature : creatures)
+		if (creature.is_attacking())
+		{
+			if (creature.m_targets.size() > 1)
+			{
+				for (auto& target : creature.m_targets)
+				{
+					attacking_order_choice.push_back(target->get_name() + " (" + to_str(creature.get_power()) + "/" + to_str(creature.get_toughness()) + ")");
+					attacking_order_color.push_back(get_color(target->get_color()));
+				}
+
+				while (new_targets.size() < creature.m_targets.size())
+				{
+					std::cout << End(1) << magenta << bold << get_name() << reset << ", choose the #" << new_targets.size() + 1 << " creature you want to attack." << End(1);
+					res = choice(attacking_order_choice, attacking_order_color);
+					new_targets.push_back(creature.m_targets.at(res));
+					attacking_order_choice.erase(attacking_order_choice.begin() + res);
+					attacking_order_color.erase(attacking_order_color.begin() + res);
+				}
+
+				creature.m_targets = new_targets;
+			}
+		}
+
 	for (auto& creature : creatures)
 		if (creature.is_attacking())
 			creature.apply_attack();
@@ -621,9 +651,9 @@ void Player::block()
 			for (int i = 0; i < creatures.size(); i++)
 			{
 				if (creatures[i].is_blocking())
-					blocking_choices.push_back(to_str(underline) + creatures[i].get_name() + to_str(no_underline));
+					blocking_choices.push_back(to_str(underline) + creatures[i].get_name() + to_str(no_underline) + " (" + to_str(creatures[i].get_power()) + "/" + to_str(creatures[i].get_toughness()) + ")");
 				else
-					blocking_choices.push_back(creatures[i].get_name());
+					blocking_choices.push_back(creatures[i].get_name() + " (" + to_str(creatures[i].get_power()) + "/" + to_str(creatures[i].get_toughness()) + ")");
 
 				blocking_colors.push_back(get_color(creatures[i].get_color()));
 				blocking_indexes.push_back(i);
@@ -631,9 +661,9 @@ void Player::block()
 				if (creatures[i].has(Creature::Capacity::Reach))
 				{
 					if (creatures[i].is_blocking())
-						reach_blocking_choices.push_back(to_str(underline) + creatures[i].get_name() + to_str(no_underline));
+						reach_blocking_choices.push_back(to_str(underline) + creatures[i].get_name() + to_str(no_underline) + " (" + to_str(creatures[i].get_power()) + "/" + to_str(creatures[i].get_toughness()) + ")");
 					else
-						reach_blocking_choices.push_back(creatures[i].get_name());
+						reach_blocking_choices.push_back(creatures[i].get_name() + " (" + to_str(creatures[i].get_power()) + "/" + to_str(creatures[i].get_toughness()) + ")");
 
 					reach_blocking_colors.push_back(get_color(creatures[i].get_color()));
 					reach_blocking_indexes.push_back(i);
@@ -643,13 +673,13 @@ void Player::block()
 			for (int i = 0; i < get_opponent().creatures.size(); i++)
 				if (get_opponent().creatures[i].is_attacking() && !get_opponent().creatures[i].has(Creature::Capacity::Unblockable))
 				{
-					to_block_choices.push_back(get_opponent().creatures[i].get_name());
+					to_block_choices.push_back(get_opponent().creatures[i].get_name() + " (" + to_str(creatures[i].get_power()) + "/" + to_str(creatures[i].get_toughness()) + ")");
 					to_block_colors.push_back(get_color(get_opponent().creatures[i].get_color()));
 					to_block_indexes.push_back(i);
 
 					if (!get_opponent().creatures[i].has(Creature::Capacity::Flying))
 					{
-						no_flying_to_block_choices.push_back(get_opponent().creatures[i].get_name());
+						no_flying_to_block_choices.push_back(get_opponent().creatures[i].get_name() + " (" + to_str(creatures[i].get_power()) + "/" + to_str(creatures[i].get_toughness()) + ")");
 						no_flying_to_block_colors.push_back(get_color(get_opponent().creatures[i].get_color()));
 						no_flying_to_block_indexes.push_back(i);
 					}

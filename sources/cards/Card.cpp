@@ -99,6 +99,12 @@
 #include "cards/spells/Tornado.hpp"
 #include "cards/spells/Clone.hpp"
 #include "cards/spells/Mirror.hpp"
+#include "cards/spells/Earthquake.hpp"
+#include "cards/spells/Zap.hpp"
+#include "cards/spells/GiantSnowball.hpp"
+#include "cards/spells/Rage.hpp"
+#include "cards/spells/TheLog.hpp"
+#include "cards/spells/HealSpirit.hpp"
 
 PtrList<Card> get_all_card()
 {
@@ -197,6 +203,12 @@ PtrList<Card> get_all_card()
 	cards.add(Tornado());
 	cards.add(Clone());
 	cards.add(Mirror());
+	cards.add(Earthquake());
+	cards.add(Zap());
+	cards.add(GiantSnowball());
+	cards.add(Rage());
+	cards.add(TheLog());
+	cards.add(HealSpirit());
 
 	return cards;
 }
@@ -220,7 +232,13 @@ PtrList<Card> Card::get_cards_from_string(const std::vector<std::string>& cards_
 		{
 			if (card_string == all_cards[i].get_name())
 			{
+				if (all_cards[i].get_type() != Type::Land)
+					for (auto& card : cards)
+						if (card.get_name() == all_cards[i].get_name())
+							print_error("A deck can't have multiple copies of the same card (except for lands), please replace the extra copies of " + all_cards[i].get_name() + " by other unique cards.");
+
 				cards.add(all_cards[i]);
+
 				break;
 			}
 

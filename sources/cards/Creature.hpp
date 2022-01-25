@@ -33,9 +33,10 @@ protected:
 	bool m_shield;
 	bool m_alive;
 	bool m_clone;
-	std::vector<Creature*> m_targets;
 
 public:
+
+	std::vector<Creature*> m_targets;
 
 	Creature(int full_power, int full_toughness, const std::vector<Creature::Capacity>& capacities);
 	Creature(const Creature& other) = default;
