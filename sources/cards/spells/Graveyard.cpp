@@ -2,6 +2,7 @@
 #include "players/Player.hpp"
 #include "renderer/print.hpp"
 #include "utils/utils.hpp"
+#include <algorithm>
 
 Graveyard::Graveyard(): Spell() {}
 

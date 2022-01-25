@@ -5,10 +5,9 @@
 #include "utils/files.hpp"
 #include <filesystem>
 
-Player player_1;
-Player player_2;
-std::array<Player, 2> Game::players = { player_1, player_2 };
+std::array<Player, 2> Game::players = { Player(), Player() };
 const int Game::deck_size = 30;
+int Game::turn = 0;
 
 void Game::reset_game()
 {
@@ -47,13 +46,13 @@ void Game::create_decks()
 		std::cout << magenta << bold << player.get_name() << reset << ", which deck do you want to use?" << End(1);
 		int res = choice(files, additional);
 
-		if (res == files.size())
+		if (res == (int)files.size())
 		{
 			create_decks();
 			return;
 		}
 
-		else if (res == files.size() + 1)
+		else if (res == (int)files.size() + 1)
 		{
 			quit_game();
 			create_decks();
@@ -71,6 +70,9 @@ void Game::create_decks()
 void Game::play()
 {
 	while (true)
+	{
+		std::cout << End(1) << yellow << bold << "--=( Turn " + to_str(++Game::turn) + " )=--" << End(2);
+
 		for (auto& player : players)
 		{
 			if (player.is_alive())
@@ -93,4 +95,5 @@ void Game::play()
 				return;
 			}
 		}
+	}
 }

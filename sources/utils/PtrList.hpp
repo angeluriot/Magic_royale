@@ -75,7 +75,7 @@ public:
 	{
 		clear();
 
-		for (int i = 0; i < ptrlist.size(); i++)
+		for (int i = 0; i < (int)ptrlist.size(); i++)
 			add(ptrlist[i]);
 
 		return *this;

@@ -45,7 +45,7 @@ void Rocket::apply_effect()
 
 	int res = choice(choices, colors, { "- Player -"});
 
-	if (res == choices.size())
+	if (res == (int)choices.size())
 		m_owner->get_opponent().reduce_health(6);
 	else
 		m_owner->get_opponent().creatures[res].modify_toughness(-6);

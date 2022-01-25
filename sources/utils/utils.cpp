@@ -4,7 +4,7 @@ std::string remove_spaces(const std::string& str)
 {
 	int i = 0;
 
-	while (i < str.size() && (str[i] == ' ' || str[i] == '\t'))
+	while (i < (int)str.size() && (str[i] == ' ' || str[i] == '\t'))
 		i++;
 
 	int j = (int)str.size() - 1;

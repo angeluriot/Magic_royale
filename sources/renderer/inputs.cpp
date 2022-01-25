@@ -2,7 +2,6 @@
 #include <iostream>
 
 #if defined _WIN32
-
 #include <conio.h>
 
 Key wait_for_key()
@@ -40,6 +39,9 @@ Key wait_for_key()
 }
 
 #elif defined(__LINUX__) || defined(__gnu_linux__) || defined(__linux__) || defined(__APPLE__)
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -102,4 +104,5 @@ Key wait_for_key()
 	return Key::Enter;
 }
 
+#pragma GCC diagnostic pop
 #endif

@@ -10,6 +10,7 @@ public:
 
 	static std::array<Player, 2> players;
 	static const int deck_size;
+	static int turn;
 
 	static void reset_game();
 	static void start();

@@ -217,32 +217,33 @@ PtrList<Card> Card::all_cards = get_all_card();
 
 PtrList<Card> Card::get_cards_from_string(const std::vector<std::string>& cards_string)
 {
-	if (cards_string.size() > Game::deck_size)
+	if ((int)cards_string.size() > Game::deck_size)
 		throw_error("A deck can't have more than " + to_str(Game::deck_size) + " cards, please remove " +
 			(cards_string.size() - Game::deck_size > 1 ? to_str(cards_string.size() - Game::deck_size) + " cards." : "a card."));
 
-	if (cards_string.size() < Game::deck_size)
+	if ((int)cards_string.size() < Game::deck_size)
 		throw_error("A deck can't have less than " + to_str(Game::deck_size) + " cards, please add " +
 			(Game::deck_size - cards_string.size() > 1 ? to_str(Game::deck_size - cards_string.size()) + " cards." : "a card."));
 
 	PtrList<Card> cards;
 
 	for (auto& card_string : cards_string)
-		for (int i = 0; i < all_cards.size(); i++)
+		for (int i = 0; i < (int)all_cards.size(); i++)
 		{
 			if (card_string == all_cards[i].get_name())
 			{
 				if (all_cards[i].get_type() != Type::Land)
 					for (auto& card : cards)
-						if (card.get_name() == all_cards[i].get_name() && false)
-							throw_error("A deck can't have multiple copies of the same card (except for lands), please replace the extra copies of " + all_cards[i].get_name() + " by other unique cards.");
+						if (card.get_name() == all_cards[i].get_name())
+							throw_error("A deck can't have multiple copies of the same card (except for lands), please replace the extra copies of " +
+								to_str(italic) + all_cards[i].get_name() + to_str(no_italic) + " by other unique cards.");
 
 				cards.add(all_cards[i]);
 
 				break;
 			}
 
-			if (i == all_cards.size() - 1)
+			if (i == (int)all_cards.size() - 1)
 				throw_error("Card not found: \"" + to_str(italic) + card_string + to_str(no_italic) + "\".");
 		}
 

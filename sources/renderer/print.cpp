@@ -18,7 +18,7 @@ std::string input(const std::string& prompt, bool same_line)
 
 void print_choices(const std::vector<std::string>& choices, const std::vector<std::string_view>& choice_colors, const std::vector<std::string>& additional, int choice_id)
 {
-	for (int i = 0; i < choices.size(); i++)
+	for (int i = 0; i < (int)choices.size(); i++)
 	{
 		if (i == choice_id)
 			std::cout << reverse << choice_colors[i] << " " << choices[i] << " " << reset << "  " << End();
@@ -29,9 +29,9 @@ void print_choices(const std::vector<std::string>& choices, const std::vector<st
 	if (!additional.empty())
 		std::cout << yellow << "|  " << End();
 
-	for (int i = 0; i < additional.size(); i++)
+	for (int i = 0; i < (int)additional.size(); i++)
 	{
-		if (choices.size() + i == choice_id)
+		if ((int)choices.size() + i == choice_id)
 			std::cout << reverse << yellow << " " << additional[i] << " " << reset << "  " << End();
 		else
 			std::cout << yellow << " " << additional[i] << "   " << End();
@@ -64,7 +64,7 @@ int choice(const std::vector<std::string>& choices, const std::vector<std::strin
 			print_choices(choices, choice_colors, additional, actual_choice);
 		}
 
-		if (key == Key::Right && actual_choice < choices.size() + additional.size() - 1)
+		if (key == Key::Right && actual_choice < (int)choices.size() + (int)additional.size() - 1)
 		{
 			actual_choice++;
 			std::cout << '\r' << End();

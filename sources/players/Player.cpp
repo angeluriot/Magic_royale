@@ -119,7 +119,7 @@ void Player::create_deck(const PtrList<Card>& deck)
 	library = this->deck;
 
 	// Shuffle the library
-	for (int i = 0; i < library.size(); i++)
+	for (int i = 0; i < (int)library.size(); i++)
 		library.swap(i, (size_t)random_int(0, (int)this->deck.size()));
 
 	for (int i = 0; i < 6; i++)
@@ -303,7 +303,7 @@ bool Player::engage_lands(const Card& card)
 		std::vector<std::string_view> colors;
 		std::vector<size_t> indexes;
 
-		for (int i = 0; i < lands.size(); i++)
+		for (int i = 0; i < (int)lands.size(); i++)
 			if (!lands[i].is_engaged())
 			{
 				choices.push_back(lands[i].get_name());
@@ -313,7 +313,7 @@ bool Player::engage_lands(const Card& card)
 
 		int res = choice(choices, colors, { "- Back -" });
 
-		if (res == indexes.size())
+		if (res == (int)indexes.size())
 		{
 			for (auto& index : already_engaged_indexes)
 				lands[index].disengage();
@@ -382,7 +382,6 @@ void Player::clear_before_turn()
 {
 	reset_creatures();
 	get_opponent().reset_creatures();
-	draw_card();
 	disengage_cards();
 	m_freezed = false;
 	get_opponent().m_freezed = false;
@@ -430,6 +429,9 @@ void Player::begin_turn()
 {
 	std::cout << End(1) << magenta << bold << "--=( " + get_name() + "'s turn )=--" << End(2);
 	clear_before_turn();
+
+	if (!(Game::turn == 1 && this == &Game::players[0]))
+		draw_card();
 
 	std::cout << End(1) << yellow << bold << "--=( Main Phase )=--" << End(2);
 	main_phase();
@@ -486,7 +488,7 @@ void Player::main_phase()
 		std::vector<std::string> hand_names = {};
 		std::vector<std::string_view> hand_colors = {};
 
-		for (int i = 0; i < hand.size(); i++)
+		for (int i = 0; i < (int)hand.size(); i++)
 		{
 			if (hand[i].get_type() == Card::Type::Creature || hand[i].get_type() == Card::Type::Spell)
 			{
@@ -505,10 +507,10 @@ void Player::main_phase()
 
 		int res = choice(hand_names, hand_colors, { "- Next -", "- Quit -" });
 
-		if (res == hand.size())
+		if (res == (int)hand.size())
 			break;
 
-		if (res == hand.size() + 1)
+		if (res == (int)hand.size() + 1)
 		{
 			quit_game();
 			continue;
@@ -525,10 +527,10 @@ void Player::main_phase()
 
 		else
 			play_card(hand[res]);
-	}
 
-	check_creatures_death();
-	get_opponent().check_creatures_death();
+		check_creatures_death();
+		get_opponent().check_creatures_death();
+	}
 }
 
 void Player::combat_phase()
@@ -560,10 +562,10 @@ void Player::combat_phase()
 
 		int res = choice(attacking_creatures_choice, attacking_creatures_color, { "- Next -", "- Quit -" });
 
-		if (res == attacking_creatures_choice.size())
+		if (res == (int)attacking_creatures_choice.size())
 			break;
 
-		else if (res == attacking_creatures_choice.size() + 1)
+		else if (res == (int)attacking_creatures_choice.size() + 1)
 		{
 			quit_game();
 			continue;
@@ -593,7 +595,7 @@ void Player::combat_phase()
 
 		if (creature.is_attacking() && creature.targets.size() > 1)
 		{
-			for (int i = 0; i < creature.targets.size(); i++)
+			for (int i = 0; i < (int)creature.targets.size(); i++)
 			{
 				attacking_order_choice.push_back(creature.targets[i]->get_name() + " (" + to_str(creature.get_power()) + "/" + to_str(creature.get_toughness()) + ")");
 				attacking_order_color.push_back(get_color(creature.targets[i]->get_color()));
@@ -645,7 +647,7 @@ void Player::block()
 			std::vector<std::string_view> to_block_colors;
 			std::vector<size_t> to_block_indexes;
 
-			for (int i = 0; i < creatures.size(); i++)
+			for (int i = 0; i < (int)creatures.size(); i++)
 			{
 				if (creatures[i].is_blocking())
 					blocking_choices.push_back(to_str(underline) + creatures[i].get_name() + to_str(no_underline) + " (" + to_str(creatures[i].get_power()) + "/" + to_str(creatures[i].get_toughness()) + ")");
@@ -667,16 +669,16 @@ void Player::block()
 				}
 			}
 
-			for (int i = 0; i < get_opponent().creatures.size(); i++)
+			for (int i = 0; i < (int)get_opponent().creatures.size(); i++)
 				if (get_opponent().creatures[i].is_attacking() && !get_opponent().creatures[i].has(Creature::Capacity::Unblockable))
 				{
-					to_block_choices.push_back(get_opponent().creatures[i].get_name() + " (" + to_str(creatures[i].get_power()) + "/" + to_str(creatures[i].get_toughness()) + ")");
+					to_block_choices.push_back(get_opponent().creatures[i].get_name() + " (" + to_str(get_opponent().creatures[i].get_power()) + "/" + to_str(get_opponent().creatures[i].get_toughness()) + ")");
 					to_block_colors.push_back(get_color(get_opponent().creatures[i].get_color()));
 					to_block_indexes.push_back(i);
 
 					if (!get_opponent().creatures[i].has(Creature::Capacity::Flying))
 					{
-						no_flying_to_block_choices.push_back(get_opponent().creatures[i].get_name() + " (" + to_str(creatures[i].get_power()) + "/" + to_str(creatures[i].get_toughness()) + ")");
+						no_flying_to_block_choices.push_back(get_opponent().creatures[i].get_name() + " (" + to_str(get_opponent().creatures[i].get_power()) + "/" + to_str(get_opponent().creatures[i].get_toughness()) + ")");
 						no_flying_to_block_colors.push_back(get_color(get_opponent().creatures[i].get_color()));
 						no_flying_to_block_indexes.push_back(i);
 					}
@@ -694,7 +696,7 @@ void Player::block()
 
 			int res = choice(final_blocking_choices, final_blocking_colors, { "- Next -" });
 
-			if (res == final_blocking_choices.size())
+			if (res == (int)final_blocking_choices.size())
 				break;
 
 			if (creatures[final_blocking_indexes[res]].is_blocking())
@@ -713,7 +715,7 @@ void Player::block()
 
 				int res_2 = choice(final_to_block_choices, final_to_block_colors, { "- Back -" });
 
-				if (res_2 < final_to_block_choices.size())
+				if (res_2 < (int)final_to_block_choices.size())
 				{
 					std::cout << cyan << "[INFO] " << reset << italic << final_blocking_colors[res] << final_blocking_choices[res] << reset <<
 						" will block " << italic << final_to_block_colors[res_2] << final_to_block_choices[res_2] << reset << "." << End(2);
@@ -736,7 +738,7 @@ void Player::end_turn()
 		std::vector<std::string> discard_choice;
 		std::vector<std::string_view> discard_color;
 
-		for (int i = 0; i < hand.size(); i++)
+		for (int i = 0; i < (int)hand.size(); i++)
 		{
 			discard_choice.push_back(hand[i].get_name() + " (" + to_str(hand[i].get_type()) + ")");
 			discard_color.push_back(get_color(hand[i].get_color()));

@@ -1,0 +1,36 @@
+Swamp
+Island
+Forest
+Mountain
+Plain
+Electro Spirit
+Fire Spirit
+Ice Spirit
+Skeletons
+Bats
+Spear Goblins
+Bomber
+Goblins
+Firecracker
+Goblin Gang
+Minions
+Archers
+Knight
+Skeleton Dragons
+Rascals
+Minion Horde
+Barbarians
+Elite Barbarians
+Royal Giant
+Royal Recruits
+Ice Golem
+Elixir Golem
+Dart Goblin
+Mega Minion
+Battle Healer
+Flying Machine
+Zappies
+Battle Ram
+Hog Rider
+Mini Pekka
+Musketeer
