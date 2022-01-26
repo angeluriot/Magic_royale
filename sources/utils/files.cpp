@@ -22,8 +22,8 @@ std::vector<std::string> get_decks_name()
 
 	for (auto& deck : decks)
 	{
-		deck.erase(deck.begin(), deck.begin() + 6);
-		deck.erase(deck.begin() + deck.find_first_of('.'), deck.end());
+		deck.erase(deck.begin(), deck.begin() + 6); // Erases "decks/" from the deck's name
+		deck.erase(deck.begin() + deck.find_first_of('.'), deck.end()); // Erases ".txt" from the deck's name
 	}
 
 	return decks;

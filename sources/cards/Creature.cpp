@@ -41,7 +41,7 @@ std::string Creature::get_description() const
 	auto capacities = get_capacities();
 	std::string description = "";
 
-	for (auto& capacity : capacities)
+	for (auto& capacity : capacities) // Gives a description for each capacity
 	{
 		if (capacity == Capacity::Flying)
 			description += "- " + to_str(underline) + "Flying:" + to_str(no_underline) + " Only creatures whith " + to_str(italic) + "Reach" + to_str(no_italic) + " can attack it.\n";
@@ -183,19 +183,19 @@ void Creature::apply_attack()
 {
 	bool has_attacked = false;
 
-	if (targets.empty())
+	if (targets.empty()) // If no enemy creature blocked
 	{
 		attack(get_power());
 		has_attacked = true;
 	}
 
-	else
+	else // If at least one enemy creature blocked
 	{
 		int power_left = get_power();
 
 		for (Creature* target : targets)
 		{
-			if (has(Capacity::FirstStrike) && !target->has(Capacity::FirstStrike))
+			if (has(Capacity::FirstStrike) && !target->has(Capacity::FirstStrike)) // If attacking creature has FirstStrike but blocking creature doesn't
 			{
 				power_left = attack(*target, power_left);
 				target->modify_power(has(Capacity::Freeze) ? -1 : 0);
@@ -208,7 +208,7 @@ void Creature::apply_attack()
 				}
 			}
 
-			else if (target->has(Capacity::FirstStrike) && !has(Capacity::FirstStrike))
+			else if (target->has(Capacity::FirstStrike) && !has(Capacity::FirstStrike)) // If blocking creature has FirstStrike but attacking creature doesn't
 			{
 				target->block(*this);
 				modify_power(target->has(Capacity::Freeze) ? -1 : 0);
@@ -221,7 +221,7 @@ void Creature::apply_attack()
 				}
 			}
 
-			else
+			else // If both have FirstStrike or neither of them has it
 			{
 				modify_power(target->has(Capacity::Freeze) ? -1 : 0);
 				target->modify_power(has(Capacity::Freeze) ? -1 : 0);
@@ -234,20 +234,20 @@ void Creature::apply_attack()
 				break;
 		}
 
-		if (has(Capacity::MultiHit))
+		if (has(Capacity::MultiHit)) // If attacking creature has MultiHit
 		{
 			attack(get_power());
 			has_attacked = true;
 		}
 
-		else if (m_alive && power_left > 0)
+		else if (m_alive && power_left > 0) // If attacking creature still has enough strength to attack, attacks the player
 		{
 			attack(power_left);
 			has_attacked = true;
 		}
 	}
 
-	if (has(Capacity::Kamikaze) && has_attacked)
+	if (has(Capacity::Kamikaze) && has_attacked) // If attacking creature has Kamikaze
 	{
 		m_toughness = 0;
 		m_alive = false;
@@ -263,7 +263,7 @@ int Creature::attack(Creature& creature, int power_left)
 {
 	if (power_left > 0)
 	{
-		if (creature.has(Capacity::Flying) && !has(Capacity::Reach))
+		if (creature.has(Capacity::Flying) && !has(Capacity::Reach)) // Attacking creature cannot attack Flying creatures if it doesn't have Reach
 			return power_left;
 
 		if (creature.has_shield())
@@ -272,10 +272,10 @@ int Creature::attack(Creature& creature, int power_left)
 			return power_left;
 		}
 
-		int damages = has(Capacity::ZoneDamage) ? get_power() : power_left;
+		int damages = has(Capacity::ZoneDamage) ? get_power() : power_left; // Attacking creature hits all blocking creatures with the same power
 		int result = std::max(damages - creature.get_toughness(), 0);
 
-		if (damages >= creature.get_toughness())
+		if (damages >= creature.get_toughness()) // If blocking creature is killed by the attack
 			on_kill();
 
 		creature.modify_toughness(-damages);
@@ -287,9 +287,9 @@ int Creature::attack(Creature& creature, int power_left)
 
 void Creature::block(Creature& creature)
 {
-	if (!has(Capacity::Unblockable))
+	if (!has(Capacity::Unblockable)) // Blocking creatures do not deal damage if they have the Unblockable capacity
 	{
-		if (creature.m_shield)
+		if (creature.m_shield) // Destroys the attacking creature's shield if they have one
 			creature.m_shield = false;
 
 		else
@@ -300,7 +300,7 @@ void Creature::block(Creature& creature)
 			creature.modify_toughness(-get_power());
 		}
 
-		if (has(Capacity::Kamikaze))
+		if (has(Capacity::Kamikaze)) // Creature self destructs if it has the Kamikaze ability
 		{
 			m_toughness = 0;
 			m_alive = false;
