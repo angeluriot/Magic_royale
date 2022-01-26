@@ -26,6 +26,7 @@ void print_choices(const std::vector<std::string>& choices, const std::vector<st
 			std::cout << choice_colors[i] << " " << choices[i] << "   " << End();
 	}
 
+	// "additional" corresponds to options such as "Next", "Back" or "Quit"
 	if (!additional.empty())
 		std::cout << yellow << "|  " << End();
 
@@ -57,20 +58,23 @@ int choice(const std::vector<std::string>& choices, const std::vector<std::strin
 	{
 		key = wait_for_key();
 
+		// If the player presses the left arrow
 		if (key == Key::Left && actual_choice > 0)
 		{
-			actual_choice--;
+			actual_choice--; // Selects left choice
 			std::cout << '\r' << End();
 			print_choices(choices, choice_colors, additional, actual_choice);
 		}
 
+		// If the player presses the right arrow
 		if (key == Key::Right && actual_choice < (int)choices.size() + (int)additional.size() - 1)
 		{
-			actual_choice++;
+			actual_choice++; // Selects right choice
 			std::cout << '\r' << End();
 			print_choices(choices, choice_colors, additional, actual_choice);
 		}
 
+		// If the player presses Enter
 		if (key == Key::Enter)
 			break;
 	}

@@ -63,7 +63,6 @@ public:
 	void block();
 	void secondary_phase();
 	void end_turn();
-	void play();
 	Player& get_opponent() const;
 	void reset_creatures();
 	void check_creatures_death();

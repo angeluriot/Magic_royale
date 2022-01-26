@@ -94,7 +94,7 @@ Player::Resources Player::get_resources()
 	};
 
 	for (auto& land : lands)
-		if (!land.is_engaged())
+		if (!land.is_engaged()) // Adds value to the resources only if land is not engaged
 		{
 			res[Card::Color::Colorless]++;
 			res[land.get_color()]++;
@@ -118,7 +118,7 @@ void Player::create_deck(const PtrList<Card>& deck)
 
 	library = this->deck;
 
-	// Shuffle the library
+	// Shuffles the library
 	for (int i = 0; i < (int)library.size(); i++)
 		library.swap(i, (size_t)random_int(0, (int)this->deck.size()));
 
@@ -136,7 +136,7 @@ void Player::play_card(const Card& card)
 		creatures.back().spawn();
 	}
 
-	else if (card.get_type() == Card::Type::Spell)
+	else if (card.get_type() == Card::Type::Spell) // If the card is a spell, its effect is immediately applied and the card goes to the graveyard
 	{
 		((Spell&)card).apply_effect();
 		graveyard.add(card);
@@ -156,6 +156,7 @@ bool Player::is_card_playable(const Card& card)
 	for (auto& [color, cost] : cost_map)
 		if (!(color == Card::Color::Colorless) && cost > 0)
 		{
+			// If at least one color cost exceeds the amount of the corresponding color unengaged lands, then the card is not playable
 			if (cost > resources_map[color])
 				return false;
 
@@ -166,6 +167,7 @@ bool Player::is_card_playable(const Card& card)
 			}
 		}
 
+	// If the colorless cost exceeds the remaining amount of unengaged lands, then the card is not playable
 	if (cost_map[Card::Color::Colorless] > resources_map[Card::Color::Colorless])
 		return false;
 
@@ -186,6 +188,7 @@ bool Player::engage_lands(const Card& card)
 		{ Card::Color::Green,		0 }
 	};
 
+	// Checks if the card is playable
 	for (auto& [color, cost] : cost_map)
 		if (!(color == Card::Color::Colorless) && cost > 0)
 		{
@@ -217,12 +220,14 @@ bool Player::engage_lands(const Card& card)
 
 	std::vector<size_t> already_engaged_indexes;
 
+	// Loop for choosing the lands to engage
 	while (to_engage[Card::Color::White] > 0 || to_engage[Card::Color::Blue] > 0 || to_engage[Card::Color::Black] > 0 ||
 		to_engage[Card::Color::Red] > 0 || to_engage[Card::Color::Green] > 0 || to_engage[Card::Color::Colorless] > 0)
 	{
 		std::cout << "You have to engage" << End();
 		bool is_first = true;
 
+		// Prints the amount of lands to engage for each color
 		if (to_engage[Card::Color::White] > 0)
 		{
 			if (!is_first)
@@ -303,6 +308,7 @@ bool Player::engage_lands(const Card& card)
 		std::vector<std::string_view> colors;
 		std::vector<size_t> indexes;
 
+		// Sets the list for lands that the player can engage
 		for (int i = 0; i < (int)lands.size(); i++)
 			if (!lands[i].is_engaged())
 			{
@@ -313,6 +319,7 @@ bool Player::engage_lands(const Card& card)
 
 		int res = choice(choices, colors, { "- Back -" });
 
+		// If the player chose "Back"
 		if (res == (int)indexes.size())
 		{
 			for (auto& index : already_engaged_indexes)
@@ -322,6 +329,7 @@ bool Player::engage_lands(const Card& card)
 			return false;
 		}
 
+		// If the player chose to engage a land of a color that is needed
 		else if (to_engage[lands[indexes[res]].get_color()] > 0)
 		{
 			lands[indexes[res]].engage();
@@ -329,6 +337,7 @@ bool Player::engage_lands(const Card& card)
 			already_engaged_indexes.push_back(indexes[res]);
 		}
 
+		// If the player chose to engage a land of any other color
 		else if (to_engage[Card::Color::Colorless] > 0)
 		{
 			lands[indexes[res]].engage();
@@ -436,13 +445,13 @@ void Player::begin_turn()
 	std::cout << End(1) << yellow << bold << "--=( Main Phase )=--" << End(2);
 	main_phase();
 
-	if (can_attack())
+	if (can_attack()) // If the player cannot attack, then both the combat and secondary phases are skipped
 	{
 		std::cout << End(1) << yellow << bold << "--=( Combat Phase )=--" << End(2);
 		combat_phase();
 	}
 
-	if (get_opponent().is_alive())
+	if (get_opponent().is_alive()) // If the opponent died during the combat phase, then the secondary phase is skipped
 	{
 		if (can_attack())
 		{
@@ -457,7 +466,7 @@ void Player::begin_turn()
 
 void Player::draw_card()
 {
-	if (library.empty())
+	if (library.empty()) // Player loses the game if their library is empty
 		m_alive = false;
 
 	else
@@ -492,7 +501,7 @@ void Player::main_phase()
 		{
 			if (hand[i].get_type() == Card::Type::Creature || hand[i].get_type() == Card::Type::Spell)
 			{
-				if (is_card_playable(hand[i]))
+				if (is_card_playable(hand[i])) // If card is playable this turn, it will be printed underlined
 					hand_names.push_back(to_str(underline) + hand[i].get_name() + to_str(no_underline) + " (" + to_str(hand[i].get_type()) + ")");
 
 				else
@@ -507,24 +516,30 @@ void Player::main_phase()
 
 		int res = choice(hand_names, hand_colors, { "- Next -", "- Quit -" });
 
+		// If player chooses "Next"
 		if (res == (int)hand.size())
 			break;
 
+		// If player chooses "Quit"
 		if (res == (int)hand.size() + 1)
 		{
 			quit_game();
 			continue;
 		}
 
+		// If player chooses a creature or a spell
 		if (hand[res].get_type() == Card::Type::Creature || hand[res].get_type() == Card::Type::Spell)
 		{
+			// Shows the description of the card before asking for confirmation
 			hand[res].print();
 			int res_2 = choice({ "- Play card -", "- Back -" }, { green, red });
 
+			// If player confirms and has enough unengaged lands to play the card, plays the card
 			if (res_2 == 0 && engage_lands(hand[res]))
 				play_card(hand[res]);
 		}
 
+		// If player chooses a land
 		else
 			play_card(hand[res]);
 
@@ -543,6 +558,7 @@ void Player::combat_phase()
 		std::vector<std::string_view> attacking_creatures_color;
 		std::vector<size_t> indexes;
 
+		// Sets the choices for attacking creatures
 		for (size_t i = 0; i < creatures.size(); i++)
 		{
 			if (creatures[i].can_attack())
@@ -562,15 +578,18 @@ void Player::combat_phase()
 
 		int res = choice(attacking_creatures_choice, attacking_creatures_color, { "- Next -", "- Quit -" });
 
+		// If players chooses "Next"
 		if (res == (int)attacking_creatures_choice.size())
 			break;
 
+		// If player chooses "Quit"
 		else if (res == (int)attacking_creatures_choice.size() + 1)
 		{
 			quit_game();
 			continue;
 		}
 
+		// If player chooses a creature but the creature was already set to attack
 		else if (creatures[indexes[res]].is_attacking())
 		{
 			creatures[indexes[res]].will_not_attack();
@@ -593,6 +612,7 @@ void Player::combat_phase()
 		std::vector<size_t> indexes;
 		std::vector<Creature*> new_targets;
 
+		// If attacking creature is blocked by more than 1 creature, the attacking creature's owner can choose the order in which it will attack them
 		if (creature.is_attacking() && creature.targets.size() > 1)
 		{
 			for (int i = 0; i < (int)creature.targets.size(); i++)
@@ -602,6 +622,7 @@ void Player::combat_phase()
 				indexes.push_back(i);
 			}
 
+			// Loop for choosing the order in which the attacking creature will attack the blocking creatures
 			while (new_targets.size() < creature.targets.size())
 			{
 				std::cout << magenta << bold << get_name() << reset << ", choose the #" << new_targets.size() + 1 << " creature you want to attack." << End(1);
@@ -647,6 +668,7 @@ void Player::block()
 			std::vector<std::string_view> to_block_colors;
 			std::vector<size_t> to_block_indexes;
 
+			// Set blocking creatures choices
 			for (int i = 0; i < (int)creatures.size(); i++)
 			{
 				if (creatures[i].is_blocking())
@@ -669,6 +691,7 @@ void Player::block()
 				}
 			}
 
+			// Sets attacking creatures to block choices
 			for (int i = 0; i < (int)get_opponent().creatures.size(); i++)
 				if (get_opponent().creatures[i].is_attacking() && !get_opponent().creatures[i].has(Creature::Capacity::Unblockable))
 				{
@@ -684,9 +707,11 @@ void Player::block()
 					}
 				}
 
+			// If there are no creatures to block or all attacking creatures have Flying and none of the blocking creatures have Reach
 			if (to_block_choices.size() <= 0 || (reach_blocking_choices.size() == 0 && no_flying_to_block_choices.size() == 0))
 				break;
 
+			// Program asks the player to choose for creatures to block
 			std::cout << magenta << bold << get_name() << reset << ", select creatures to block "
 				<< magenta << bold << get_opponent().get_name() << reset << "'s attack:" << End(1);
 
@@ -696,9 +721,11 @@ void Player::block()
 
 			int res = choice(final_blocking_choices, final_blocking_colors, { "- Next -" });
 
+			// If player chooses "Next"
 			if (res == (int)final_blocking_choices.size())
 				break;
 
+			// If player chooses a creature that was already set to block
 			if (creatures[final_blocking_indexes[res]].is_blocking())
 			{
 				std::cout << cyan << "[INFO] " << reset << "You cancelled the blocking of this creature." << End(2);
@@ -707,6 +734,7 @@ void Player::block()
 
 			else
 			{
+				// Program asks the player to choose which creature they want to block
 				std::cout << "Select the creature you want to block:" << End(1);
 
 				auto& final_to_block_choices = creatures[final_blocking_indexes[res]].has(Creature::Capacity::Reach) ? to_block_choices : no_flying_to_block_choices;
@@ -715,6 +743,7 @@ void Player::block()
 
 				int res_2 = choice(final_to_block_choices, final_to_block_colors, { "- Back -" });
 
+				// If player doesn't choose "Back"
 				if (res_2 < (int)final_to_block_choices.size())
 				{
 					std::cout << cyan << "[INFO] " << reset << italic << final_blocking_colors[res] << final_blocking_choices[res] << reset <<
@@ -733,17 +762,20 @@ void Player::secondary_phase()
 
 void Player::end_turn()
 {
+	// If the player has more than 7 cards at the end of the turn, he has to discard cards until he has 7
 	if (hand.size() > 7)
 	{
 		std::vector<std::string> discard_choice;
 		std::vector<std::string_view> discard_color;
 
+		// Sets the discard choices
 		for (int i = 0; i < (int)hand.size(); i++)
 		{
 			discard_choice.push_back(hand[i].get_name() + " (" + to_str(hand[i].get_type()) + ")");
 			discard_color.push_back(get_color(hand[i].get_color()));
 		}
 
+		// Loop to discard cards
 		while (hand.size() > 7)
 		{
 			std::cout << red << "You have more than 7 cards in your hand, select a card to discard:" << End(1);
@@ -752,11 +784,6 @@ void Player::end_turn()
 			hand.remove(res);
 		}
 	}
-}
-
-void Player::play()
-{
-	// TODO
 }
 
 Player& Player::get_opponent() const

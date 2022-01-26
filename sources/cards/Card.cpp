@@ -217,16 +217,19 @@ PtrList<Card> Card::all_cards = get_all_card();
 
 PtrList<Card> Card::get_cards_from_string(const std::vector<std::string>& cards_string)
 {
+	// Throw error for deck with > 30 cards
 	if ((int)cards_string.size() > Game::deck_size)
 		throw_error("A deck can't have more than " + to_str(Game::deck_size) + " cards, please remove " +
 			(cards_string.size() - Game::deck_size > 1 ? to_str(cards_string.size() - Game::deck_size) + " cards." : "a card."));
 
+	// Throw error for deck with < 30 cards
 	if ((int)cards_string.size() < Game::deck_size)
 		throw_error("A deck can't have less than " + to_str(Game::deck_size) + " cards, please add " +
 			(Game::deck_size - cards_string.size() > 1 ? to_str(Game::deck_size - cards_string.size()) + " cards." : "a card."));
 
 	PtrList<Card> cards;
 
+	// Throw error for deck with duplicates
 	for (auto& card_string : cards_string)
 		for (int i = 0; i < (int)all_cards.size(); i++)
 		{

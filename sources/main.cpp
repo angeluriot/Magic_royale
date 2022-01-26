@@ -24,11 +24,13 @@ int main()
 		std::cout << "What do you want to do?" << End(1);
 		int res = choice({ "- Play -", "- Quit -" }, { green, red });
 
+		// If player chooses "Play"
 		if (res == 0)
 		{
 			Game::reset_game();
 			Game::start();
 
+			// Loop for choosing decks
 			while (true)
 			{
 				try
@@ -46,6 +48,7 @@ int main()
 			Game::play();
 		}
 
+		// If player chooses "Quit"
 		else
 		{
 			quit_game();

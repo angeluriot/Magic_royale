@@ -68,7 +68,6 @@ public:
 	virtual bool is_blocking() const;
 	virtual void will_attack();
 	virtual void will_not_attack();
-	virtual void change_order();
 	virtual void will_block(Creature& creature);
 	virtual void will_not_block();
 	virtual void apply_attack();
