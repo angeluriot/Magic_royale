@@ -494,13 +494,12 @@ void Player::main_phase()
 			{
 				if (is_card_playable(hand[i]))
 					hand_names.push_back(to_str(underline) + hand[i].get_name() + to_str(no_underline) + " (" + to_str(hand[i].get_type()) + ")");
-
 				else
 					hand_names.push_back(hand[i].get_name() + " (" + to_str(hand[i].get_type()) + ")");
 			}
 
 			else
-				hand_names.push_back(hand[i].get_name() + " (" + to_str(hand[i].get_type()) + ")");
+				hand_names.push_back(to_str(underline) + hand[i].get_name() + to_str(no_underline) + " (" + to_str(hand[i].get_type()) + ")");
 
 			hand_colors.push_back(get_color(hand[i].get_color()));
 		}
@@ -558,7 +557,7 @@ void Player::combat_phase()
 			}
 		}
 
-		std::cout << "Select a creature to attack:" << End(1);
+		std::cout << "Select a creature that will attack:" << End(1);
 
 		int res = choice(attacking_creatures_choice, attacking_creatures_color, { "- Next -", "- Quit -" });
 
@@ -597,7 +596,7 @@ void Player::combat_phase()
 		{
 			for (int i = 0; i < (int)creature.targets.size(); i++)
 			{
-				attacking_order_choice.push_back(creature.targets[i]->get_name() + " (" + to_str(creature.get_power()) + "/" + to_str(creature.get_toughness()) + ")");
+				attacking_order_choice.push_back(creature.targets[i]->get_name() + " (" + to_str(creature.targets[i]->get_power()) + "/" + to_str(creature.targets[i]->get_toughness()) + ")");
 				attacking_order_color.push_back(get_color(creature.targets[i]->get_color()));
 				indexes.push_back(i);
 			}
@@ -752,11 +751,6 @@ void Player::end_turn()
 			hand.remove(res);
 		}
 	}
-}
-
-void Player::play()
-{
-	// TODO
 }
 
 Player& Player::get_opponent() const

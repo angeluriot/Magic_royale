@@ -4,6 +4,9 @@
 #include "cards/Card.hpp"
 #include <string>
 
+/**
+ * @brief A class that represent a spell.
+ */
 class Spell : public Card
 {
 public:
@@ -16,7 +19,12 @@ public:
 
 	virtual Type get_type() const override;
 	virtual std::string get_full_type() const override;
+
+	/**
+	 * @brief Apply an effect to the game.
+	 */
 	virtual void apply_effect() = 0;
+
 	virtual void print() const;
 };
 

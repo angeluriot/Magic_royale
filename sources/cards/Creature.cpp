@@ -167,28 +167,6 @@ void Creature::will_not_attack()
 	m_attacking = false;
 }
 
-void Creature::change_order()
-{
-	int new_order;
-	std::vector<Creature*> new_targets;
-	std::cout << "Entrez le nouvel ordre d'attaque de cette creature :" << std::endl;;
-
-	for (size_t i = 0; i < targets.size(); i++)
-	{
-		std::cin >> new_order;
-		new_order--;
-		new_targets.push_back(targets[new_order]);
-	}
-
-	targets.clear();
-
-	for (Creature* target : new_targets)
-	{
-		targets.push_back(target);
-		std::cout << target->get_name() << std::endl;
-	}
-}
-
 void Creature::will_block(Creature& creature)
 {
 	m_blocking = true;

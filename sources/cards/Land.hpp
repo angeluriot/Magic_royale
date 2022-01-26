@@ -4,6 +4,9 @@
 #include "cards/Card.hpp"
 #include <string>
 
+/**
+ * @brief A class that represent a land.
+ */
 class Land : public Card
 {
 public:
