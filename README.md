@@ -2,12 +2,12 @@
 
 ![Release](https://img.shields.io/badge/Release-v1.0-blueviolet)
 ![Language](https://img.shields.io/badge/Language-C%2B%2B-0052cf)
-![Size](https://img.shields.io/badge/Size-218Ko-f12222)
+![Size](https://img.shields.io/badge/Size-269Ko-f12222)
 ![Open Source](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)
 
 <br/>
 
-This repository contains the source code of a simplified console clone of **[Magic the Gathering Arena](https://magic.wizards.com/en/mtgarena)** but using the cards of **[Clash Royale](https://clashroyale.com)**.
+This project is a simplified clone of the card game **[Magic the Gathering Arena](https://magic.wizards.com/en/mtgarena)**, it implements the basic mechanics of the game with a display in the console *(no external libraries were allowed)*. The major difference with the original game is that we took the cards from another game: **[Clash Royale](https://clashroyale.com)**.
 
 <br/>
 
