@@ -1,4 +1,4 @@
-#include "cards/creatures/whites/battleHealer.hpp"
+#include "cards/creatures/whites/BattleHealer.hpp"
 #include "players/Player.hpp"
 #include "renderer/print.hpp"
 
