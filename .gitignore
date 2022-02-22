@@ -1,2 +1,4 @@
-Magic_royale
-objects
+/build
+/.vscode
+/objects
+/Magic_royale
