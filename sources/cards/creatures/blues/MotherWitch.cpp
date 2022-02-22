@@ -1,6 +1,6 @@
 #include "cards/creatures/blues/MotherWitch.hpp"
 #include "players/Player.hpp"
-#include "cards/creatures/generateds/hog.hpp"
+#include "cards/creatures/generateds/Hog.hpp"
 #include "renderer/print.hpp"
 
 MotherWitch::MotherWitch(): Creature(get_full_power(), get_full_toughness(), get_capacities()) {}
