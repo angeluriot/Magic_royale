@@ -7,6 +7,8 @@
 
 <br/>
 
+⚠️ This project was made for school with a deadline and I chose to leave it as it was at the time of submission ⚠️
+
 This project is a simplified clone of the card game **[Magic the Gathering Arena](https://magic.wizards.com/en/mtgarena)**, it implements the basic mechanics of the game with a display in the console *(no external libraries were allowed)*. The major difference with the original game is that we took the cards from another game: **[Clash Royale](https://clashroyale.com)**.
 
 <br/>
