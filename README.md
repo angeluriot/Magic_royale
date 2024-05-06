@@ -1,4 +1,4 @@
-# Magic Royale
+# 🃏 Magic Royale
 
 ![Release](https://img.shields.io/badge/Release-v1.0-blueviolet)
 ![Language](https://img.shields.io/badge/Language-C%2B%2B-0052cf)
@@ -7,7 +7,9 @@
 
 <br/>
 
-⚠️ This project was made for school with a deadline and I chose to leave it as it was at the time of submission ⚠️
+*⚠️ This project was made for school with a deadline and I chose to leave it as it was at the time of submission ⚠️*
+
+<br/>
 
 This project is a simplified clone of the card game **[Magic the Gathering Arena](https://magic.wizards.com/en/mtgarena)**, it implements the basic mechanics of the game with a display in the console *(no external libraries were allowed)*. The major difference with the original game is that we took the cards from another game: **[Clash Royale](https://clashroyale.com)**.
 
@@ -19,23 +21,21 @@ This project is a simplified clone of the card game **[Magic the Gathering Arena
 
 <br/>
 
-# Summary
+# 📋 Summary
 
-* **[Summary](#summary)**
-* **[Features](#features)**
-* **[Cards](#cards)**
-	* [Lands](#lands)
-	* [Creatures](#creatures)
-	* [Spells](#spells)
-* **[Install](#install)**
-	* [Makefile](#makefile)
-	* [CMake](#cmake)
-* **[Releases](#releases)**
-* **[Credits](#credits)**
+* **[📋 Summary](#-summary)**
+* **[✨ Features](#-features)**
+* **[🃏 Cards](#-cards)**
+	* [🏞️ Lands](#%EF%B8%8F-lands)
+	* [🐉 Creatures](#-creatures)
+	* [🪄 Spells](#-spells)
+* **[🛠️ Install](#%EF%B8%8F-install)**
+* **[🗓️ Releases](#%EF%B8%8F-releases)**
+* **[🙏 Credits](#-credits)**
 
 <br/>
 
-# Features
+# ✨ Features
 
 - Create your own decks of cards *(with a **.txt** file in the* `decks` *folder)*.
 
@@ -51,11 +51,13 @@ This project is a simplified clone of the card game **[Magic the Gathering Arena
 
 <br/>
 
-# Cards
+# 🃏 Cards
 
 The game has a total of 93 cards, 5 **[lands](#lands)**, 72 **[creatures](#creatures)** and 16 **[spells](#spells)**.
 
-### Lands
+<br/>
+
+## 🏞️ Lands
 
 Land cards give you the resources to play other cards:
 
@@ -64,7 +66,9 @@ Land cards give you the resources to play other cards:
 | <img src="https://i.imgur.com/KphcUNf.png" height="180"> | <img src="https://i.imgur.com/YWiOqdI.png" height="180"> | <img src="https://i.imgur.com/U4tM6fS.png" height="180"> | <img src="https://i.imgur.com/7cehiJB.png" height="180"> | <img src="https://i.imgur.com/QaYI54P.png" height="180"> |
 | ![Black](https://i.imgur.com/FOgaANE.png) Black | ![Blue](https://i.imgur.com/mIKhvAF.png) Blue | ![Green](https://i.imgur.com/wAQXqTG.png) Green | ![Red](https://i.imgur.com/KUtPu2A.png) Red | ![White](https://i.imgur.com/23AueSy.png) White |
 
-### Creatures
+<br/>
+
+## 🐉 Creatures
 
 Creatures cards can be played to attack or defend, they stay in the game until they die.
 
@@ -158,7 +162,9 @@ They can also have unique abilities, their effect is described in the ***Unique 
 | <img src="https://i.imgur.com/HllRYOd.png" height="100"><br/>**Mega Knight** | Knight | 5 ![Black](https://i.imgur.com/FOgaANE.png) ![Black](https://i.imgur.com/FOgaANE.png) | 3 / 6 | `First_Strike`, `Zone_Damage` | Inflicts 2 damages to all enemy creatures on spawn. |
 | <img src="https://i.imgur.com/8nvT4xs.png" height="100"><br/>**Lava Hound** | Demon | 5 ![Red](https://i.imgur.com/KUtPu2A.png) ![Red](https://i.imgur.com/KUtPu2A.png) | 2 / 7 | `Flying`, `Reach`, `Unblockable` | Spawns 1 Lava Pups on death. |
 
-### Spells
+<br/>
+
+## 🪄 Spells
 
 Spell cards can be played to apply effects on the game:
 
@@ -183,7 +189,7 @@ Spell cards can be played to apply effects on the game:
 
 <br/>
 
-# Install
+# 🛠️ Install
 
 ### Makefile
 
@@ -198,13 +204,13 @@ See the [installation part](https://github.com/angeluriot/Skeleton#install) of m
 
 <br/>
 
-# Releases
+# 🗓️ Releases
 
 If you just want to test the program without editing the source code, go see the **[Releases](https://github.com/angeluriot/Magic_royale/releases)**.
 
 <br/>
 
-# Credits
+# 🙏 Credits
 
 * [**Angel Uriot**](https://github.com/angeluriot) : Co-creator of the project.
 * [**Arthur Azambre**](https://github.com/arthurazambre) : Co-creator of the project.
